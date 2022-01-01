@@ -32,7 +32,7 @@ class Medecin extends Employe
         $c= $this->connect();
         if($c!=null)
         {
-            $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, `Password`, Historique, Cin_employe) VALUES ('".$c."', '".$nc."', '".$dn."', '".$a."', '".$s."', '".$t."', '".$e."', '".$p."', '".$h."', NULL)";
+            $sql ="INSERT INTO `consultation`(`Id_consultation`, `Date_Consultation`, `Note_Consultation`, `Traitement`, `Cin_patient`, `Cin_employe`) VALUES (NULL,'".$Consultation->date_consultation."','".$Consultation->note_consultation."','".$Consultation->traitement."','".$Consultation->cin_patient."','".$this->CIN."')";
             $query = $c->prepare($sql);
             $query->execute();
             return true;
@@ -44,20 +44,56 @@ class Medecin extends Employe
         }
     }
 
-    public function ModifierFicheConsultation( $Consultation)
+    public function ModifierFicheConsultation($consultation,$id_consultation)
     {
-        // TODO implement here
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="UPDATE `consultation` SET Note_Consultation='".$consultation->note_consultation."',Traitement='".$consultation->traitement."',Cin_patient='".$consultation->cin_patient."' WHERE `Id_consultation` = '".$id_consultation."'";
+            $query = $c->prepare($sql);
+            $query->execute();
+            return true;
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
     }
 
-    public function AfficherFicheConsultation( $Consultation)
+    public function AfficherFicheConsultation($id_consultation)
     {
-        // TODO implement here
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="SELECT * FROM `consultation` WHERE `Id_consultation` = '".$id_consultation."'";
+            $query = $c->prepare($sql);
+            $query->execute();
+            return true;
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
     }
 
 
-    public function ListerFicheConsultation( $Patient)
+    public function ListerFicheConsultation()
     {
-        // TODO implement here
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="SELECT * FROM consultation";
+            $query = $c->prepare($sql);
+            $query->execute();
+            return true;
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
     }
 
 

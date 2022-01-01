@@ -8,14 +8,40 @@ class Medecin extends Employe
     /**
      * Default constructor
      */
-    public function __construct()
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
     {
+        parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
         // ...
+    }
+
+    public function connect()
+    {
+        try 
+        { 
+            $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
+            return $c;
+        }
+        catch (Exception $e)
+        {
+            echo "connection failed";
+        }
     }
 
     public function AjouterFicheConsultation( $Consultation)
     {
-        // TODO implement here
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, `Password`, Historique, Cin_employe) VALUES ('".$c."', '".$nc."', '".$dn."', '".$a."', '".$s."', '".$t."', '".$e."', '".$p."', '".$h."', NULL)";
+            $query->$c->prepare($sql);
+            $c->execute();
+            return true;
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
     }
 
     public function ModifierFicheConsultation( $Consultation)

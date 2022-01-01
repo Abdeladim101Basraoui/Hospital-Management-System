@@ -1,24 +1,27 @@
 <?php
-
-declare(strict_types=1);
-
-
 class Infirmier extends Employe
 {
 
+    public $con ;
+    public $req;
 
     /**
      * Default constructor
      */
-    public function __construct()
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
     {
-        parent::__construct();
+        parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
+        $con = new PDO("","","");
     }
 
     
     public function ModifierRDV( $RDV)
     {
-        // TODO implement here
+      try{
+          
+      }catch(Exception $ex){
+        echo "$ex";
+      }
     }
 
     /**
@@ -56,9 +59,9 @@ class Infirmier extends Employe
     /**
      * @param  $Patient
      */
-    public function AjouterPatient( $Patient)
+    public function AjouterPatient( Patient $Patient )
     {
-        // TODO implement here
+        $req = "INSERT INTO `` VALUES($Patient->nom)";
     }
 
     /**
@@ -74,7 +77,7 @@ class Infirmier extends Employe
      */
     public function ChercherPatient(null $Patient)
     {
-        // TODO implement here
+       req =  "SELE"
     }
 
     /**
@@ -82,7 +85,7 @@ class Infirmier extends Employe
      */
     public function ListerPatients()
     {
-        // TODO implement here
+       
     }
 
 }

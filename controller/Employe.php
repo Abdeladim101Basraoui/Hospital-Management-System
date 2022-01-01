@@ -6,38 +6,47 @@ declare(strict_types=1);
 class Employe
 {
 
-    private $CIN;
-
-    private $nom_complet;
-
-    private $date_naissance;
-
-    private $addresse;
-
-    private $sexe;
-
-    private $tel;
-
-    private  $email;
-
-    private $password;
-
-    private $role;
-
-
-
-
+    public $CIN;
+    public $nom_complet;
+    public $date_naissance;
+    public $addresse;
+    public $sexe;
+    public $tel;
+    public $email;
+    public $password;
+    public $role;
     /**
      * Default constructor
      */
-    public function __construct()
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
     {
-        // ...
+        $this->CIN=$c;
+        $this->nom_complet=$nc;
+        $this->date_naissance=$dn;
+        $this->addresse=$adr;
+        $this->sexe=$sx;
+        $this->tel=$tl;
+        $this->email=$eml;
+        $this->password=$pwr;
+        $this->role=$rol;
+  
     }
+
+    public function connect($eml,$pwr)
+   {
+        try { 
+        	   $c= new PDO("mysql:host=localhost;dbname=centresante",$eml,$pwr);
+               return $c;
+            }
+        catch (Exception $e)
+            {
+             	return NULL;
+            }
+   }
 
     public function se_connecter()
     {
-        // TODO implement here
+         
     }
 
     /**
@@ -53,7 +62,7 @@ class Employe
      */
     public function AnnulerConge()
     {
-        // TODO implement here
+        
     }
 
     /**

@@ -12,12 +12,10 @@ class Infirmier extends Employe
      */
     public function __construct()
     {
-        // ...
+        parent::__construct();
     }
 
-    /**
-     * @param  $RDV
-     */
+    
     public function ModifierRDV( $RDV)
     {
         // TODO implement here

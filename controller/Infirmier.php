@@ -11,8 +11,7 @@ class Infirmier extends Employe
      * Default constructor
      */
     public function __construct()
-    {
-        // ...
+    {.
     }
 
     /**

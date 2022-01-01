@@ -61,7 +61,7 @@ class Infirmier extends Employe
      */
     public function AjouterPatient( Patient $Patient )
     {
-        $req = "INSERT INTO `` VALUES($Patient->nom)";
+        $req = "INSERT INTO `` VALUES($Patient->nom_complet)";
     }
 
     /**

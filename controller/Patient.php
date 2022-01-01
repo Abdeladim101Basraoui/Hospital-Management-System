@@ -17,14 +17,14 @@ class Patient
 
     public function __construct($c,$nc,$dn,$a,$s,$t,$e,$p,$h)
     {
-        $this->$CIN = $c;
-        $this->$nom_complet = $nc;
-        $this->$addresse = $dn;
-        $this->$sexe = $s;
-        $this->$tel = $t;
-        $this->$email = $e;
-        $this->$password = $p;
-        $this->$historique = $h;
+        $this->CIN = $c;
+        $this->nom_complet = $nc;
+        $this->addresse = $dn;
+        $this->sexe = $s;
+        $this->tel = $t;
+        $this->email = $e;
+        $this->password = $p;
+        $this->historique = $h;
     }
 
     public function connect()

@@ -77,7 +77,7 @@ class Infirmier extends Employe
      */
     public function ChercherPatient(null $Patient)
     {
-       req =  "SELE"
+       req =  "SELECT * FROM `` WHERE $Patient->";
     }
 
     /**

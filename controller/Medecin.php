@@ -67,14 +67,17 @@ class Medecin extends Employe
         if($c!=null)
         {
             $sql ="SELECT * FROM `consultation` WHERE `Id_consultation` = '".$id_consultation."'";
-            $query = $c->prepare($sql);
-            $query->execute();
-            return true;
+            $r=$c->query($sql);
+           foreach($r as $v)
+           { 
+
+           }
+            
+          return true;  
         }
         else 
         {
-            echo "probleme de connexion";
-            return false;
+
         }
     }
 
@@ -85,14 +88,17 @@ class Medecin extends Employe
         if($c!=null)
         {
             $sql ="SELECT * FROM consultation";
-            $query = $c->prepare($sql);
-            $query->execute();
-            return true;
+            $r=$c->query($sql);
+            foreach($r as $v)
+            { 
+ 
+            }
+             
+           return true;  
         }
         else 
         {
-            echo "probleme de connexion";
-            return false;
+
         }
     }
 
@@ -103,15 +109,18 @@ class Medecin extends Employe
         if($c!=null)
         {
             $sql ="SELECT * FROM patient";
-            $query = $c->prepare($sql);
-            $query->execute();
-            return true;
-        }
-        else 
-        {
-            echo "probleme de connexion";
-            return false;
-        }
+            $r=$c->query($sql);
+            foreach($r as $v)
+            { 
+ 
+            }
+             
+           return true;  
+         }
+         else 
+         {
+ 
+         }
     }
 
 
@@ -121,15 +130,18 @@ class Medecin extends Employe
         if($c!=null)
         {
             $sql ="SELECT * FROM `patient` WHERE `Cin_patient` = '".$cin."'";
-            $query = $c->prepare($sql);
-            $query->execute();
-            return true;
-        }
-        else 
-        {
-            echo "probleme de connexion";
-            return false;
-        }
+            $r=$c->query($sql);
+            foreach($r as $v)
+            { 
+ 
+            }
+             
+           return true;  
+         }
+         else 
+         {
+ 
+         }
     }
 
 }

@@ -6,23 +6,23 @@ declare(strict_types=1);
 class Patient  
 {
 
-    private $CIN;
+    public $CIN;
 
-    private $nom_complet;
+    public $nom_complet;
 
-    private $date_naissance;
+    public $date_naissance;
 
-    private $addresse;
+    public $addresse;
 
-    private $sexe;
+    public $sexe;
 
-    private $tel;
+    public $tel;
 
-    private  $email;
+    public  $email;
 
-    private $password;
+    public $password;
 
-    private $historique;
+    public $historique;
 
 
 

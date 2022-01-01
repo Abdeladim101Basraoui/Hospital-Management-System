@@ -4,14 +4,12 @@
 class Consultation
 {
 
-    /** @var datetime */
-    private datetime $date_consultation;
+    
+    public $date_consultation;
 
-    /** @var Text */
-    private Text $note_consultation;
+    private $note_consultation;
 
-    /** @var Text */
-    private Text $traitement;
+    private $traitement;
 
 
 
@@ -24,3 +22,10 @@ class Consultation
     }
 
 }
+
+try { $c= new PDO("mysql:host=localhost;dbname=centresante",$eml,$pwr);
+    return $c;
+        }
+    catch (Exception $e)
+   {return NULL;}
+?>

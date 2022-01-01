@@ -18,14 +18,14 @@ class Patient
 
     public function __construct($c,$nc,$dn,$a,$s,$t,$e,$p,$h)
     {
-        $this->$CIN = $c;
-        $this->$nom_complet = $nc;
-        $this->$addresse = $dn;
-        $this->$sexe = $s;
-        $this->$tel = $t;
-        $this->$email = $e;
-        $this->$password = $p;
-        $this->$historique = $h;
+        $this->CIN = $c;
+        $this->nom_complet = $nc;
+        $this->addresse = $dn;
+        $this->sexe = $s;
+        $this->tel = $t;
+        $this->email = $e;
+        $this->password = $p;
+        $this->historique = $h;
     }
 
     public function connect()
@@ -50,7 +50,7 @@ class Patient
         if($c!=null)
         {
             $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, `Password`, Historique, Cin_employe) VALUES ('".$c."', '".$nc."', '".$dn."', '".$a."', '".$s."', '".$t."', '".$e."', '".$p."', '".$h."', NULL)";
-            $query->$c->prepare($sql);
+            $query->c->prepare($sql);
             $c->execute();
             return true;
         }

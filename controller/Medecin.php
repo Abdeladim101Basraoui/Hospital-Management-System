@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 
 class Medecin extends Employe
 {
@@ -10,54 +8,65 @@ class Medecin extends Employe
     /**
      * Default constructor
      */
-    public function __construct()
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
     {
+        parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
         // ...
     }
 
-    /**
-     * @param  $Consultation
-     */
-    public function AjouterFicheConsultation( $Consultation)
+    public function connect()
     {
-        // TODO implement here
+        try 
+        { 
+            $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
+            return $c;
+        }
+        catch (Exception $e)
+        {
+            echo "connection failed";
+        }
     }
 
-    /**
-     * @param  $Consultation
-     */
+    public function AjouterFicheConsultation( $Consultation)
+    {
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, `Password`, Historique, Cin_employe) VALUES ('".$c."', '".$nc."', '".$dn."', '".$a."', '".$s."', '".$t."', '".$e."', '".$p."', '".$h."', NULL)";
+            $query->$c->prepare($sql);
+            $c->execute();
+            return true;
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
+    }
+
     public function ModifierFicheConsultation( $Consultation)
     {
         // TODO implement here
     }
 
-    /**
-     * @param  $Consultation
-     */
     public function AfficherFicheConsultation( $Consultation)
     {
         // TODO implement here
     }
 
-    /**
-     * @param  $Patient
-     */
+
     public function ListerFicheConsultation( $Patient)
     {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
+
     public function ListerPatients()
     {
         // TODO implement here
     }
 
-    /**
-     * @param  $Patient
-     */
+
     public function AfficherPatient( $Patient)
     {
         // TODO implement here

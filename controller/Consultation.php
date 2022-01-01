@@ -23,9 +23,5 @@ class Consultation
 
 }
 
-try { $c= new PDO("mysql:host=localhost;dbname=centresante",$eml,$pwr);
-    return $c;
-        }
-    catch (Exception $e)
-   {return NULL;}
+
 ?>

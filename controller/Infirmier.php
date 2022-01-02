@@ -7,10 +7,15 @@ class Infirmier extends Employe
     /**
      * Default constructor
      */
+<<<<<<< HEAD
     public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
     {
         parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
         $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "m@roc2OO1mark5edith");
+=======
+    public function __construct()
+    {.
+>>>>>>> soukaina
     }
 
 

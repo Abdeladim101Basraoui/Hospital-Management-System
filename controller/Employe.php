@@ -32,10 +32,10 @@ class Employe
   
     }
 
-    public function connect($eml,$pwr)
+    public function connect()
    {
         try { 
-        	   $c= new PDO("mysql:host=localhost;dbname=centresante",$eml,$pwr);
+        	   $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
                return $c;
             }
         catch (Exception $e)

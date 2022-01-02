@@ -3,7 +3,7 @@
 
 class Consultation
 {
-
+    public $id_consultation;
     public $date_consultation;
     public $note_consultation;
     public $traitement;

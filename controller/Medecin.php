@@ -1,5 +1,5 @@
 <?php
-
+include("Employe.php");
 
 class Medecin extends Employe
 {
@@ -27,12 +27,12 @@ class Medecin extends Employe
         }
     }
 
-    public function AjouterFicheConsultation( $Consultation)
+    public function AjouterFicheConsultation($con)
     {
         $c= $this->connect();
         if($c!=null)
         {
-            $sql ="INSERT INTO `consultation`(`Id_consultation`, `Date_Consultation`, `Note_Consultation`, `Traitement`, `Cin_patient`, `Cin_employe`) VALUES (NULL,'".$Consultation->date_consultation."','".$Consultation->note_consultation."','".$Consultation->traitement."','".$Consultation->cin_patient."','".$this->CIN."')";
+            $sql ="INSERT INTO consultation(Date_Consultation, Note_Consultation, Traitement, Cin_patient, Cin_employe) VALUES ('$con->date_consultation','$con->note_consultation','$con->traitement','$con->cin_patient','$this->CIN')";
             $query = $c->prepare($sql);
             $query->execute();
             return true;
@@ -44,12 +44,12 @@ class Medecin extends Employe
         }
     }
 
-    public function ModifierFicheConsultation($consultation,$id_consultation)
+    public function ModifierFicheConsultation($con)
     {
         $c= $this->connect();
         if($c!=null)
         {
-            $sql ="UPDATE `consultation` SET Note_Consultation='".$consultation->note_consultation."',Traitement='".$consultation->traitement."',Cin_patient='".$consultation->cin_patient."' WHERE `Id_consultation` = '".$id_consultation."'";
+            $sql ="UPDATE `consultation` SET Note_Consultation='$con->note_consultation',Traitement='$con->traitement',Cin_patient='$con->cin_patient' WHERE `Id_consultation` = '$con->id_consultation'";
             $query = $c->prepare($sql);
             $query->execute();
             return true;
@@ -68,12 +68,8 @@ class Medecin extends Employe
         {
             $sql ="SELECT * FROM `consultation` WHERE `Id_consultation` = '".$id_consultation."'";
             $r=$c->query($sql);
-           foreach($r as $v)
-           { 
-
-           }
             
-          return true;  
+          return $r;  
         }
         else 
         {
@@ -82,17 +78,23 @@ class Medecin extends Employe
     }
 
 
-    public function ListerFicheConsultation()
+    public function ListerFicheConsultation($cin)
     {
         $c= $this->connect();
         if($c!=null)
         {
-            $sql ="SELECT * FROM consultation";
+            $sql ="SELECT * FROM consultation where Cin_patient='$cin'";
             $r=$c->query($sql);
+            echo "<h1>Fiche Consultation:</h1>";
+            echo "<table>";
+            echo "<tr><th>CIN patient</th><th>Date Consultation</th><th>Note Consultation</th><th>Afficher Fiche</th><th>Modifier Fiche</th></tr>";
             foreach($r as $v)
             { 
- 
+                echo "<tr>";
+                echo "<td>$cin</td><td>$v[1]</td><td>$v[2]</td><td><a href='../centre de sante/consultation.php?id=$v[0]'>Afficher</a></td><td><a href='../centre de sante/consultationModif.php?id=$v[0]'>Modifier</a></td>";
+                echo "</tr>";
             }
+            echo "</table>";
              
            return true;  
         }
@@ -110,10 +112,16 @@ class Medecin extends Employe
         {
             $sql ="SELECT * FROM patient";
             $r=$c->query($sql);
+            echo "<table>";
+            echo "<tr><th>CIN patient</th><th>Nom patient</th><th>sexe patient</th><th>Afficher Patient</th></tr>";
             foreach($r as $v)
             { 
+                echo "<tr>";
+                echo "<td>$v[0]</td><td>$v[1]</td><td>$v[4]</td><td><a href='../centre de sante/patient.php?cin=$v[0]'>Afficher</a></td>";
+                echo "</tr>";
  
             }
+            echo "</table>";
              
            return true;  
          }
@@ -133,7 +141,14 @@ class Medecin extends Employe
             $r=$c->query($sql);
             foreach($r as $v)
             { 
- 
+                echo "<p>  <span> Cin :</span><span> $v[0]</span>  </p>
+                <p>  <span> Nom :</span><span> $v[1]</span>  </p>
+                <p>  <span> DateNaissance :</span><span> $v[2]</span>  </p>
+                <p>  <span> Addresse :</span><span> $v[3]</span>  </p>
+                <p>  <span> Sexe :</span><span> $v[4]</span>  </p>
+                <p>  <span> Historique :</span><span> $v[8]</span>  </p>
+                <p>  <span><a href='../centre de sante/consultations.php?cin=$v[0]'>Afficher les fiches consultation</a></span>  </p>
+                ";
             }
              
            return true;  

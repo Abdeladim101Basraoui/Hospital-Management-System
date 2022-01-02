@@ -43,14 +43,14 @@ class Patient
     /**
      * 
      */
-    public function inscrire($c,$nc,$dn,$a,$s,$t,$e,$p,$h)
+    public function inscrire($pat)
     {
         $c= $this->connect();
         if($c!=null)
         {
-            $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, `Password`, Historique, Cin_employe) VALUES ('".$c."', '".$nc."', '".$dn."', '".$a."', '".$s."', '".$t."', '".$e."', '".$p."', '".$h."', NULL)";
-            $query->$c->prepare($sql);
-            $c->execute();
+            $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, `Password`, Historique, Cin_employe) VALUES ('".$pat->CIN."', '".$pat->nom_complet."','".$pat->date_naissance."', '".$pat->addresse."', '".$pat->sexe."', '".$pat->tel."', '".$pat->email."', '".$pat->password."', '".$pat->historique."',  NULL)";
+            $query = $c->prepare($sql);
+            $query->execute();
             return true;
         }
         else 

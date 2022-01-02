@@ -1,27 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
-
 class Materiel
 {
 
-    /** @var String */
-    private String $libelle_materiel;
-
-    /** @var String */
-    private String $etat_materiel;
+  
+    public  $libelle_materiel;
+    public $etat_materiel;
 
 
-
-
-
-    /**
-     * Default constructor
-     */
-    public function __construct()
+    public function __construct($lbl,$etat)
     {
-        // ...
+        $this->libelle_materiel=$lbl;
+        $this->etat_materiel=$etat;
     }
 
 }
+?>

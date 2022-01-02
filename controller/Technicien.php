@@ -1,59 +1,123 @@
 <?php
 
-declare(strict_types=1);
-
-
 class Technicien extends Employe
 {
-
-
-
-    /**
-     * Default constructor
-     */
-    public function __construct()
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
     {
-        // ...
+        parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
+       
     }
 
-    /**
-     * @param  $Materiel
-     */
-    public function AjouterMateriel( $Materiel)
+    public function connect()
     {
-        // TODO implement here
+        try 
+        { 
+            $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
+            return $c;
+        }
+        catch (Exception $e)
+        {
+            echo "connection failed";
+        }
+    }
+    
+    public function AjouterMateriel( $mtr)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="INSERT INTO `materiel` ( `Libelle_materiel`, `Etat_materiel`)
+                  VALUES ('".$mtr->Libelle_materiel."', '".$mtr->Etat_materiel."')";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
     }
 
-    /**
-     * @param  $Materiel
-     */
-    public function ModifierMateriel( $Materiel)
+   
+    public function ModifierMateriel( $mtr,$idm)
     {
-        // TODO implement here
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="UPDATE `materiel` SET `Libelle_materiel`='".$mtr->Libelle_materiel."',`Etat_materiel`='".$mtr->Etat_materiel."' WHERE Num_materiel='".$idm."'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
     }
 
-    /**
-     * 
-     */
+    
     public function ListerMateriel()
     {
-        // TODO implement here
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM `materiel` ";
+           $r=$c->query($sql);
+           foreach($r as $v)
+           { 
+
+           }
+            
+          return true;  
+      }
+        else 
+        {
+
+        }
     }
 
-    /**
-     * 
-     */
+
     public function ListerDemande()
     {
-        // TODO implement here
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM `demande_materiel`";
+           $r=$c->query($sql);
+           foreach($r as $v)
+           { 
+
+           }
+            
+          return true;  
+      }
+        else 
+        {
+
+        }
     }
 
-    /**
-     * 
-     */
-    public function AfficherDemande()
+    
+    public function AfficherDemande($idd)
     {
-        // TODO implement here
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM `demande_materiel` WHERE Num_demande=$idd";
+           $r=$c->query($sql);
+           foreach($r as $v)
+           { 
+
+           }
+            
+          return true;  
+      }
+        else 
+        {
+
+        }
     }
 
 }

@@ -112,7 +112,7 @@ class Medecin extends Employe
         {
             $sql ="SELECT * FROM patient";
             $r=$c->query($sql);
-            echo "<table>";
+            /*echo "<table>";
             echo "<tr><th>CIN patient</th><th>Nom patient</th><th>sexe patient</th><th>Afficher Patient</th></tr>";
             foreach($r as $v)
             { 
@@ -121,9 +121,9 @@ class Medecin extends Employe
                 echo "</tr>";
  
             }
-            echo "</table>";
+            echo "</table>";*/
              
-           return true;  
+           return $r;  
          }
          else 
          {

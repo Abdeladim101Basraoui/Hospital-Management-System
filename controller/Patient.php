@@ -13,6 +13,7 @@ class Patient
     public $email;
     public $password;
     public $historique;
+    public $cin_employe;
 
 
     public function __construct($c,$nc,$dn,$a,$s,$t,$e,$p,$h)
@@ -52,6 +53,7 @@ class Patient
             $query = $c->prepare($sql);
             $query->execute();
             return true;
+            
         }
         else 
         {

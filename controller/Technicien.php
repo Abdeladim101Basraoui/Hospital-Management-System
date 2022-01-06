@@ -74,6 +74,23 @@ class Technicien extends Employe
 
         }
     }
+
+    public function ListerMaterielDemande($id)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM materiel as m,materiel_demande as md where md.num_materiel = m.num_materiel and md.num_demande = $id ; ";
+           $r=$c->query($sql);
+            
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+
     public function AfficherMateriel($idm)
     {
         $c=$this->connect();

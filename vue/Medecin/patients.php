@@ -63,7 +63,14 @@
 								<li><a href="patients.php">Patients List</a></li>
 								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
-						</li>         
+						</li>    
+						<li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="add-conge.php">Demander Conge</a></li>
+								<li><a href="show-conges.php">Mes demandes</a></li>
+							</ul>
+						</li>     
                     </ul>
                 </div>
             </div>
@@ -102,7 +109,7 @@
 
 										echo "
 										<tr>
-											<td><img width='28' height='28' src='../../assets/img/user.jpg' class='rounded-circle m-r-5' alt=''>$p[0]</td>
+											<td><a href='#' class='avatar'>".substr($p[0],0,1)."</a>$p[0]</td>
 											<td>$p[1]</td>
 											<td>$p[4]</td>
 											<td>$p[3]</td>

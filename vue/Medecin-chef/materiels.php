@@ -43,7 +43,7 @@
                 <a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
             </div>
         </div>
-        <div class="sidebar" id="sidebar">
+		<div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -52,10 +52,24 @@
                             <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="patients.php">Patients List</a></li>
+								<li><a href="consultations.php">Mes Consultation</a></li>
+							</ul>
+						</li>    
+						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="materiels.php">Materiels List</a></li>
 								<li><a href="demandes.php">Demandes de Materiels</a></li>
+							</ul>
+						</li>    
+						<li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Employes </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="employes.php">Employes List</a></li>
+								<li><a href="conges.php">Demandes Conge</a></li>
 							</ul>
 						</li>    
 						<li class="submenu">
@@ -64,7 +78,7 @@
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>     
+						</li>
                     </ul>
                 </div>
             </div>
@@ -73,7 +87,7 @@
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Demandes Materiels</h4>
+                        <h4 class="page-title">Materiels</h4>
                     </div>
                 </div>
 				<div class="row">
@@ -83,34 +97,31 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Date Demande</th>
-										<th>Date Besoin</th>
+										<th>Libelle</th>
 										<th>Etat</th>
-                                        <th class="text-right">Action</th>
+										<th class="text-right">Action</th>
 									</tr>
 								</thead>
 								<tbody>
 								<?php
-        							include('../../controller/Technicien.php');
+        							include('../../controller/Medecin_Chef.php');
 
-									$t = new Technicien(null,null,null,null,null,null,null,null,null);
-									$dem = $t->ListerDemande();
+									$m = new Medecin_Chef(null,null,null,null,null,null,null,null,null);
+									$pat = $m->ListerMateriel();
 
-									foreach($dem as $p){
+									foreach($pat as $p){
 
 										echo "
 										<tr>
-											<td><i class='fa fa-file'></i> $p[0]</td>
+											<td><i class='fa fa-hospital-o'></i> $p[0]</td>
 											<td>$p[1]</td>
 											<td>$p[2]</td>
-											<td>$p[5]</td>
-                                            <td class='text-right'>
+											<td class='text-right'>
 											<div class='row'>
 												<div class='col-sm dropdown dropdown-action'>
 													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
-														<a class='dropdown-item' href='show-demande.php?id=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Demande</a>
-														<a class='dropdown-item' href='update-demande.php?id=$p[0]'><i class='fa fa-pencil m-r-5'></i>Modifier Demande</a>
+														<a class='dropdown-item' href='update-materiel.php?id=$p[0]'><i class='fa fa-pencil m-r-5'></i>Modifier Materiel</a>
 													</div>
 												</div>
 											</div>

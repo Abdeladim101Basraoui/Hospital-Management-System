@@ -1,115 +1,94 @@
 <?php
+include('Employe.php');
 class Infirmier extends Employe
 {
-
-    public $con;
-    public $req;
-    /**
-     * Default constructor
-     */
-<<<<<<< HEAD
-    public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
     {
-        parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
-        $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "m@roc2OO1mark5edith");
-=======
-    public function __construct()
-    {.
->>>>>>> soukaina
+        parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
+        // ...
     }
 
-
-    public function ModifierRDV($RDV)
+    public function connect()
     {
-    }
-
-    /**
-     * @param  $RDV
-     */
-    public function SupprimerRDV($RDV)
-    {
-        // TODO implement here
-    }
-
-    /**
-     * @param  $RDV
-     */
-    public function AjouterRDV($RDV)
-    {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public function ListerRDV()
-    {
-        try {
-            $c = $this->connect();
-            if ($c != null) {
-                $req = 'SELECT * FROM `rdv`';
-                $res =$c->query($req);
-                foreach($res as $var)
-                return new RDV();
-            } else
-                echo "probleme in the ListerRDV Method";
-        } catch (Exception $ex) {
-            echo "$ex";
+        try 
+        { 
+            $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
+            return $c;
+        }
+        catch (Exception $e)
+        {
+            echo "connection failed";
         }
     }
-
-    /**
-     * @param  $RDV
-     */
-    public function AfficherRDV($RDV)
-    {
-        try {
-            $c = $this->connect();
-            if ($c != null) {
-                $req = 'SELECT `Id_rdv`, `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient` FROM `rdv` WHERE ' +
-                    '`Id_rdv`=' . "$RDV" . '';
-                $c->query($req);
-                foreach ($c as $var) {
-                    return new RDV($var[1], $var[2], $var[3], $var[4], $var[5], $var[6]);
-                }
-
-                # code...
-            } else {
-                echo "nothing in the RDV Table";
-            }
-        } catch (Exception $ex) {
-            echo "$ex";
-        }
-    }
-
-    /**
-     * @param  $Patient
-     */
-    public function AjouterPatient(Patient $Patient)
-    {
-        $req = "INSERT INTO `` VALUES($Patient->nom_complet)";
-    }
-
-    /**
-     * @param  $Patient
-     */
-    public function ModiferPatient($Patient)
-    {
-        // TODO implement here
-    }
-
-    /**
-     * @param null $Patient
-     */
-    public function ChercherPatient(null $Patient)
-    {
-        req =  "SELECT * FROM `` WHERE $Patient->";
-    }
-
-    /**
-     * 
-     */
     public function ListerPatients()
     {
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="SELECT * FROM patient";
+            $r=$c->query($sql);
+             
+           return $r;  
+         }
+         else 
+         {
+ 
+         }
+    }
+    public function AjouterRDV($r)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="INSERT INTO rdv(Date_RDV, Heure_RDV, Objet, Cin_employe, Cin_patient) VALUES ('$r->date_RDV','$r->heure_rdv','$r->objet','$this->CIN','$r->cin_patient')";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+    }
+    public function SupprimerRDV($id)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="DELETE FROM rdv WHERE Id_rdv = '$id'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+    }
+    public function ListerRDV($cin)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            if($cin == null)
+                $sql="Select * FROM rdv";
+            else
+                $sql="Select * FROM rdv WHERE Cin_patient = '$cin'";
+
+            $r= $c->query($sql);
+            
+            return $r;  
+        }
+    }
+    public function AjouterPatient($pat)
+    {
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, Password, Historique, Cin_employe) VALUES ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
+            $query = $c->prepare($sql);
+            $query->execute();
+            return true;
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
     }
 }
+
+
+?>

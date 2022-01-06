@@ -58,6 +58,13 @@
 								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
 						</li>         
+                        <li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="add-conge.php">Demander Conge</a></li>
+								<li><a href="show-conges.php">Mes demandes</a></li>
+							</ul>
+						</li>
                     </ul>
                 </div>
             </div>
@@ -89,7 +96,7 @@
                                         $cin = null;
                                     else
                                         $cin = $_GET["cin"];
-                                    $m = new Medecin(null,null,null,null,null,null,null,null,null);
+                                    $m = new Medecin('A12345',null,null,null,null,null,null,null,null);
                                     $consult = $m->ListerFicheConsultation($cin);  
 
 									foreach($consult as $con){

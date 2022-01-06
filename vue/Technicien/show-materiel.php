@@ -1,21 +1,9 @@
 <?php
-include('../../controller/Materiel.php');
-include('../../controller/Technicien.php');
-if(!empty($_POST['lbl'])&&!empty($_POST['etat']))
-{
-    $lbl = $_POST["lbl"];
-    $etat = $_POST["etat"];
-    
+include('../../controller/Consultation.php');
+include('../../controller/Medecin.php');
 
-    $t = new Technicien('T12345',null,null,null,null,null,null,null,null);
-    
-    $m= new Materiel($lbl,$etat);
-    if($t->AjouterMateriel($m))
-        header('Location: materiels.php');
-}
-else{
-   
-}
+$m = new Medecin('A12345',null,null,null,null,null,null,null,null);
+//$consult = $m->AfficherFicheConsultation();
 
 ?>
 <!DOCTYPE html>
@@ -50,11 +38,11 @@ else{
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown ">
+                <li class="nav-item dropdown has-arrow">
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Technicien</span>
+                        <span>Medecin</span>
                     </a>
                 </li>
             </ul>
@@ -69,10 +57,10 @@ else{
                             <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
-							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>
+							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
-								<li><a href="materiels.php">Materiels List</a></li>
-								<li><a href="demandes.php">Demandes de Materiels</a></li>
+								<li><a href="patients.php">Patients List</a></li>
+								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
 						</li>      
                         <li class="submenu">
@@ -90,35 +78,41 @@ else{
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Add Materiel</h4>
+                        <h4 class="page-title">Add Consultation</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <form method="post">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Libelle Materiel <span class="text-danger">*</span></label>
-                                        <div class="cal-icon">
-                                            <input class="form-control" name="lbl" type="text">
+                        <?php
+                        foreach ($consult as $v)
+                            echo "
+                                    <div class='row'>
+                                        <div class='col-sm-6'>
+                                            <div class='form-group'>
+                                                <label>CIN Patient : <span class='text-primary'>$v[4]</span></label>
+                                            </div>
+                                        </div> 
+                                    
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Date Consultation :  <span>$v[1]<span></label>
+                                            </div>
+                                        </div>
+                                                
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Note Consultation : <span>$v[2]</span></label>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-12'>
+                                            <div class='form-group'>
+                                                <label>Traitement : <span>$v[3]</span></label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                        
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Etat Materiel</label>
-                                        <div class="">
-                                            <input type="text" name="etat" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" value="Create Materiel">
-                            </div>
-                        </form>
+                            ";
+                            ?>
+                        
                     </div>
                 </div>
             </div>

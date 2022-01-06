@@ -1,17 +1,19 @@
 <?php
-include('../../controller/Materiel.php');
-include('../../controller/Technicien.php');
-if(!empty($_POST['lbl'])&&!empty($_POST['etat']))
+include('../../controller/RDV.php');
+include('../../controller/Infirmier.php');
+if(!empty($_POST['dater'])&&!empty($_POST['heurer'])&&!empty($_POST['obj']))
 {
-    $lbl = $_POST["lbl"];
-    $etat = $_POST["etat"];
+    $dater = $_POST["dater"];
+    $heurer = $_POST["heurer"];
+    $obj = $_POST["obj"];
+    $cin = $_GET["cin"];
     
 
-    $t = new Technicien('T12345',null,null,null,null,null,null,null,null);
+    $m = new Infirmier('B12345',null,null,null,null,null,null,null,null);
     
-    $m= new Materiel($lbl,$etat);
-    if($t->AjouterMateriel($m))
-        header('Location: materiels.php');
+    $c= new RDV($dater,$heurer,$obj,$cin);
+    if($m->AjouterRDV($c))
+        header('Location: rdvs');
 }
 else{
    
@@ -54,7 +56,7 @@ else{
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Technicien</span>
+                        <span>Infirmier</span>
                     </a>
                 </li>
             </ul>
@@ -69,19 +71,20 @@ else{
                             <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
-							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>
+							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
-								<li><a href="materiels.php">Materiels List</a></li>
-								<li><a href="demandes.php">Demandes de Materiels</a></li>
+								<li><a href="patients.php">Patients List</a></li>
+								<li><a href="add-patient.php">Ajouter Patient</a></li>
+								<li><a href="rdvs.php">RDV</a></li>
 							</ul>
-						</li>      
+						</li>          
                         <li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>   
+						</li> 
                     </ul>
                 </div>
             </div>
@@ -90,38 +93,51 @@ else{
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Add Materiel</h4>
+                        <h4 class="page-title">Add RDV</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <form method="post">
                             <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>CIN Patient : <span class="text-primary"><?php echo $_GET['cin'];?></span></label>
+                                    </div>
+                                </div> 
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Libelle Materiel <span class="text-danger">*</span></label>
+                                        <label>Date RDV <span class="text-danger">*</span></label>
                                         <div class="cal-icon">
-                                            <input class="form-control" name="lbl" type="text">
+                                            <input class="form-control" name="dater" type="text">
+                                        </div>
+                                    </div>
+                                </div>                                    
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Heure RDV</label>
+                                        <div class="clock-icon">
+                                            <input class="form-control" name="heurer" type="text">
                                         </div>
                                     </div>
                                 </div>
-                                        
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Etat Materiel</label>
-                                        <div class="">
-                                            <input type="text" name="etat" class="form-control">
+                                        <label>Objet</label>
+                                        <div class="clock-icon">
+                                            <textarea class="form-control" name="obj"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" value="Create Materiel">
+                                <input type="submit" class="btn btn-primary" value="Create RDV">
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+			
         </div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>

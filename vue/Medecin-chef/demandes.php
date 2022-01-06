@@ -52,19 +52,33 @@
                             <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="patients.php">Patients List</a></li>
+								<li><a href="consultations.php">Mes Consultation</a></li>
+							</ul>
+						</li>    
+						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="materiels.php">Materiels List</a></li>
 								<li><a href="demandes.php">Demandes de Materiels</a></li>
 							</ul>
-						</li>    
+						</li>     
+						<li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Employes </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="employes.php">Employes List</a></li>
+								<li><a href="conges.php">Demandes Conge</a></li>
+							</ul>
+						</li>  
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>     
+						</li>
                     </ul>
                 </div>
             </div>
@@ -74,6 +88,9 @@
                 <div class="row">
                     <div class="col-sm-4 col-3">
                         <h4 class="page-title">Demandes Materiels</h4>
+                    </div>
+					<div class="col-sm-8 col-9 text-right m-b-20">
+                        <a href="add-demande.php" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Demande</a>
                     </div>
                 </div>
 				<div class="row">
@@ -91,9 +108,9 @@
 								</thead>
 								<tbody>
 								<?php
-        							include('../../controller/Technicien.php');
+        							include('../../controller/Medecin_Chef.php');
 
-									$t = new Technicien(null,null,null,null,null,null,null,null,null);
+									$t = new Medecin_Chef(null,null,null,null,null,null,null,null,null);
 									$dem = $t->ListerDemande();
 
 									foreach($dem as $p){

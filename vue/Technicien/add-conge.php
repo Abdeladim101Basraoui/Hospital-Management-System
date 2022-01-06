@@ -1,17 +1,19 @@
 <?php
-include('../../controller/Materiel.php');
+include('../../controller/Conge.php');
 include('../../controller/Technicien.php');
-if(!empty($_POST['lbl'])&&!empty($_POST['etat']))
+if(!empty($_POST['obj'])&&!empty($_POST['date'])&&!empty($_POST['duree']))
 {
-    $lbl = $_POST["lbl"];
-    $etat = $_POST["etat"];
+    $obj = $_POST["obj"];
+    $date = $_POST["date"];
+    $duree = $_POST["duree"];
+    $note = $_POST["note"];
     
 
-    $t = new Technicien('T12345',null,null,null,null,null,null,null,null);
+    $t = new Technicien('t12345',null,null,null,null,null,null,null,null);
     
-    $m= new Materiel($lbl,$etat);
-    if($t->AjouterMateriel($m))
-        header('Location: materiels.php');
+    $c= new Conge($obj,null,$date,$duree,$note);
+    if($t->DemanderConge($c))
+        header('Location: show-conges.php');
 }
 else{
    
@@ -74,14 +76,14 @@ else{
 								<li><a href="materiels.php">Materiels List</a></li>
 								<li><a href="demandes.php">Demandes de Materiels</a></li>
 							</ul>
-						</li>      
-                        <li class="submenu">
+						</li>     
+						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>   
+						</li>    
                     </ul>
                 </div>
             </div>
@@ -90,7 +92,7 @@ else{
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Add Materiel</h4>
+                        <h4 class="page-title">Add Conge</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -99,24 +101,40 @@ else{
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Libelle Materiel <span class="text-danger">*</span></label>
+                                        <label>Objet<span class="text-danger">*</span></label>
+                                        <div class="">
+                                            <input type="text" name="obj" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Date Debut <span class="text-danger">*</span></label>
                                         <div class="cal-icon">
-                                            <input class="form-control" name="lbl" type="text">
+                                            <input class="form-control" name="date" type="text">
                                         </div>
                                     </div>
                                 </div>
                                         
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Etat Materiel</label>
+                                        <label>Durée<span class="text-danger">*</span></label>
                                         <div class="">
-                                            <input type="text" name="etat" class="form-control">
+                                            <input type="text" name="duree" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Note</label>
+                                        <div class="">
+                                            <textarea type="text" name="note" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" value="Create Materiel">
+                                <input type="submit" class="btn btn-primary" value="Create Demande Congé">
                             </div>
                         </form>
                     </div>

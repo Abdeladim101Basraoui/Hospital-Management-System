@@ -86,10 +86,10 @@ class Medecin extends Employe
         {
             if($cin === null)
             {
-                $sql ="SELECT * FROM consultation";
+                $sql ="SELECT * FROM consultation where Cin_employe = '$this->CIN'";
             }
             else{
-                $sql ="SELECT * FROM consultation where Cin_patient='$cin'";
+                $sql ="SELECT * FROM consultation where Cin_patient='$cin' and Cin_employe = '$this->CIN'";
             }
             $r=$c->query($sql);
              

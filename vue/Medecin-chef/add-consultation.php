@@ -1,6 +1,6 @@
 <?php
 include('../../controller/Consultation.php');
-include('../../controller/Medecin.php');
+include('../../controller/Medecin_Chef.php');
 if(!empty($_POST['datec'])&&!empty($_POST['note'])&&!empty($_POST['trait']))
 {
     $datec = $_POST["datec"];
@@ -9,7 +9,7 @@ if(!empty($_POST['datec'])&&!empty($_POST['note'])&&!empty($_POST['trait']))
     $cin = $_GET["cin"];
     
 
-    $m = new Medecin('A12345',null,null,null,null,null,null,null,null);
+    $m = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
     
     $c= new Consultation($datec,$note,$trait,$cin);
     if($m->AjouterFicheConsultation($c))
@@ -56,7 +56,7 @@ else{
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Medecin</span>
+                        <span>Medecin Chef</span>
                     </a>
                 </li>
             </ul>
@@ -76,14 +76,28 @@ else{
 								<li><a href="patients.php">Patients List</a></li>
 								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
-						</li>        
+						</li>    
+						<li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="materiels.php">Materiels List</a></li>
+								<li><a href="demandes.php">Demandes de Materiels</a></li>
+							</ul>
+						</li>     
+                        <li class="submenu">
+							<a href="#"><i class="fa fa-user"></i> <span> Employes </span> <span class="menu-arrow"></span></a>
+							<ul style="display: none;">
+								<li><a href="employes.php">Employes List</a></li>
+								<li><a href="conges.php">Demandes Conge</a></li>
+							</ul>
+						</li>  
                         <li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li> 
+						</li>
                     </ul>
                 </div>
             </div>

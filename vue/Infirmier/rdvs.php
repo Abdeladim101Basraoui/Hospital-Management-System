@@ -32,16 +32,13 @@
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown has-arrow">
-                    <a href="#" class="nav-link user-link" data-toggle="dropdown">
+                    <a href="#" class=" nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Technicien</span>
+                        <span>Infirmier</span>
                     </a>
                 </li>
             </ul>
-            <div class="dropdown mobile-user-menu float-right">
-                <a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-            </div>
         </div>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
@@ -52,19 +49,20 @@
                             <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
-							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>
+							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
-								<li><a href="materiels.php">Materiels List</a></li>
-								<li><a href="demandes.php">Demandes de Materiels</a></li>
+								<li><a href="patients.php">Patients List</a></li>
+								<li><a href="add-patient.php">Ajouter Patient</a></li>
+								<li><a href="rdvs.php">RDV</a></li>
 							</ul>
-						</li>    
-						<li class="submenu">
+						</li>          
+                        <li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>     
+						</li> 
                     </ul>
                 </div>
             </div>
@@ -73,8 +71,9 @@
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Demandes Materiels</h4>
+                        <h4 class="page-title">RDVS</h4>
                     </div>
+                   
                 </div>
 				<div class="row">
 					<div class="col-md-12">
@@ -82,43 +81,45 @@
 							<table class="table table-border table-striped custom-table datatable mb-0">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>Date Demande</th>
-										<th>Date Besoin</th>
-										<th>Etat</th>
-                                        <th class="text-right">Action</th>
+										<th>CIN</th>
+										<th>Date RDV</th>
+										<th>Heure RDV</th>
+										<th>Objet</th>
+										<th class="text-right">Action</th>
 									</tr>
 								</thead>
 								<tbody>
 								<?php
-        							include('../../controller/Technicien.php');
+        							include('../../controller/Infirmier.php');
+                                    if(!isset($_GET['cin']))
+                                        $cin = null;
+                                    else
+                                        $cin = $_GET["cin"];
+                                    $m = new Infirmier('B12345',null,null,null,null,null,null,null,null);
+                                    $rdv = $m->ListerRDV($cin);  
 
-									$t = new Technicien(null,null,null,null,null,null,null,null,null);
-									$dem = $t->ListerDemande();
-
-									foreach($dem as $p){
+									foreach($rdv as $con){
 
 										echo "
 										<tr>
-											<td><i class='fa fa-file'></i> $p[0]</td>
-											<td>$p[1]</td>
-											<td>$p[2]</td>
-											<td>$p[5]</td>
-                                            <td class='text-right'>
-											<div class='row'>
-												<div class='col-sm dropdown dropdown-action'>
-													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
-													<div class='dropdown-menu dropdown-menu-right'>
-														<a class='dropdown-item' href='show-demande.php?id=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Demande</a>
-														<a class='dropdown-item' href='update-demande.php?id=$p[0]'><i class='fa fa-pencil m-r-5'></i>Modifier Demande</a>
-													</div>
-												</div>
-											</div>
+											<td><img width='28' height='28' src='../../assets/img/user.jpg' class='rounded-circle m-r-5' alt=''>$con[5]</td>
+											<td>$con[1]</td>
+											<td>$con[2]</td>
+											<td>$con[3]</td>
+											<td class='text-right'>
+                                                <div class='dropdown dropdown-action'>
+                                                    <a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
+                                                    <div class='dropdown-menu dropdown-menu-right'>
+                                                        <a class='dropdown-item' href='delete-rdv.php?id=$con[0]'><i class='fa fa-trash m-r-5'></i>Supprimer RDV</a>
+                                                    </div>
+                                                </div>
 											</td>
 										</tr>
 										";
 									}
 								?>
+									
+									
 								</tbody>
 							</table>
 						</div>

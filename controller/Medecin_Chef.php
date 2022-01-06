@@ -1,7 +1,7 @@
 <?php
 
-declare(strict_types=1);
 
+include('Medecin.php');
 
 class Medecin_Chef extends Medecin
 {
@@ -33,9 +33,10 @@ class Medecin_Chef extends Medecin
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="INSERT INTO `demande_materiel`(`Num_demande`, `Date_demande`, `Date_besoin_materiel`, `Cin_employe`, `Cin_employe_technicien`, `Etat_demande`) VALUES (NULL,'".$dmd->date_demande."','".$dmd->date_besoin_materiel."', '".$dmd->cin_employe."', NULL ,'".$dmd->etat_demande."')";
+            $sql="INSERT INTO demande_materiel (Num_demande, Date_demande, Date_besoin_materiel, Cin_employe,Cin_employe_technicien, Etat_demande) VALUES (NULL,'$dmd->date_demande','$dmd->date_besoin_materiel','$dmd->cin_employe', NULL ,'demande')";
             $v= $c->prepare($sql);
             $v->execute();
+            
             return true;  
         }
     }
@@ -47,21 +48,42 @@ class Medecin_Chef extends Medecin
          $c=$this->connect();
         if($c!=NULL)
         {
-        $sql="UPDATE `conge` SET `etat_conge` = 'Validé' WHERE `Num_conge` = '".$num_conge."' ";
-        $v= $c->prepare($sql);
-        $v->execute();
-        return true; 
+            $sql="UPDATE conge SET  Etat_conge ='valide' WHERE Num_conge ='$num_conge'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true; 
+        }
+    }
+    public function RefuserConge($num_conge)
+    {
+         $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="UPDATE conge SET  Etat_conge ='refuse' WHERE Num_conge ='$num_conge'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true; 
+        }
     }
 
-    
+    public function ListerEmploye()
+    {
+        $c=$this->connect();
+         if($c!=NULL)
+         {  
+            $sql="SELECT * FROM employe";
+            $r=$c->query($sql);
+            return $r;  
+        }
+    }
     public function ListerDemandeConge()
     {
         $c=$this->connect();
          if($c!=NULL)
          {  
-            $sql="SELECT * FROM `conge`";
+            $sql="SELECT e.Nom_complet,e.Role,c.Objet,c.Etat_conge,c.Date_conge,c.Duree_conge,c.Note ,c.Num_conge FROM `conge` as c,employe as e WHERE c.Cin_employe = e.Cin_employe";
             $r=$c->query($sql);
-             return true;  
+            return $r;  
         }
     }
 
@@ -71,9 +93,9 @@ class Medecin_Chef extends Medecin
          $c=$this->connect();
          if($c!=NULL)
          {  
-            $sql="SELECT * FROM `conge`WHERE `Num_conge`=$num_conge";
+            $sql="SELECT * FROM conge WHERE `Num_conge`=$num_conge";
             $r=$c->query($sql);
-             return true;  
+            return $r;  
         }
 
     }

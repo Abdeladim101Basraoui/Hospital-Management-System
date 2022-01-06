@@ -39,9 +39,6 @@
                     </a>
                 </li>
             </ul>
-            <div class="dropdown mobile-user-menu float-right">
-                <a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-            </div>
         </div>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
@@ -57,14 +54,14 @@
 								<li><a href="materiels.php">Materiels List</a></li>
 								<li><a href="demandes.php">Demandes de Materiels</a></li>
 							</ul>
-						</li>    
+						</li>     
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>     
+						</li>    
                     </ul>
                 </div>
             </div>
@@ -73,7 +70,10 @@
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Demandes Materiels</h4>
+                        <h4 class="page-title">Demandes Congés</h4>
+                    </div>
+                    <div class="col-sm-8 col-9 text-right m-b-20">
+                        <a href="add-conge.php" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Demande</a>
                     </div>
                 </div>
 				<div class="row">
@@ -82,38 +82,41 @@
 							<table class="table table-border table-striped custom-table datatable mb-0">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>Date Demande</th>
-										<th>Date Besoin</th>
-										<th>Etat</th>
-                                        <th class="text-right">Action</th>
+										<th>CIN</th>
+										<th>Etat de demande</th>
+										<th>Objet</th>
+										<th>Date Debut</th>
+										<th>Duree</th>
+										<th>Note</th>
+										<th class="text-right">Action</th>
 									</tr>
 								</thead>
 								<tbody>
 								<?php
         							include('../../controller/Technicien.php');
 
-									$t = new Technicien(null,null,null,null,null,null,null,null,null);
-									$dem = $t->ListerDemande();
+									$m = new Technicien('T12345',null,null,null,null,null,null,null,null);
+									$pat = $m->ListerMesDemandes();
 
-									foreach($dem as $p){
+									foreach($pat as $p){
 
 										echo "
 										<tr>
-											<td><i class='fa fa-file'></i> $p[0]</td>
-											<td>$p[1]</td>
+											<td>
+												<h2>$p[6]</h2>
+											</td>
 											<td>$p[2]</td>
+											<td>$p[1]</td>
+											<td>$p[3]</td>
+											<td>$p[4]</td>
 											<td>$p[5]</td>
-                                            <td class='text-right'>
-											<div class='row'>
+											<td class='text-right'>
 												<div class='col-sm dropdown dropdown-action'>
 													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
-														<a class='dropdown-item' href='show-demande.php?id=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Demande</a>
-														<a class='dropdown-item' href='update-demande.php?id=$p[0]'><i class='fa fa-pencil m-r-5'></i>Modifier Demande</a>
+														<a class='dropdown-item' href='../update-conge.php?annuler=oui&id=$p[0]&role=T'><i class='fa fa-check m-r-5'></i>Annuler Conge</a>
 													</div>
 												</div>
-											</div>
 											</td>
 										</tr>
 										";

@@ -1,5 +1,5 @@
 <?php
-
+#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
 trait myconnect{
    public  $con;
     public function connect()
@@ -15,6 +15,7 @@ trait myconnect{
         }
     }
 }
+
 
 class Infirmier #extends Employe
 {
@@ -76,19 +77,24 @@ class Infirmier #extends Employe
     // }
 
     /**
-     * @param  $RDV
+     * @param  $col = column name
+     * @param  $val = value to search for
      */
     public function AfficherRDV($col,$val)
     {
         try {
             $c = $this->connect();
             if ($c != null) {
-              $req = "SELECT * FROM `rdv` WHERE $col='$val'";
+                $req = "SELECT * FROM `rdv` WHERE $col='$val'";
+                if($val==="null")
+                {
+                $req = "SELECT * FROM `rdv` WHERE $col is null";
+                }
                 $res = $c->query($req);
-                foreach ($res as $var) {
-                    // return new RDV($var[1], $var[2], $var[3], $var[4], $var[5], $var[6]);
-                    echo "$var[0]---$var[1]---$var[2]---$var[3]---$var[4]----$var[5]";
                 
+                foreach ($res as $var) {
+                //return new RDV($var[0],$var[1], $var[2], $var[3], $var[4], $var[5]);
+              echo "$var[0],$var[1], $var[2], $var[3], $var[4], $var[5]";   
             }
         } 
             else {
@@ -130,6 +136,8 @@ class Infirmier #extends Employe
     // {
     // }
 }
+
 $f=new Infirmier();
-$f->AfficherRDV("Cin_patient","h52855");
+$f->AfficherRDV("Date_RDV","2022-01-12");
+
 ?>

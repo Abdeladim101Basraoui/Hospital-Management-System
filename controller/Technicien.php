@@ -1,4 +1,5 @@
 <?php
+include('Employe.php');
 
 class Technicien extends Employe
 {
@@ -26,8 +27,8 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="INSERT INTO `materiel` ( `Libelle_materiel`, `Etat_materiel`)
-                  VALUES ('".$mtr->Libelle_materiel."', '".$mtr->Etat_materiel."')";
+            $sql="INSERT INTO materiel ( Libelle_materiel, Etat_materiel)
+                  VALUES ('$mtr->Libelle_materiel', '$mtr->Etat_materiel')";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -45,7 +46,7 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="UPDATE `materiel` SET `Libelle_materiel`='".$mtr->Libelle_materiel."',`Etat_materiel`='".$mtr->Etat_materiel."' WHERE Num_materiel='".$idm."'";
+            $sql="UPDATE materiel SET Libelle_materiel='$mtr->Libelle_materiel',Etat_materiel='$mtr->Etat_materiel' WHERE Num_materiel='$idm'";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -63,14 +64,10 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {  
-           $sql="SELECT * FROM `materiel` ";
+           $sql="SELECT * FROM materiel ";
            $r=$c->query($sql);
-           foreach($r as $v)
-           { 
-
-           }
             
-          return true;  
+          return $r;  
       }
         else 
         {
@@ -84,14 +81,10 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {  
-           $sql="SELECT * FROM `demande_materiel`";
+           $sql="SELECT * FROM demande_materiel";
            $r=$c->query($sql);
-           foreach($r as $v)
-           { 
-
-           }
-            
-          return true;  
+        
+          return $r;  
       }
         else 
         {
@@ -105,14 +98,10 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {  
-           $sql="SELECT * FROM `demande_materiel` WHERE Num_demande=$idd";
+           $sql="SELECT * FROM demande_materiel WHERE Num_demande=$idd";
            $r=$c->query($sql);
-           foreach($r as $v)
-           { 
-
-           }
-            
-          return true;  
+           
+          return $r;  
       }
         else 
         {

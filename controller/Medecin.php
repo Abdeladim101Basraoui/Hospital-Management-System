@@ -44,6 +44,7 @@ class Medecin extends Employe
         }
     }
 
+
     public function ModifierFicheConsultation($con)
     {
         $c= $this->connect();
@@ -83,20 +84,16 @@ class Medecin extends Employe
         $c= $this->connect();
         if($c!=null)
         {
-            $sql ="SELECT * FROM consultation where Cin_patient='$cin'";
-            $r=$c->query($sql);
-            echo "<h1>Fiche Consultation:</h1>";
-            echo "<table>";
-            echo "<tr><th>CIN patient</th><th>Date Consultation</th><th>Note Consultation</th><th>Afficher Fiche</th><th>Modifier Fiche</th></tr>";
-            foreach($r as $v)
-            { 
-                echo "<tr>";
-                echo "<td>$cin</td><td>$v[1]</td><td>$v[2]</td><td><a href='../centre de sante/consultation.php?id=$v[0]'>Afficher</a></td><td><a href='../centre de sante/consultationModif.php?id=$v[0]'>Modifier</a></td>";
-                echo "</tr>";
+            if($cin === null)
+            {
+                $sql ="SELECT * FROM consultation";
             }
-            echo "</table>";
+            else{
+                $sql ="SELECT * FROM consultation where Cin_patient='$cin'";
+            }
+            $r=$c->query($sql);
              
-           return true;  
+           return $r;  
         }
         else 
         {
@@ -112,16 +109,6 @@ class Medecin extends Employe
         {
             $sql ="SELECT * FROM patient";
             $r=$c->query($sql);
-            /*echo "<table>";
-            echo "<tr><th>CIN patient</th><th>Nom patient</th><th>sexe patient</th><th>Afficher Patient</th></tr>";
-            foreach($r as $v)
-            { 
-                echo "<tr>";
-                echo "<td>$v[0]</td><td>$v[1]</td><td>$v[4]</td><td><a href='../centre de sante/patient.php?cin=$v[0]'>Afficher</a></td>";
-                echo "</tr>";
- 
-            }
-            echo "</table>";*/
              
            return $r;  
          }

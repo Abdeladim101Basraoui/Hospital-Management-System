@@ -4,23 +4,25 @@
 class Consultation
 {
 
-    /** @var datetime */
-    private datetime $date_consultation;
-
-    /** @var Text */
-    private Text $note_consultation;
-
-    /** @var Text */
-    private Text $traitement;
+    public $date_consultation;
+    public $note_consultation;
+    public $traitement;
+    public $cin_patient;
 
 
 
     /**
      * Default constructor
      */
-    public function __construct()
+    public function __construct($date,$note,$trait,$cin)
     {
-        // ...
+        $this->date_consultation = $date;
+        $this->note_consultation = $note;
+        $this->traitement = $trait;
+        $this->cin_patient = $cin;
     }
 
 }
+
+
+?>

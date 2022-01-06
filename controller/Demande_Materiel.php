@@ -5,21 +5,22 @@ declare(strict_types=1);
 
 class Demande_Materiel
 {
+    public $num_demande;
+    public $date_demande;
+    public $date_besoin_materiel;
+    public $cin_employe;
+    public $cin_employe_technicien;
+    public $etat_demande;
 
-    private $date_demande;
 
-    private $date_besoin_materiel;
-
-
-
-
-
-    /**
-     * Default constructor
-     */
-    public function __construct()
+    public function __construct($nd,$dd,$dbm,$cnem,$cet,$ed)
     {
-        // ...
+    	 $this->num_demande=$nd;
+         $this->date_demande=$dd;
+         $this->date_besoin_materiel=$dbm;
+         $this->cin_employe=$cnem;
+         $this->cin_employe_technicien=$cet;
+         $this->etat_demande=$ed;
     }
 
 }

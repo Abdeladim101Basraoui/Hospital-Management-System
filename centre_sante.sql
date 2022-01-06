@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : sam. 01 jan. 2022 à 13:08
--- Version du serveur :  10.4.11-MariaDB
--- Version de PHP : 7.4.1
+-- Hôte : 127.0.0.1:3306
+-- Généré le : sam. 01 jan. 2022 à 13:57
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,11 +29,14 @@ USE `centresante`;
 -- Structure de la table `calendrier_rdv`
 --
 
-CREATE TABLE `calendrier_rdv` (
-  `id_calendrier` int(11) NOT NULL,
+DROP TABLE IF EXISTS `calendrier_rdv`;
+CREATE TABLE IF NOT EXISTS `calendrier_rdv` (
+  `id_calendrier` int(11) NOT NULL AUTO_INCREMENT,
   `Date_calendrier_RDV` date NOT NULL,
   `Heure_Calendrier_RDV` time NOT NULL,
-  `id_rdv` int(11) NOT NULL
+  `id_rdv` int(11) NOT NULL,
+  PRIMARY KEY (`id_calendrier`),
+  KEY `Fk_calendrier_rdv` (`id_rdv`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -43,14 +45,17 @@ CREATE TABLE `calendrier_rdv` (
 -- Structure de la table `conge`
 --
 
-CREATE TABLE `conge` (
-  `Num_conge` int(11) NOT NULL,
+DROP TABLE IF EXISTS `conge`;
+CREATE TABLE IF NOT EXISTS `conge` (
+  `Num_conge` int(11) NOT NULL AUTO_INCREMENT,
   `Objet` text NOT NULL,
   `Etat_conge` varchar(20) NOT NULL,
   `Date_conge` date NOT NULL,
   `Duree_conge` float NOT NULL,
   `Note` text NOT NULL,
-  `Cin_employe` varchar(10) NOT NULL
+  `Cin_employe` varchar(10) NOT NULL,
+  PRIMARY KEY (`Num_conge`),
+  KEY `fk_conge` (`Cin_employe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -59,13 +64,17 @@ CREATE TABLE `conge` (
 -- Structure de la table `consultation`
 --
 
-CREATE TABLE `consultation` (
-  `Id_consultation` int(11) NOT NULL,
+DROP TABLE IF EXISTS `consultation`;
+CREATE TABLE IF NOT EXISTS `consultation` (
+  `Id_consultation` int(11) NOT NULL AUTO_INCREMENT,
   `Date_Consultation` date NOT NULL,
   `Note_Consultation` text NOT NULL,
   `Traitement` text NOT NULL,
   `Cin_patient` varchar(10) NOT NULL,
-  `Cin_employe` varchar(10) NOT NULL
+  `Cin_employe` varchar(10) NOT NULL,
+  PRIMARY KEY (`Id_consultation`),
+  KEY `fk_consultation_patient` (`Cin_patient`),
+  KEY `fk_consultation_medecin` (`Cin_employe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -74,13 +83,17 @@ CREATE TABLE `consultation` (
 -- Structure de la table `demande_materiel`
 --
 
-CREATE TABLE `demande_materiel` (
-  `Num_demande` int(11) NOT NULL,
+DROP TABLE IF EXISTS `demande_materiel`;
+CREATE TABLE IF NOT EXISTS `demande_materiel` (
+  `Num_demande` int(11) NOT NULL AUTO_INCREMENT,
   `Date_demande` datetime NOT NULL,
   `Date_besoin_materiel` datetime NOT NULL,
   `Cin_employe` varchar(10) NOT NULL,
   `Cin_employe_technicien` varchar(10) NOT NULL,
-  `Etat_demande` varchar(30) NOT NULL
+  `Etat_demande` varchar(30) NOT NULL,
+  PRIMARY KEY (`Num_demande`),
+  KEY `fk_demande_medecin_chef` (`Cin_employe`),
+  KEY `fk_demande_technicien` (`Cin_employe_technicien`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -89,7 +102,8 @@ CREATE TABLE `demande_materiel` (
 -- Structure de la table `employe`
 --
 
-CREATE TABLE `employe` (
+DROP TABLE IF EXISTS `employe`;
+CREATE TABLE IF NOT EXISTS `employe` (
   `Cin_employe` varchar(10) NOT NULL,
   `Nom_complet` varchar(40) NOT NULL,
   `Date_naissance` date NOT NULL,
@@ -98,7 +112,9 @@ CREATE TABLE `employe` (
   `Tel` varchar(10) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `Role` varchar(30) NOT NULL
+  `Role` varchar(30) NOT NULL,
+  PRIMARY KEY (`Cin_employe`),
+  UNIQUE KEY `Unique_email` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -107,8 +123,10 @@ CREATE TABLE `employe` (
 -- Structure de la table `infirmier`
 --
 
-CREATE TABLE `infirmier` (
-  `Cin_employe` varchar(10) NOT NULL
+DROP TABLE IF EXISTS `infirmier`;
+CREATE TABLE IF NOT EXISTS `infirmier` (
+  `Cin_employe` varchar(10) NOT NULL,
+  PRIMARY KEY (`Cin_employe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -117,10 +135,12 @@ CREATE TABLE `infirmier` (
 -- Structure de la table `materiel`
 --
 
-CREATE TABLE `materiel` (
-  `Num_materiel` int(11) NOT NULL,
+DROP TABLE IF EXISTS `materiel`;
+CREATE TABLE IF NOT EXISTS `materiel` (
+  `Num_materiel` int(11) NOT NULL AUTO_INCREMENT,
   `Libelle_materiel` varchar(50) NOT NULL,
-  `Etat_materiel` varchar(30) NOT NULL
+  `Etat_materiel` varchar(30) NOT NULL,
+  PRIMARY KEY (`Num_materiel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -129,9 +149,12 @@ CREATE TABLE `materiel` (
 -- Structure de la table `materiel_demande`
 --
 
-CREATE TABLE `materiel_demande` (
+DROP TABLE IF EXISTS `materiel_demande`;
+CREATE TABLE IF NOT EXISTS `materiel_demande` (
   `num_demande` int(11) NOT NULL,
-  `num_materiel` int(11) NOT NULL
+  `num_materiel` int(11) NOT NULL,
+  PRIMARY KEY (`num_demande`,`num_materiel`),
+  KEY `fk_materiel_demande` (`num_materiel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -140,8 +163,10 @@ CREATE TABLE `materiel_demande` (
 -- Structure de la table `medecin`
 --
 
-CREATE TABLE `medecin` (
-  `Cin_employe` varchar(10) NOT NULL
+DROP TABLE IF EXISTS `medecin`;
+CREATE TABLE IF NOT EXISTS `medecin` (
+  `Cin_employe` varchar(10) NOT NULL,
+  PRIMARY KEY (`Cin_employe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -150,8 +175,10 @@ CREATE TABLE `medecin` (
 -- Structure de la table `medecin_chef`
 --
 
-CREATE TABLE `medecin_chef` (
-  `Cin_employe` varchar(10) NOT NULL
+DROP TABLE IF EXISTS `medecin_chef`;
+CREATE TABLE IF NOT EXISTS `medecin_chef` (
+  `Cin_employe` varchar(10) NOT NULL,
+  PRIMARY KEY (`Cin_employe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -160,7 +187,8 @@ CREATE TABLE `medecin_chef` (
 -- Structure de la table `patient`
 --
 
-CREATE TABLE `patient` (
+DROP TABLE IF EXISTS `patient`;
+CREATE TABLE IF NOT EXISTS `patient` (
   `Cin_patient` varchar(10) NOT NULL,
   `Nom_complet` varchar(40) NOT NULL,
   `Date_naissance` date NOT NULL,
@@ -170,8 +198,18 @@ CREATE TABLE `patient` (
   `Email` varchar(30) NOT NULL,
   `Password` varchar(50) NOT NULL,
   `Historique` text NOT NULL,
-  `Cin_employe` varchar(10) NOT NULL
+  `Cin_employe` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`Cin_patient`),
+  UNIQUE KEY `Unique_email` (`Email`) USING BTREE,
+  KEY `fk_patient_employe` (`Cin_employe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `patient`
+--
+
+INSERT INTO `patient` (`Cin_patient`, `Nom_complet`, `Date_naissance`, `Addresse`, `Sexe`, `Tel`, `Email`, `Password`, `Historique`, `Cin_employe`) VALUES
+('h52855', 'gvhjk', '2020-08-09', 'fghjk ghbj', 'femme', '0615203690', 'fgvhbj,@fgvj.hg', 'fghjbn', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -179,13 +217,17 @@ CREATE TABLE `patient` (
 -- Structure de la table `rdv`
 --
 
-CREATE TABLE `rdv` (
-  `Id_rdv` int(11) NOT NULL,
-  `Date_RDV` date NOT NULL DEFAULT current_timestamp(),
+DROP TABLE IF EXISTS `rdv`;
+CREATE TABLE IF NOT EXISTS `rdv` (
+  `Id_rdv` int(11) NOT NULL AUTO_INCREMENT,
+  `Date_RDV` date NOT NULL,
   `Heure_RDV` time NOT NULL,
   `Objet` text NOT NULL,
   `Cin_employe` varchar(10) NOT NULL,
-  `Cin_patient` varchar(10) NOT NULL
+  `Cin_patient` varchar(10) NOT NULL,
+  PRIMARY KEY (`Id_rdv`),
+  KEY `fk_rdv_infermier` (`Cin_employe`),
+  KEY `fk_rdv_patient` (`Cin_patient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -194,143 +236,11 @@ CREATE TABLE `rdv` (
 -- Structure de la table `technicien`
 --
 
-CREATE TABLE `technicien` (
-  `Cin_employe` varchar(10) NOT NULL
+DROP TABLE IF EXISTS `technicien`;
+CREATE TABLE IF NOT EXISTS `technicien` (
+  `Cin_employe` varchar(10) NOT NULL,
+  PRIMARY KEY (`Cin_employe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `calendrier_rdv`
---
-ALTER TABLE `calendrier_rdv`
-  ADD PRIMARY KEY (`id_calendrier`),
-  ADD KEY `Fk_calendrier_rdv` (`id_rdv`);
-
---
--- Index pour la table `conge`
---
-ALTER TABLE `conge`
-  ADD PRIMARY KEY (`Num_conge`),
-  ADD KEY `fk_conge` (`Cin_employe`);
-
---
--- Index pour la table `consultation`
---
-ALTER TABLE `consultation`
-  ADD PRIMARY KEY (`Id_consultation`),
-  ADD KEY `fk_consultation_patient` (`Cin_patient`),
-  ADD KEY `fk_consultation_medecin` (`Cin_employe`);
-
---
--- Index pour la table `demande_materiel`
---
-ALTER TABLE `demande_materiel`
-  ADD PRIMARY KEY (`Num_demande`),
-  ADD KEY `fk_demande_medecin_chef` (`Cin_employe`),
-  ADD KEY `fk_demande_technicien` (`Cin_employe_technicien`);
-
---
--- Index pour la table `employe`
---
-ALTER TABLE `employe`
-  ADD PRIMARY KEY (`Cin_employe`),
-  ADD UNIQUE KEY `Unique_email` (`Email`);
-
---
--- Index pour la table `infirmier`
---
-ALTER TABLE `infirmier`
-  ADD PRIMARY KEY (`Cin_employe`);
-
---
--- Index pour la table `materiel`
---
-ALTER TABLE `materiel`
-  ADD PRIMARY KEY (`Num_materiel`);
-
---
--- Index pour la table `materiel_demande`
---
-ALTER TABLE `materiel_demande`
-  ADD PRIMARY KEY (`num_demande`,`num_materiel`),
-  ADD KEY `fk_materiel_demande` (`num_materiel`);
-
---
--- Index pour la table `medecin`
---
-ALTER TABLE `medecin`
-  ADD PRIMARY KEY (`Cin_employe`);
-
---
--- Index pour la table `medecin_chef`
---
-ALTER TABLE `medecin_chef`
-  ADD PRIMARY KEY (`Cin_employe`);
-
---
--- Index pour la table `patient`
---
-ALTER TABLE `patient`
-  ADD PRIMARY KEY (`Cin_patient`),
-  ADD UNIQUE KEY `Unique_email` (`Email`) USING BTREE,
-  ADD KEY `fk_patient_employe` (`Cin_employe`);
-
---
--- Index pour la table `rdv`
---
-ALTER TABLE `rdv`
-  ADD PRIMARY KEY (`Id_rdv`),
-  ADD KEY `fk_rdv_infermier` (`Cin_employe`),
-  ADD KEY `fk_rdv_patient` (`Cin_patient`);
-
---
--- Index pour la table `technicien`
---
-ALTER TABLE `technicien`
-  ADD PRIMARY KEY (`Cin_employe`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `calendrier_rdv`
---
-ALTER TABLE `calendrier_rdv`
-  MODIFY `id_calendrier` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `conge`
---
-ALTER TABLE `conge`
-  MODIFY `Num_conge` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `consultation`
---
-ALTER TABLE `consultation`
-  MODIFY `Id_consultation` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `demande_materiel`
---
-ALTER TABLE `demande_materiel`
-  MODIFY `Num_demande` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `materiel`
---
-ALTER TABLE `materiel`
-  MODIFY `Num_materiel` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `rdv`
---
-ALTER TABLE `rdv`
-  MODIFY `Id_rdv` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées

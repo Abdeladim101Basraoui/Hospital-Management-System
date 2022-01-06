@@ -5,32 +5,24 @@ declare(strict_types=1);
 
 class Conge
 {
+    public  $num_conge;
+    public  $cin_employe;
+    public  $objet;
+    public  $etat_conge;
+    public  $date_conge;
+    public  $duree_conge;
+    public  $note;
 
-    /** @var String */
-    private String $objet;
-
-    /** @var String */
-    private String $etat_conge;
-
-    /** @var date */
-    private date $date_conge;
-
-    /** @var float */
-    private float $duree_conge;
-
-    /** @var Text */
-    private Text $note;
-
-
-
-
-
-    /**
-     * Default constructor
-     */
-    public function __construct()
+    public function __construct($nc,$obj,$et,$dt,$dr,$nt)
     {
-        // ...
+         $this->num_conge=$nc;
+         $this->objet=$obj;
+         $this->etat_conge=$et;
+         $this->date_conge=$dt;
+         $this->duree_conge=$dr;
+         $this->note=$nt;
+
     }
 
 }
+?>

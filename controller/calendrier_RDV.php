@@ -12,7 +12,7 @@ class calendrier_RDV
     /** @var Time */
     private Time $heure_calendrier;
 
-    public array $est inclus;
+    // public array $est inclus;
 
     /**
      * Default constructor

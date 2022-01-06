@@ -83,11 +83,11 @@ class Infirmier #extends Employe
         try {
             $c = $this->connect();
             if ($c != null) {
-                $pre=$c->prepare("SELECT * FROM `rdv` WHERE ? =");
-                $c->query($req);
-                foreach ($c as $var) {
+              $req = "SELECT * FROM `rdv` WHERE $col='$val'";
+                $res = $c->query($req);
+                foreach ($res as $var) {
                     // return new RDV($var[1], $var[2], $var[3], $var[4], $var[5], $var[6]);
-                    echo "$var[0]\t$var[1]\t$var[2]\t$var[3]\t$var[4]\t$var[5]\t";
+                    echo "$var[0]---$var[1]---$var[2]---$var[3]---$var[4]----$var[5]";
                 
             }
         } 

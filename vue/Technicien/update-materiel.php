@@ -1,25 +1,25 @@
 <?php
-include('../../controller/Consultation.php');
-include('../../controller/Medecin.php');
+include('../../controller/Materiel.php');
+include('../../controller/Technicien.php');
 
-$id = $_GET["id"];
-$m = new Medecin('A12345',null,null,null,null,null,null,null,null);
-$consult = $m->AfficherFicheConsultation($id);
+$id = $_GET['id'];
+$t = new Technicien('T12345',null,null,null,null,null,null,null,null);
+$mat = $t->AfficherMateriel($id);
 
 
-if(isset($_POST['datec'])&&isset($_POST['note'])&&isset($_POST['trait']))
+if(!empty($_POST['lbl'])&&!empty($_POST['etat']))
 {
-    $datec = $_POST["datec"];
-    $note = $_POST["note"];
-    $trait = $_POST["trait"];
-    $cin = $_POST["cin"];
+    $lbl = $_POST["lbl"];
+    $etat = $_POST["etat"];
 
-    $c= new Consultation($datec,$note,$trait,$cin);
-    if($m->ModifierFicheConsultation($c))
-        header('Location: show-consultations?cin='.$cin);
+    $m= new Materiel($lbl,$etat);
+    $m->num_materiel = $id;
+
+    if($t->ModifierMateriel($m))
+        header('Location: materiels.php');
 }
 else{
-
+   
 }
 ?>
 <!DOCTYPE html>
@@ -64,7 +64,7 @@ else{
             </ul>
 
         </div>
-        <div class="sidebar" id="sidebar">
+        <di class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -82,6 +82,7 @@ else{
                     </ul>
                 </div>
             </div>
+            </di>
         </div>
         <div class="page-wrapper">
             <div class="content">
@@ -93,49 +94,36 @@ else{
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <?php
-                        foreach ($consult as $v)
-                            echo "
+                            foreach ($mat as $v)
+                            {
+                                echo "
                                 <form method='post'>
                                     <div class='row'>
                                         <div class='col-sm-6'>
                                             <div class='form-group'>
-                                                <label>CIN Patient : <span class='text-primary'>$v[4]</span></label>
-                                                <input class='form-control' name='cin' type='text' value='$v[4]' hidden>
+                                                <label>Libelle Materiel <span class='text-danger'>*</span></label>
+                                                <div class='cal-icon'>
+                                                    <input class='form-control' name='lbl' type='text' value='$v[1]'>
+                                                </div>
                                             </div>
                                         </div> 
                                     
                                         <div class='col-sm-12'>
                                             <div class='form-group'>
-                                                <label>Date Consultation <span class='text-danger'>*</span></label>
-                                                <div class='cal-icon'>
-                                                    <input class='form-control' name='datec' type='text' value='$v[1]'>
-                                                </div>
-                                            </div>
-                                        </div>
-                                                
-                                        <div class='col-sm-12'>
-                                            <div class='form-group'>
-                                                <label>Note Consultation</label>
+                                                <label>Etat Materiel</label>
                                                 <div class=''>
-                                                    <textarea type='text' name='note' class='form-control'>$v[2]</textarea>
+                                                    <input type='text' name='etat' class='form-control' value='$v[2]'>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class='col-sm-12'>
-                                            <div class='form-group'>
-                                                <label>Traitement</label>
-                                                <div class=''>
-                                                    <textarea type='text' name='trait' class='form-control'>$v[3]</textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class='m-t-20 text-center'>
-                                        <input type='submit' class='btn btn-primary' value='Modifier Consultation'>
+                                        <input type='submit' class='btn btn-primary' value='Modifier Materiel'>
                                     </div>
                                 </form>
-                            ";
-                            ?>
+
+                                ";
+                            }
+                        ?>
                         
                     </div>
                 </div>

@@ -22,13 +22,13 @@ class Technicien extends Employe
         }
     }
     
-    public function AjouterMateriel( $mtr)
+    public function AjouterMateriel($mtr)
     {
         $c=$this->connect();
         if($c!=NULL)
         {
             $sql="INSERT INTO materiel ( Libelle_materiel, Etat_materiel)
-                  VALUES ('$mtr->Libelle_materiel', '$mtr->Etat_materiel')";
+                  VALUES ('$mtr->libelle_materiel', '$mtr->etat_materiel')";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -41,12 +41,12 @@ class Technicien extends Employe
     }
 
    
-    public function ModifierMateriel( $mtr,$idm)
+    public function ModifierMateriel($mtr)
     {
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="UPDATE materiel SET Libelle_materiel='$mtr->Libelle_materiel',Etat_materiel='$mtr->Etat_materiel' WHERE Num_materiel='$idm'";
+            $sql="UPDATE materiel SET Libelle_materiel='$mtr->libelle_materiel',Etat_materiel='$mtr->etat_materiel' WHERE Num_materiel='$mtr->num_materiel'";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -65,6 +65,21 @@ class Technicien extends Employe
         if($c!=NULL)
         {  
            $sql="SELECT * FROM materiel ";
+           $r=$c->query($sql);
+            
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+    public function AfficherMateriel($idm)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM materiel  WHERE Num_materiel='$idm'";
            $r=$c->query($sql);
             
           return $r;  
@@ -106,6 +121,22 @@ class Technicien extends Employe
         else 
         {
 
+        }
+    }
+    public function ModifierDemande($dem)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="UPDATE demande_materiel SET Cin_employe_technicien ='$this->CIN',Etat_demande='$dem->etat_demande' WHERE Num_demande = '$dem->num_demande'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
         }
     }
 

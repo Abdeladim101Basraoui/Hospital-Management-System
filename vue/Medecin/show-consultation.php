@@ -61,7 +61,7 @@ $consult = $m->AfficherFicheConsultation($id);
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="patients.php">Patients List</a></li>
-								<li><a href="show-consultations.php">Mes Consultation</a></li>
+								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
 						</li>         
                     </ul>
@@ -72,7 +72,7 @@ $consult = $m->AfficherFicheConsultation($id);
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Add Consultation</h4>
+                        <h4 class="page-title">Consultation</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -104,8 +104,10 @@ $consult = $m->AfficherFicheConsultation($id);
                                             </div>
                                         </div>
                                     </div>
+                                    <a href='update-consultation.php?id=$v[0] class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Consultation</a>
                             ";
                             ?>
+
                         
                     </div>
                 </div>

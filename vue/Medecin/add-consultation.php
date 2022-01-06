@@ -74,7 +74,7 @@ else{
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="patients.php">Patients List</a></li>
-								<li><a href="show-consultations.php">Mes Consultation</a></li>
+								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
 						</li>         
                     </ul>

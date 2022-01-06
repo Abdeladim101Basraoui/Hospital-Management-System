@@ -61,7 +61,7 @@
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="patients.php">Patients List</a></li>
-								<li><a href="show-consultations.php">Mes Consultation</a></li>
+								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
 						</li>         
                     </ul>
@@ -116,7 +116,7 @@
 												<div class='col-sm dropdown dropdown-action'>
 													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
-														<a class='dropdown-item' href='show-consultations.php?cin=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Consultations</a>
+														<a class='dropdown-item' href='consultations.php?cin=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Consultations</a>
 													</div>
 												</div>
 											</div>

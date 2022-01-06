@@ -16,7 +16,7 @@ if(isset($_POST['datec'])&&isset($_POST['note'])&&isset($_POST['trait']))
 
     $c= new Consultation($datec,$note,$trait,$cin);
     if($m->ModifierFicheConsultation($c))
-        header('Location: show-consultations?cin='.$cin);
+        header('Location: consultations?cin='.$cin);
 }
 else{
 
@@ -76,7 +76,7 @@ else{
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="patients.php">Patients List</a></li>
-								<li><a href="show-consultations.php">Mes Consultation</a></li>
+								<li><a href="consultations.php">Mes Consultation</a></li>
 							</ul>
 						</li>         
                     </ul>
@@ -93,7 +93,8 @@ else{
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <?php
-                        foreach ($consult as $v)
+                        foreach ($consult as $v){
+
                             echo "
                                 <form method='post'>
                                     <div class='row'>
@@ -135,6 +136,7 @@ else{
                                     </div>
                                 </form>
                             ";
+                        }
                             ?>
                         
                     </div>

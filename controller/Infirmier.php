@@ -57,24 +57,18 @@ class Infirmier #extends Employe
     //     // TODO implement here
     // }
 
-    // /**
-    //  * 
-    //  */
-    // public function ListerRDV()
-    // {
-    //     try {
-    //         $c = $this->connect();
-    //         if ($c != null) {
-    //             $req = 'SELECT * FROM `rdv`';
-    //             $res =$c->query($req);
-    //             foreach($res as $var)
-    //             return new RDV();
-    //         } else
-    //             echo "probleme in the ListerRDV Method";
-    //     } catch (Exception $ex) {
-    //         echo "$ex";
-    //     }
-    // }
+    /**
+     * 
+     */
+    public function ListerRDV()
+    {
+        try {
+          
+        $this->AfficherRDV("Cin_Patient","not null");
+        } catch (Exception $ex) {
+            echo "$ex";
+        }
+    }
 
     /**
      * @param  $col = column name
@@ -86,9 +80,9 @@ class Infirmier #extends Employe
             $c = $this->connect();
             if ($c != null) {
                 $req = "SELECT * FROM `rdv` WHERE $col='$val'";
-                if($val==="null")
+                if($val==="null" ||$val==="not null")
                 {
-                $req = "SELECT * FROM `rdv` WHERE $col is null";
+                $req = "SELECT * FROM `rdv` WHERE $col is $val";
                 }
                 $res = $c->query($req);
                 
@@ -138,6 +132,6 @@ class Infirmier #extends Employe
 }
 
 $f=new Infirmier();
-$f->AfficherRDV("Date_RDV","2022-01-12");
+$f->ListerRDV();
 
 ?>

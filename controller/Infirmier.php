@@ -1,5 +1,5 @@
 <?php
-#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
+#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
 trait myconnect{
    public  $con;
     public function connect()
@@ -21,44 +21,15 @@ class Infirmier #extends Employe
 {
     
  public $req;
-    
-    // public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
-    // {
-    //     parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
-       
-    // }
-
-
  use myconnect;
+    
+ public function __construct()
+ {
 
-        public function __construct()
-        {
+ }
 
-        }
-    // public function ModifierRDV($RDV)
-    // {
-    // }
-
-    // /**
-    //  * @param  $RDV
-    //  */
-    // public function SupprimerRDV($RDV)
-    // {
-    //     // TODO implement here
-    // }
-
-
-            #check if the 
-    // /**
-    //  * @param  $RDV
-    //  */
-    // public function AjouterRDV($RDV)
-    // {
-    //     // TODO implement here
-    // }
-
-    /**
-     * 
+     /**
+     * show all the patients
      */
     public function ListerRDV()
     {
@@ -70,11 +41,12 @@ class Infirmier #extends Employe
         }
     }
 
-    /**
+
+        /**
      * @param  $col = column name
      * @param  $val = value to search for
      */
-    public function AfficherRDV($col,$val)
+    public function AfficherRDV($val,$col="Cin_patient")
     {
         try {
             $c = $this->connect();
@@ -99,6 +71,32 @@ class Infirmier #extends Employe
         }
     }
 
+
+
+    // public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
+    // {
+    //     parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
+       
+    // }
+
+
+            
+    // /**
+    //  * @param  $RDV
+    //  */
+    // public function AjouterRDV($RDV)
+    // {
+    //     // TODO implement here
+    //ajutouter rdv
+    //modifier id_rdv dans la calendrier
+    // }
+
+
+
+#-------------annuler rdv function
+                        #modifier etat
+                        #supprimer rdv
+
     // /**
     //  * @param  $Patient
     //  */
@@ -110,9 +108,10 @@ class Infirmier #extends Employe
     // /**
     //  * @param  $Patient
     //  */
-    // public function ModiferPatient($Patient)
+    // public function ModifierPatient($Patient)
     // {
     //     // TODO implement here
+
     // }
 
     // /**

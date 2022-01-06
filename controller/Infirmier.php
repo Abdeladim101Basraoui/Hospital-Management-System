@@ -7,7 +7,6 @@ trait myconnect{
         try 
         { 
             $con= new PDO("mysql:host=localhost;dbname=centresante","b1sra0u1","root");
-            echo "connected";
             return $con;
         }
         catch (Exception $e)
@@ -47,6 +46,8 @@ class Infirmier #extends Employe
     //     // TODO implement here
     // }
 
+
+            #check if the 
     // /**
     //  * @param  $RDV
     //  */
@@ -74,29 +75,13 @@ class Infirmier #extends Employe
     //     }
     // }
 
-    // /**
-    //  * @param  $RDV
-    //  */
-    // public function AfficherRDV($RDV)
-    // {
-    //     try {
-    //         $c = $this->connect();
-    //         if ($c != null) {
-    //             $req = 'SELECT `Id_rdv`, `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient` FROM `rdv` WHERE ' +
-    //                 '`Id_rdv`=' . "$RDV" . '';
-    //             $c->query($req);
-    //             foreach ($c as $var) {
-    //                 return new RDV($var[1], $var[2], $var[3], $var[4], $var[5], $var[6]);
-    //             }
-
-    //             # code...
-    //         } else {
-    //             echo "nothing in the RDV Table";
-    //         }
-    //     } catch (Exception $ex) {
-    //         echo "$ex";
-    //     }
-    // }
+    /**
+     * @param  $RDV
+     */
+    public function AfficherRDV($col,$val)
+    {
+       
+    }
 
     // /**
     //  * @param  $Patient
@@ -129,5 +114,6 @@ class Infirmier #extends Employe
     // {
     // }
 }
-
+$f=new Infirmier();
+$f->AfficherRDV("Cin_patient","h52855");
 ?>

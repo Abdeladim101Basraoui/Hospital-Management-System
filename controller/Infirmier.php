@@ -1,5 +1,5 @@
 <?php
-#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
+#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
 trait myconnect{
    public  $con;
     public static function connect()

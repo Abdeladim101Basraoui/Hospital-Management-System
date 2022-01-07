@@ -30,7 +30,6 @@ class Employe
         $this->role=$rol;
   
     }
-    
 
     public function connect()
    {
@@ -70,7 +69,7 @@ class Employe
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="INSERT INTO `conge` (`Num_conge`, `Objet`, `Etat_conge`, `Date_conge`, `Duree_conge`, `Note`, `Cin_employe`) VALUES (NULL, '".$cng->Objet."', 'demandé', '".$cng->Date_conge."', '".$cng->Duree_conge."', '".$cng->Note."', '".$cng->Cin_employe."')";
+            $sql="INSERT INTO conge (Num_conge, Objet, Etat_conge, Date_conge, Duree_conge, Note, Cin_employe) VALUES (NULL, '$cng->objet', 'demandé', '$cng->date_conge', '$cng->duree_conge', '$cng->note', '$this->CIN')";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -89,7 +88,17 @@ class Employe
              return true;  
          }   
     }
+    public function ListerMesDemandes()
+    {
+         $c=$this->connect();
+         if($c!=NULL)
+         {  
+            $sql="SELECT * FROM conge WHERE Cin_employe ='$this->CIN'";
+            $r=$c->query($sql);
+            return $r;  
+        }
 
+    }
    
 
 }

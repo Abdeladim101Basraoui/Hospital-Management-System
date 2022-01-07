@@ -96,7 +96,7 @@
 								<?php
         							include('../../controller/Infirmier.php');
 
-									$m = new Infirmier(null,null,null,null,null,null,null,null,null);
+									$m = new Infirmier('hudhs',null,null,null,null,null,null,null,null);
 									$pat = $m->ListerPatients();
 
 									foreach($pat as $p){

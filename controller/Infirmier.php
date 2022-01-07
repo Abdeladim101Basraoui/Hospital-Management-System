@@ -43,9 +43,9 @@ class Infirmier extends Employe
     public $req;
     use myconnect;
 
-    public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
     {
-        parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
+        parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
     }
   
     /**

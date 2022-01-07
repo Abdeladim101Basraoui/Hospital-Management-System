@@ -24,9 +24,8 @@ class calendrier_RDV
                 $res = $c->query("SELECT `Date_calendrier_RDV`, `Heure_Calendrier_RDV`FROM `calendrier_rdv` WHERE id_rdv is null");
                 foreach ($res as $var) {
                     $dates[] = array($var[0], $var[1]);
-                    echo $dates[$x][0]." ===== ".$dates[$x][1]."\n";
-                    $x++;
                 }
+                return $dates;
             }
         } catch (Exception $th) {
             echo "$th";

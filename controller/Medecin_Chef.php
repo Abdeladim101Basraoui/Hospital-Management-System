@@ -86,8 +86,68 @@ class Medecin_Chef extends Medecin
             return $r;  
         }
     }
+    public function ListerDemande()
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM demande_materiel";
+           $r=$c->query($sql);
+        
+          return $r;  
+      }
+        else 
+        {
 
+        }
+    }
     
+    public function ListerMateriel()
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM materiel ";
+           $r=$c->query($sql);
+            
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+    public function ListerMaterielDemande($id)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM materiel as m,materiel_demande as md where md.num_materiel = m.num_materiel and md.num_demande = $id ; ";
+           $r=$c->query($sql);
+            
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+    public function AfficherDemandeMat($idd)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM demande_materiel WHERE Num_demande=$idd";
+           $r=$c->query($sql);
+           
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+
     public function AfficherDemande($num_conge)
     {
          $c=$this->connect();

@@ -3,14 +3,14 @@ include('../../controller/Materiel.php');
 include('../../controller/Medecin_Chef.php');
 if(!empty($_POST['lbl'])&&!empty($_POST['etat']))
 {
-    $lbl = $_POST["lbl"];
-    $etat = $_POST["etat"];
+    $dd = $_POST["lbl"];
+    $dbm = $_POST["etat"];
     
 
     $t = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
     
-    $m= new Materiel($lbl,$etat);
-    if($t->AjouterMateriel($m))
+    $m= new Demande_Materiel($dd,$dbm,null,null,null);
+    if($t->DemandeMateriel($m))
         header('Location: materiels.php');
 }
 else{
@@ -113,24 +113,24 @@ else{
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Libelle Materiel <span class="text-danger">*</span></label>
+                                        <label>Date Demande <span class="text-danger">*</span></label>
                                         <div class="cal-icon">
-                                            <input class="form-control" name="lbl" type="text">
+                                            <input class="form-control" name="ddm" type="text">
                                         </div>
                                     </div>
                                 </div>
                                         
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Etat Materiel</label>
+                                        <label>Date Besoin Materiel</label>
                                         <div class="">
-                                            <input type="text" name="etat" class="form-control">
+                                            <input type="text" name="dbm" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" value="Create Materiel">
+                                <input type="submit" class="btn btn-primary" value="Create Demande">
                             </div>
                         </form>
                     </div>

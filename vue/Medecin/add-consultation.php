@@ -6,8 +6,12 @@ if(!empty($_POST['datec'])&&!empty($_POST['note'])&&!empty($_POST['trait']))
     $datec = $_POST["datec"];
     $note = $_POST["note"];
     $trait = $_POST["trait"];
-    $cin = $_GET["cin"];
+    if(!empty($_GET['cin']))
+        $cin = $_GET["cin"];
+    else 
+        $cin = $_POST["cin"];
     
+
 
     $m = new Medecin('A12345',null,null,null,null,null,null,null,null);
     
@@ -101,7 +105,9 @@ else{
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>CIN Patient : <span class="text-primary"><?php echo $_GET['cin'];?></span></label>
+                                        <label>CIN Patient : <span class="text-primary"><?php if(!isset($_GET['cin'])){echo "<span class='text-danger'>*</span> <div>
+                                            <input class='form-control' name='cin' type='text'>
+                                        </div>"; }else{echo $_GET['cin'];}?></span></label>
                                     </div>
                                 </div> 
                                 <div class="col-sm-12">

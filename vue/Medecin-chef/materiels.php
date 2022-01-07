@@ -99,7 +99,7 @@
 										<th>ID</th>
 										<th>Libelle</th>
 										<th>Etat</th>
-										<th class="text-right">Action</th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -116,16 +116,6 @@
 											<td><i class='fa fa-hospital-o'></i> $p[0]</td>
 											<td>$p[1]</td>
 											<td>$p[2]</td>
-											<td class='text-right'>
-											<div class='row'>
-												<div class='col-sm dropdown dropdown-action'>
-													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
-													<div class='dropdown-menu dropdown-menu-right'>
-														<a class='dropdown-item' href='update-materiel.php?id=$p[0]'><i class='fa fa-pencil m-r-5'></i>Modifier Materiel</a>
-													</div>
-												</div>
-											</div>
-											</td>
 										</tr>
 										";
 									}

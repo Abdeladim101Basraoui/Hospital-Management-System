@@ -4,7 +4,7 @@ include('../../controller/Medecin_Chef.php');
 
 $id = $_GET['id'];
 $t = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
-$dem = $t->AfficherDemande($id);
+$dem = $t->AfficherDemandeMat($id);
 
 ?>
 <!DOCTYPE html>
@@ -75,14 +75,14 @@ $dem = $t->AfficherDemande($id);
 								<li><a href="employes.php">Employes List</a></li>
 								<li><a href="conges.php">Demandes Conge</a></li>
 							</ul>
-						</li>  
+						</li> 
                         <li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>
+						</li>  
                     </ul>
                 </div>
             </div>
@@ -167,11 +167,13 @@ $dem = $t->AfficherDemande($id);
 										</tr>
 										";
 									}
+                                    echo "
+                                    </tbody>
+                                </table>
+                            </div>
+                            <a href='update-demande.php?id=$id' class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Demande</a>
+                                    ";
 								?>
-								</tbody>
-							</table>
-						</div>
-                        <a href='update-demande.php?id=$v[0]' class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Demande</a>
 
 					</div>
                 </div>

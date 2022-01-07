@@ -4,7 +4,7 @@ include('../../controller/Technicien.php');
 
 $id = $_GET['id'];
 $t = new Technicien('T12345',null,null,null,null,null,null,null,null);
-$dem = $t->AfficherDemande($id);
+$dem = $t->AfficherDemandeMat($id);
 
 
 if(isset($_POST['etat']))
@@ -93,7 +93,7 @@ else{
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Add Consultation</h4>
+                        <h4 class="page-title">Modifier Demande</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -133,7 +133,7 @@ else{
                                         </div>
                                     </div>
                                     <div class='m-t-20 text-center'>
-                                        <input type='submit' class='btn btn-primary' value='Modifier Consultation'>
+                                        <input type='submit' class='btn btn-primary' value='Modifier Demande'>
                                     </div>
                                 </form>
 

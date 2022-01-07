@@ -47,11 +47,11 @@ class Infirmier #extends Employe
     /**
      * show all the patients
      */
-    public function ListerRDV()
+    public function afficherRDV()
     {
         try {
 
-            $this->AfficherRDV( "not null","Cin_Patient");
+            $this->ListerRDV( "not null","Cin_Patient");
         } catch (Exception $ex) {
             echo "$ex";
         }
@@ -63,7 +63,7 @@ class Infirmier #extends Employe
      * @param  $val = value to search for
      */
     public static RDV $rdv;
-    public function AfficherRDV($val, $col = "Cin_patient")
+    public function ListerRDV($val, $col = "Cin_patient")
     {
 
         try {
@@ -101,7 +101,60 @@ class Infirmier #extends Employe
 
     // }
 
+    public function ListerPatients()
+    {
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="SELECT * FROM patient";
+            $r=$c->query($sql);
+             
+           return $r;  
+         }
+         else 
+         {
+ 
+         }
+    }
+    public function AjouterRDV($r)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="INSERT INTO rdv(Date_RDV, Heure_RDV, Objet, Cin_employe, Cin_patient) VALUES ('$r->date_RDV','$r->heure_rdv','$r->objet','$this->CIN','$r->cin_patient')";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+    }
+    public function SupprimerRDV($id)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="DELETE FROM rdv WHERE Id_rdv = '$id'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+    }
 
+    public function AjouterPatient($pat)
+    {
+        $c= $this->connect();
+        if($c!=null)
+        {
+            $sql ="INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, Password, Historique, Cin_employe) VALUES ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
+            $query = $c->prepare($sql);
+            $query->execute();
+            return true;
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
+    }
 
     // /**
     //  * @param  $RDV

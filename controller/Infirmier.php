@@ -65,7 +65,6 @@ class Infirmier #extends Employe
      * @param  $col = column name
      * @param  $val = value to search for
      */
-    public static RDV $rdv;
     public function ListerRDV($val, $col = "Cin_patient")
     {
 

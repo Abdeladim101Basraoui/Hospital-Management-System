@@ -2,16 +2,33 @@
 #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
 trait myconnect{
    public  $con;
-    public function connect()
+    public static function connect()
     {
-        try 
-        { 
-            $con= new PDO("mysql:host=localhost;dbname=centresante","b1sra0u1","root");
+        try {
+            $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "root");
+            echo "<script>alert('connected');</script>";
             return $con;
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             echo "connection failed $e";
+        }
+    }
+    public static function insertCalendar()
+    {
+        try {
+            $c = self::connect();
+            if ($c != null) {
+                for ($i = 8; $i < 17; $i++) {
+                    for ($j = 0; $j < 4; $j+=3) {
+                         $req = "INSERT INTO `calendrier_rdv` (`id_calendrier`, `Date_calendrier_RDV`, `Heure_Calendrier_RDV`, `id_rdv`) VALUES (NULL, '2022-01-08', '$i:".$j."0:00', NULL);";
+                         $res =$c->prepare($req);
+                         $res->execute();
+                         
+                    }
+                }
+                echo "<script>alert('added to database');</script>";
+            }
+        } catch (Exception $ex) {
+            echo "$ex";
         }
     }
 }
@@ -19,51 +36,56 @@ trait myconnect{
 
 class Infirmier #extends Employe
 {
-    
- public $req;
- use myconnect;
-    
- public function __construct()
- {
 
- }
+    public $req;
+    use myconnect;
 
-     /**
+    public function __construct()
+    {
+    }
+
+    /**
      * show all the patients
      */
     public function ListerRDV()
     {
         try {
-          
-        $this->AfficherRDV("Cin_Patient","not null");
+
+            $this->AfficherRDV( "not null","Cin_Patient");
         } catch (Exception $ex) {
             echo "$ex";
         }
     }
 
 
-        /**
+    /**
      * @param  $col = column name
      * @param  $val = value to search for
      */
-    public function AfficherRDV($val,$col="Cin_patient")
+    public static RDV $rdv;
+    public function AfficherRDV($val, $col = "Cin_patient")
     {
+
         try {
-            $c = $this->connect();
+            $c = Infirmier::connect();
+            $tbl = array();
+            $x = 0;
             if ($c != null) {
                 $req = "SELECT * FROM `rdv` WHERE $col='$val'";
-                if($val==="null" ||$val==="not null")
-                {
-                $req = "SELECT * FROM `rdv` WHERE $col is $val";
+                if ($val === "null" || $val === "not null") {
+                    $req = "SELECT * FROM `rdv` WHERE $col is $val";
                 }
                 $res = $c->query($req);
-                
+
                 foreach ($res as $var) {
-                //return new RDV($var[0],$var[1], $var[2], $var[3], $var[4], $var[5]);
-              echo "$var[0],$var[1], $var[2], $var[3], $var[4], $var[5]";   
-            }
-        } 
-            else {
+                    $tbl[$x] = new RDV($var[0],$var[1], $var[2], $var[3], $var[4], $var[5]);
+                 echo $tbl[$x];
+                 echo count($tbl);
+                //  echo $x++;
+                    // echo "$var[0],$var[1], $var[2], $var[3], $var[4], $var[5]";
+                }
+                
+            } else {
                 echo "nothing in the RDV Table";
             }
         } catch (Exception $ex) {
@@ -76,11 +98,11 @@ class Infirmier #extends Employe
     // public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
     // {
     //     parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
-       
+
     // }
 
 
-            
+
     // /**
     //  * @param  $RDV
     //  */
@@ -93,9 +115,9 @@ class Infirmier #extends Employe
 
 
 
-#-------------annuler rdv function
-                        #modifier etat
-                        #supprimer rdv
+    #-------------annuler rdv function
+    #modifier etat
+    #supprimer rdv
 
     // /**
     //  * @param  $Patient
@@ -129,8 +151,3 @@ class Infirmier #extends Employe
     // {
     // }
 }
-
-$f=new Infirmier();
-$f->ListerRDV();
-
-?>

@@ -37,19 +37,17 @@ trait myconnect
 }
 
 
-class Infirmier #extends Employe
+class Infirmier extends Employe
 {
 
     public $req;
     use myconnect;
 
-    // public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
-    // {
-    //     parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
-    // }
-    public function __construct()
+    public function __construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol)
     {
+        parent::__construct($c, $nc, $dn, $adr, $sx, $tl, $eml, $pwr, $rol);
     }
+  
     /**
      * show all the patients
      */
@@ -81,9 +79,9 @@ class Infirmier #extends Employe
                 }
               
                 $res = $c->query($req);
-                foreach ($res as  $val) {
-                    $tbl[] = array($val[0],$val[1],$val[2],$val[3],$val[4],$val[5]);
-                }
+                // foreach ($res as  $val) {
+                //     $tbl[] = array($val[0],$val[1],$val[2],$val[3],$val[4],$val[5]);
+                // }
                 return $res;
             }
         } catch (Exception $ex) {

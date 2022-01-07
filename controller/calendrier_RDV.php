@@ -31,4 +31,5 @@ class calendrier_RDV
             echo "$th";
         }
     }
+    // public 
 }

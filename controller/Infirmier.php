@@ -12,6 +12,9 @@ trait myconnect{
             echo "connection failed $e";
         }
     }
+    /**
+     * insert values to the calendar table for the availiable dates
+    */
     public static function insertCalendar()
     {
         try {
@@ -19,7 +22,7 @@ trait myconnect{
             if ($c != null) {
                 for ($i = 8; $i < 17; $i++) {
                     for ($j = 0; $j < 4; $j+=3) {
-                         $req = "INSERT INTO `calendrier_rdv` (`id_calendrier`, `Date_calendrier_RDV`, `Heure_Calendrier_RDV`, `id_rdv`) VALUES (NULL, '2022-01-08', '$i:".$j."0:00', NULL);";
+                         $req = "INSERT INTO `calendrier_rdv` (`id_calendrier`, `Date_calendrier_RDV`, `Heure_Calendrier_RDV`, `id_rdv`) VALUES (NULL, '2022-01-09', '$i:".$j."0:00', NULL);";
                          $res =$c->prepare($req);
                          $res->execute();
                          

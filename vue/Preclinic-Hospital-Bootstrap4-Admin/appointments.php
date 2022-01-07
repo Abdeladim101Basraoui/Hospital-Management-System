@@ -338,7 +338,7 @@
                                     include realpath(dirname(__FILE__).'../../controller/Infirmier.php');
                                     // include realpath(dirname(__FILE__).'../../controller/RDV.php');
                                     $inf =new Infirmier();
-                                    $inf->ListerRDV();  
+                                    $inf->ListerRDV('h52855');  
                                  
                                     echo '<tr>
                                     <td>' . $id[0] . '</td>

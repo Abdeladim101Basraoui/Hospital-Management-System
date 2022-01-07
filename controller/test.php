@@ -1,7 +1,9 @@
 <?php
-function encrypt()
-{
- return md5('root');
-}
-echo md5(encrypt(),false);
+
+include('Infirmier.php');
+$f = new Infirmier();
+// foreach($f->ListerRDV('h52855') as $var){
+//     echo $var;
+// }
+$f->ListerRDV('h52855');
 ?>

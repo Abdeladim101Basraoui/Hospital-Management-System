@@ -17,22 +17,20 @@ class Employe
     public $role;
 
     
-    // public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
-    // {
-    //     $this->CIN=$c;
-    //     $this->nom_complet=$nc;
-    //     $this->date_naissance=$dn;
-    //     $this->addresse=$adr;
-    //     $this->sexe=$sx;
-    //     $this->tel=$tl;
-    //     $this->email=$eml;
-    //     $this->password=$pwr;
-    //     $this->role=$rol;
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
+    {
+        $this->CIN=$c;
+        $this->nom_complet=$nc;
+        $this->date_naissance=$dn;
+        $this->addresse=$adr;
+        $this->sexe=$sx;
+        $this->tel=$tl;
+        $this->email=$eml;
+        $this->password=$pwr;
+        $this->role=$rol;
   
-    // }
-    public function __construct(){
-        
     }
+    
 
     public function connect()
    {

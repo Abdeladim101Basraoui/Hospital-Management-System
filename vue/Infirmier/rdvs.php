@@ -91,31 +91,35 @@
 								<tbody>
 								<?php
         							include('../../controller/Infirmier.php');
+									$x = 0;
                                     if(!isset($_GET['cin']))
-                                        $cin = null;
+                                        $cin = 'null';
                                     else
                                         $cin = $_GET["cin"];
-                                    $m = new Infirmier('B12345',null,null,null,null,null,null,null,null);
+										echo "<script>$cin</script>";
+                                    // $m = new Infirmier('B12345',null,null,null,null,null,null,null,null);
+									$m = new Infirmier();
                                     $rdv = $m->ListerRDV($cin);  
 
 									foreach($rdv as $con){
 
 										echo "
 										<tr>
-											<td><img width='28' height='28' src='../../assets/img/user.jpg' class='rounded-circle m-r-5' alt=''>$con[5]</td>
-											<td>$con[1]</td>
-											<td>$con[2]</td>
-											<td>$con[3]</td>
+											<td><img width='28' height='28' src='../../assets/img/user.jpg' class='rounded-circle m-r-5' alt=''>$con[$x][5]</td>
+											<td>$con[$x][1]</td>
+											<td>$con[$x][2]</td>
+											<td>$con[$x][3]</td>
 											<td class='text-right'>
                                                 <div class='dropdown dropdown-action'>
                                                     <a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
                                                     <div class='dropdown-menu dropdown-menu-right'>
-                                                        <a class='dropdown-item' href='delete-rdv.php?id=$con[0]'><i class='fa fa-trash m-r-5'></i>Supprimer RDV</a>
+                                                        <a class='dropdown-item' href='delete-rdv.php?id=$con[$x][0]'><i class='fa fa-trash m-r-5'></i>Supprimer RDV</a>
                                                     </div>
                                                 </div>
 											</td>
 										</tr>
 										";
+										$x++;
 									}
 								?>
 									

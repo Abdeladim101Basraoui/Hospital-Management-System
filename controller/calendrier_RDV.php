@@ -13,7 +13,9 @@ class calendrier_RDV
     {
 
     }
-
+/**
+ * return the hours dispo for the date selected by the user
+*/
     public static function hourDispos($dates)
     {
         try {

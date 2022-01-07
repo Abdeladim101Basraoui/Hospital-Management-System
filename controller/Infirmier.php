@@ -1,8 +1,7 @@
 <?php
-#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
-trait myconnect
-{
-    public static  $con;
+#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
+trait myconnect{
+   public  $con;
     public static function connect()
     {
         try {

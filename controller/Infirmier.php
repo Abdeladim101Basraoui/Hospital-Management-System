@@ -10,7 +10,7 @@ require_once('myconnect.php');
 class Infirmier extends Employe
 {
     use myconnect;
-  
+
     /**
      * show all the patients
      */
@@ -18,7 +18,7 @@ class Infirmier extends Employe
     {
         try {
 
-          return $this->ListerRDV("not null", "Cin_Patient");
+            return $this->ListerRDV("not null", "Cin_Patient");
         } catch (Exception $ex) {
             echo "$ex";
         }
@@ -57,58 +57,69 @@ class Infirmier extends Employe
         }
     }
 
+    public function find_Pateint($val, $col = "Cin_patient")
+    {
+        try {
+            $c = $this->connect();
+            if ($c != null) {
+                $req = "SELECT * FROM `patient` WHERE $col ='$val'";
+                return $c->query($req);
+            }
+        } catch (Exception $ex) {
+            echo "$ex";
+        }
+    }
 
-
-// checrcher si le patient exist pour obtenir le cin
+    // checrcher si le patient exist pour obtenir le cin
     public function AjouterRDV($r)
     {
         $c = $this->connect();
-   
+        
     }
-//     public function SupprimerRDV($id)
-//     {
-//         $c = self::connect();
-//         if ($c != NULL) {
-//             $sql = "DELETE FROM rdv WHERE Id_rdv = '$id'";
-//             $v = $c->prepare($sql);
-//             $v->execute();
-//             return true;
-//         }
-//     }
+    //     public function SupprimerRDV($id)
+    //     {
+    //         $c = self::connect();
+    //         if ($c != NULL) {
+    //             $sql = "DELETE FROM rdv WHERE Id_rdv = '$id'";
+    //             $v = $c->prepare($sql);
+    //             $v->execute();
+    //             return true;
+    //         }
+    //     }
 
 
 
 
 
-//     public function AjouterPatient($pat)
-//     {
-//         $c = self::connect();
-//         if ($c != null) {
-//             $sql = "INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, Password, Historique, Cin_employe) VALUES ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
-//             $query = $c->prepare($sql);
-//             $query->execute();
-//             return true;
-//         } else {
-//             echo "probleme de connexion";
-//             return false;
-//         }
-//     }
+    //     public function AjouterPatient($pat)
+    //     {
+    //         $c = self::connect();
+    //         if ($c != null) {
+    //             $sql = "INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, Password, Historique, Cin_employe) VALUES ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
+    //             $query = $c->prepare($sql);
+    //             $query->execute();
+    //             return true;
+    //         } else {
+    //             echo "probleme de connexion";
+    //             return false;
+    //         }
+    //     }
 
-//     // /**
-//     //  * @param  $Patient
-//     //  */
-//     // public function ModifierPatient($Patient)
-//     // {
-//     //     try {
-//     //         $c = self::connect();
-//     //         if ($c != NULL) {
-//     //             $sql = "";
-//     //             $v = $c->prepare($sql);
-//     //             $v->execute();
-//     //             return true;
-//     //         }
-//     //     } catch (Exception $th) {
-//     //         echo "$th";
-//     //     }
-//     // }
+    //     // /**
+    //     //  * @param  $Patient
+    //     //  */
+    //     // public function ModifierPatient($Patient)
+    //     // {
+    //     //     try {
+    //     //         $c = self::connect();
+    //     //         if ($c != NULL) {
+    //     //             $sql = "";
+    //     //             $v = $c->prepare($sql);
+    //     //             $v->execute();
+    //     //             return true;
+    //     //         }
+    //     //     } catch (Exception $th) {
+    //     //         echo "$th";
+    //     //     }
+    //     // }
 }

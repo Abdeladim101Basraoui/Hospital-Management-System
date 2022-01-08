@@ -37,7 +37,12 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
 		<script src="../../assets/js/html5shiv.min.js"></script>
 		<script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
-
+<style>
+    .dropdown-menu {
+    max-height: 100px;
+    overflow-y: auto;
+}
+</style>
 
 </head>
 
@@ -151,7 +156,8 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                             // include('../../controller/calendrier_RDV.php');
                                             $cc = new calendrier_RDV();
                                             foreach ($cc->hourDispos(date('y-m-d')) as $value) {
-                                                echo ' <a class="dropdown-item" href="#">' . $value . '</a>';
+                                                
+                                                echo ' <a class="dropdown-item" href="#">' . date("H:i",strtotime($value)) . '</a>';
                                             }
                                             ?>
                         </div>

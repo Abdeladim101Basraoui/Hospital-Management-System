@@ -114,12 +114,9 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                             <!-- <input class="form-control" name="dater" type="text"> -->
                                             <?php
                                               echo '<div class="btn-group">
-                                                        <button class="btn btn-primary btn-lg" type="button" value="' . date('y-m-d') . '">
-                                                            <!-- Large split button somrthing -->
-                                                            ' . date('y-m-d') . '
-                                                            </button>
-                                                            <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <button type="button"  value="' . date('y-m-d') . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <span class="sr-only">Toggle Dropdown</span>
+                                                            ' . date('y-m-d') . '
                                                         </button>
                                                         <div class="dropdown-menu">';
                                             ?>

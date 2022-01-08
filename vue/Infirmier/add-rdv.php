@@ -112,55 +112,67 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                         <label>Date RDV <span class="text-danger">*</span></label>
                                         <div class="cal-icon">
                                             <!-- <input class="form-control" name="dater" type="text"> -->
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                  Dropdown
-                                                </button>
-                                                <div class="dropdown-menu" >
-                                                <?php
-                                               include('../../controller/calendrier_RDV.php');
-                                                ?>
-                                          </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Heure RDV</label>
-                                        <div class="clock-icon">
-                                            <input class="form-control" name="heurer" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Objet</label>
-                                        <div class="clock-icon">
-                                            <textarea class="form-control" name="obj"></textarea>
+                                            <?php
+                                              echo '<div class="btn-group">
+                                                        <button class="btn btn-primary btn-lg" type="button" value="' . date('y-m-d') . '">
+                                                            <!-- Large split button somrthing -->
+                                                            ' . date('y-m-d') . '
+                                                            </button>
+                                                            <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+                                                        <div class="dropdown-menu">';
+                                            ?>
+                                            <?php
+                                            include('../../controller/calendrier_RDV.php');
+                                            $cc = new calendrier_RDV();
+                                            foreach ($cc->datesDispo() as $value) {
+                                                echo ' <a class="dropdown-item" href="#">' . $value[0] . '</a>';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" name="go" value="Create RDV">
-                                <?php
-            
-                                if (isset($_POST['go'])) {
-
-                                    // AjouterRDV lancer le msg
-                                    echo '
-                                    <div class="alert alert-success" role="alert">
-                                    A simple success alert with <a href="rdvs.php" class="alert-link">voir le RDV dans la liste</a>. Give it a click if you like.
-                                  </div>';       
-                                }
-                                ?>
-                            </div>
-                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Heure RDV</label>
+                        <div class="clock-icon">
+                            <input class="form-control" name="heurer" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Objet</label>
+                        <div class="clock-icon">
+                            <textarea class="form-control" name="obj"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="m-t-20 text-center">
+                <input type="submit" class="btn btn-primary" name="go" value="Create RDV">
+                <?php
 
+                if (isset($_POST['go'])) {
+
+                    // AjouterRDV lancer le msg
+                    echo '
+                                    <div class="alert alert-success" role="alert">
+                                    A simple success alert with <a href="rdvs.php" class="alert-link">voir le RDV dans la liste</a>. Give it a click if you like.
+                                  </div>';
+                }
+                ?>
+            </div>
+            </form>
         </div>
+    </div>
+    </div>
+
+    </div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="../../assets/js/jquery-3.2.1.min.js"></script>

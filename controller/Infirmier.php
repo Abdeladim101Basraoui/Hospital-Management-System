@@ -1,103 +1,58 @@
 <?php
 #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
-trait myconnect
+
+
+
+// --------------------------------------------
+include('Employe.php');
+require_once('myconnect.php');
+
+class Infirmier extends Employe
 {
-    public static function connect()
+    use myconnect;
+  
+    /**
+     * show all the patients
+     */
+    public function afficherRDV()
     {
         try {
-            $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "root");
-            echo "<script>alert('connected');</script>";
-            return $con;
-        } catch (Exception $e) {
-            echo "connection failed $e";
+
+          return $this->ListerRDV("not null", "Cin_Patient");
+        } catch (Exception $ex) {
+            echo "$ex";
         }
     }
+
+
     /**
-     * insert values to the calendar table for the availiable dates
+     * @param  $col = column name
+     * @param  $val = value to search for
      */
-    public static function insertCalendar()
+    public function ListerRDV($val, $col = "Cin_patient")
     {
+        $tbl = array();
+
         try {
-            $c = self::connect();
+            $c = $this->connect();
             if ($c != null) {
-                for ($i = 8; $i < 17; $i++) {
-                    for ($j = 0; $j < 4; $j += 3) {
-                        $req = "INSERT INTO `calendrier_rdv` (`id_calendrier`, `Date_calendrier_RDV`, `Heure_Calendrier_RDV`, `id_rdv`) VALUES (NULL, '2022-01-09', '$i:" . $j . "0:00', NULL);";
-                        $res = $c->prepare($req);
-                        $res->execute();
-                    }
+                $req = "SELECT * FROM `rdv` WHERE $col='$val'";
+                if ($val === "null" || $val === "not null") {
+                    $req = "SELECT * FROM `rdv` WHERE $col is $val";
                 }
-                echo "<script>alert('added to database');</script>";
+                $res = $c->query($req);
+                return $res;
             }
         } catch (Exception $ex) {
             echo "$ex";
         }
     }
-}
-
-
-// --------------------------------------------
-
-class Infirmier# extends Employe
-{
-    use myconnect;
-
-    // public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
-    // {
-    //     parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
-    // }
-  
-//     /**
-//      * show all the patients
-//      */
-//     public function afficherRDV()
-//     {
-//         try {
-
-//             $this->ListerRDV("not null", "Cin_Patient");
-//         } catch (Exception $ex) {
-//             echo "$ex";
-//         }
-//     }
-
-
-//     /**
-//      * @param  $col = column name
-//      * @param  $val = value to search for
-//      */
-//     public function ListerRDV($val, $col = "Cin_patient")
-//     {
-//         $tbl = array();
-
-//         try {
-//             $c = self::connect();
-//             if ($c != null) {
-//                 $req = "SELECT * FROM `rdv` WHERE $col='$val'";
-//                 if ($val === "null" || $val === "not null") {
-//                     $req = "SELECT * FROM `rdv` WHERE $col is $val";
-//                 }
-              
-//                 $res = $c->query($req);
-//                 // foreach ($res as  $val) {
-//                 //     $tbl[] = array($val[0],$val[1],$val[2],$val[3],$val[4],$val[5]);
-//                 // }
-//                 return $res;
-//             }
-//         } catch (Exception $ex) {
-//             echo "$ex";
-//         }
-//     }
-
-//     public function AjouterRDV($r)
-//     {
-//         $c = self::connect();
-//         if ($c != NULL) {
-//             $sql = "INSERT INTO rdv(Date_RDV, Heure_RDV, Objet, Cin_employe, Cin_patient) VALUES ('$r->date_RDV','$r->heure_rdv','$r->objet','$this->CIN','$r->cin_patient')";
-//             $v = $c->prepare($sql);
-//             $v->execute();
-//             return true;
-//         }
-//     }
+lister
+    public function AjouterRDV($r)
+    {
+        $c = $this->connect();
+   
+    }
 //     public function SupprimerRDV($id)
 //     {
 //         $c = self::connect();

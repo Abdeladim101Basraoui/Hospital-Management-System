@@ -24,8 +24,4 @@ class RDV
         $this->cin_emp = $cin_employe;
         $this->cin_patient = $cin_patient;
     }
-    public static function validerRDV()
-    {
-        
-    }
 }

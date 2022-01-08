@@ -137,7 +137,23 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                     <div class="form-group">
                         <label>Heure RDV</label>
                         <div class="clock-icon">
-                            <input class="form-control" name="heurer" type="text">
+                            <!-- <input class="form-control" name="heurer" type="text"> -->
+                            <?php
+                                              echo '<div class="btn-group">
+                                                            <button type="button"  value="' . date('H:i') . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                            ' . date('H:i') . '
+                                                        </button>
+                                                        <div class="dropdown-menu">';
+                                            ?>
+
+                                            <?php
+                                            // include('../../controller/calendrier_RDV.php');
+                                            $cc = new calendrier_RDV();
+                                            foreach ($cc->hourDispos(date('y-m-d')) as $value) {
+                                                echo ' <a class="dropdown-item" href="#">' . $value . '</a>';
+                                            }
+                                            ?>
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@
 // --------------------------------------------
 include('Employe.php');
 require_once('myconnect.php');
+// require_once('RDV.php');
 
 class Infirmier extends Employe
 {
@@ -57,7 +58,7 @@ class Infirmier extends Employe
         }
     }
 
-    public function find_Pateint($val, $col = "Cin_patient")
+    public function find_Patient($val, $col = "Cin_patient")
     {
         try {
             $c = $this->connect();
@@ -71,10 +72,19 @@ class Infirmier extends Employe
     }
 
     // checrcher si le patient exist pour obtenir le cin
-    public function AjouterRDV($r)
+    public function AjouterRDV(RDV $r)
     {
         $c = $this->connect();
-        
+        $res = $this->find_Patient($r->cin_patient);
+        if ($res!=false)
+         {
+            $req = "INSERT INTO `rdv`( `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient`) VALUES ".
+            "($r->date_RDV,$r->heure_rdv,$r->objet,$this->CIN,$r->cin_patient);";
+            $ress = $c->prepare($req); 
+            return $ress->execute();
+        }
+        else
+      echo "<script>cin non trouver</script>";
     }
     //     public function SupprimerRDV($id)
     //     {

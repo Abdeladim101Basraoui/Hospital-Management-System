@@ -17,7 +17,7 @@ trait myconnect
     public  function insertCalendar()
     {
         try {
-            $c = self::connect();
+            $c = $this->connect();
             if ($c != null) {
                 for ($i = 8; $i < 17; $i++) {
                     for ($j = 0; $j < 4; $j += 3) {

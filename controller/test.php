@@ -1,8 +1,6 @@
 <?php
 include('Infirmier.php');
-class test{
-    use myconnect;
+include('Employe.php');
+ $f=new Infirmier(null,null,null,null,null,null,null,null,null);
 
-}
- test::connect();
 ?>

@@ -38,14 +38,14 @@ trait myconnect
 
 // --------------------------------------------
 
-// class Infirmier extends Employe
-// {
-//     use myconnect;
+class Infirmier# extends Employe
+{
+    use myconnect;
 
-//     public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
-//     {
-//         parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
-//     }
+    // public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
+    // {
+    //     parent::__construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol);
+    // }
   
 //     /**
 //      * show all the patients
@@ -151,4 +151,4 @@ trait myconnect
 //     //         echo "$th";
 //     //     }
 //     // }
-// }
+}

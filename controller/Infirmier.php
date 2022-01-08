@@ -47,7 +47,19 @@ class Infirmier extends Employe
             echo "$ex";
         }
     }
-lister
+
+
+    public function ListerPatients()
+    {
+        $c = $this->connect();
+        if ($c != null) {
+            return $c->query("SELECT * FROM `patient`");
+        }
+    }
+
+
+
+// checrcher si le patient exist pour obtenir le cin
     public function AjouterRDV($r)
     {
         $c = $this->connect();
@@ -67,13 +79,6 @@ lister
 
 
 
-//     public function ListerPatients()
-//     {
-//         $c = self::connect();
-//         if ($c != null) {
-//             return $c->query("SELECT * FROM `patient`");
-//         }
-//     }
 
 //     public function AjouterPatient($pat)
 //     {

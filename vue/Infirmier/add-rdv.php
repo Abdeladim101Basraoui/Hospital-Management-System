@@ -164,7 +164,6 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
 
                                             <div class="dropdown-menu">
                                                 <?php
-                                                // include('../../controller/calendrier_RDV.php');
                                                 $cc = new calendrier_RDV();
                                                 foreach ($cc->hourDispos(date('y-m-d')) as $value) {
 

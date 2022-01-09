@@ -14,10 +14,27 @@ include('myconnect.php');
 include('calendrier_RDV.php');
 $c = new calendrier_RDV();
 foreach($c->datesDispo() as $var){
-    echo $var[0];
+    echo $var[0]."<br/>";
+}
+foreach($c->hourDispos('2022-01-08') as $var){
+    echo $var."<br/>";
+}
+
+
+class a{
+    use myconnect;
+}
+$var = new a();
+$var->weeklyDelete();
+
+foreach($c->datesDispo() as $var){
+    echo $var[0]."<br/>";
+}
+foreach($c->hourDispos('2022-01-08') as $var){
+    echo $var."<br/>";
 }
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -81,4 +98,4 @@ foreach($c->datesDispo() as $var){
   <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
 </body>
-</html>
+</html> -->

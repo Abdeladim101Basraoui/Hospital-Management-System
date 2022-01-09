@@ -96,7 +96,7 @@
 								<?php
         							include('../../controller/Infirmier.php');
 
-									$m = new Infirmier(null,null,null,null,null,null,null,null,null);
+									$m = new Infirmier('hudhs',null,null,null,null,null,null,null,null);
 									$pat = $m->ListerPatients();
 
 									foreach($pat as $p){
@@ -117,7 +117,7 @@
 												<div class='col-sm dropdown dropdown-action'>
 													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
-														<a class='dropdown-item' href='rdvs.php?cin=$p[5]'><i class='fa fa-eye m-r-5'></i>Afficher les RDV</a>
+														<a class='dropdown-item' href='rdvs.php?cin=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher les RDV</a>
 													</div>
 												</div>
 											</div>

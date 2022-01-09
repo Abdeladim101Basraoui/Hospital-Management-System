@@ -1,8 +1,5 @@
 <?php
-
-declare(strict_types=1);
-
-
+// require_once('myconnect.php');
 class Employe
 {
 
@@ -17,27 +14,24 @@ class Employe
     public $role;
 
     
-    // public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
-    // {
-    //     $this->CIN=$c;
-    //     $this->nom_complet=$nc;
-    //     $this->date_naissance=$dn;
-    //     $this->addresse=$adr;
-    //     $this->sexe=$sx;
-    //     $this->tel=$tl;
-    //     $this->email=$eml;
-    //     $this->password=$pwr;
-    //     $this->role=$rol;
+    public function __construct($c,$nc,$dn,$adr,$sx,$tl,$eml,$pwr,$rol)
+    {
+        $this->CIN=$c;
+        $this->nom_complet=$nc;
+        $this->date_naissance=$dn;
+        $this->addresse=$adr;
+        $this->sexe=$sx;
+        $this->tel=$tl;
+        $this->email=$eml;
+        $this->password=$pwr;
+        $this->role=$rol;
   
-    // }
-    public function __construct(){
-        
     }
 
     public function connect()
    {
         try { 
-        	   $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
+        	   $c= new PDO("mysql:host=localhost;dbname=centresante","b1sra0u1","root");
                return $c;
             }
         catch (Exception $e)
@@ -72,7 +66,7 @@ class Employe
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="INSERT INTO `conge` (`Num_conge`, `Objet`, `Etat_conge`, `Date_conge`, `Duree_conge`, `Note`, `Cin_employe`) VALUES (NULL, '".$cng->Objet."', 'demandé', '".$cng->Date_conge."', '".$cng->Duree_conge."', '".$cng->Note."', '".$cng->Cin_employe."')";
+            $sql="INSERT INTO conge (Num_conge, Objet, Etat_conge, Date_conge, Duree_conge, Note, Cin_employe) VALUES (NULL, '$cng->objet', 'demandé', '$cng->date_conge', '$cng->duree_conge', '$cng->note', '$this->CIN')";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -91,7 +85,17 @@ class Employe
              return true;  
          }   
     }
+    public function ListerMesDemandes()
+    {
+         $c=$this->connect();
+         if($c!=NULL)
+         {  
+            $sql="SELECT * FROM conge WHERE Cin_employe ='$this->CIN'";
+            $r=$c->query($sql);
+            return $r;  
+        }
 
+    }
    
 
 }

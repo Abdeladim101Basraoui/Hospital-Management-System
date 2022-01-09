@@ -1,35 +1,51 @@
 <?php
-
+include_once('myconnect.php');
 class calendrier_RDV
 {
     public $date_calendrier;
     public $id_RDV;
     public $heure_calendrier;
-
+    use myconnect;
     /**
      * Default constructor
      */
     public function __construct()
     {
-        // ...
     }
-
-    public static function dateDispo()
+    /**
+     * return the hours dispo for the date selected by the user
+     */
+    public function hourDispos($dates)
     {
         try {
-            $dates = array();
-            $c = Infirmier::connect();
-            $x = 0;
+            $hours = array();
+            $c = $this->connect();
             if ($c != null) {
-                $res = $c->query("SELECT `Date_calendrier_RDV`, `Heure_Calendrier_RDV`FROM `calendrier_rdv` WHERE id_rdv is null");
+                $res = $c->query("SELECT `Heure_Calendrier_RDV`FROM `calendrier_rdv` WHERE id_rdv is null and Date_calendrier_RDV = '$dates'");
                 foreach ($res as $var) {
-                    $dates[] = array($var[0], $var[1]);
+                    $hours[] = $var[0];
                 }
-                return $dates;
+                return $hours;
             }
         } catch (Exception $th) {
             echo "$th";
         }
     }
-    // public 
+
+
+    /**
+     * return the dates dispo in the calendar
+     */
+    public function datesDispo()
+    {
+        try {
+            $c = $this->connect();
+            if ($c != null) {
+                $res = $c->query("SELECT DISTINCT Date_calendrier_RDV from calendrier_rdv");
+             return $res;   
+            }
+        } catch (Exception $th) {
+            echo "$th";
+        }
+    }
 }

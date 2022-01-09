@@ -1,11 +1,13 @@
 <?php
 include('../../controller/RDV.php');
 include('../../controller/Infirmier.php');
-
+include('../../controller/calendrier_RDV.php');
+$cc = new calendrier_RDV();
 
 // --- adding a function that deletes the past days untaked
-
+$cc->weeklyDelete();
 // 
+
 if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])) {
     $dater = $_POST["dater"];
     $heurer = $_POST["heurer"];
@@ -130,10 +132,8 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                                                     ' . date('y-m-d') . '
                                                                 </button>';
                                                 ?>
-                                                <div class="dropdown-menu">
+                                                <div class="dropdown-menu" id="drop-date">
                                                     <?php
-                                                    include('../../controller/calendrier_RDV.php');
-                                                    $cc = new calendrier_RDV();
                                                     foreach ($cc->datesDispo() as $value) {
                                                         echo ' <a class="dropdown-item" href="#">' . $value[0] . '</a>';
                                                     }
@@ -148,12 +148,12 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                 <div class="form-group">
                                     <label>Heure RDV<span class="text-danger">*</span></label>
                                     <?php
-                                    echo '<fieldset disabled>';
+                                    echo '<fieldset >';
                                     ?>
                                     
                                     <div class="clock-icon">
                                         <!-- <input class="form-control" name="heurer" type="text"> -->
-                                        <div class="btn-group">
+                                        <div class="btn-group" >
                                             <?php
                                             echo '
                                                             <button type="button"  value="' . date('H:i') . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -164,7 +164,7 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
 
                                             <div class="dropdown-menu">
                                                 <?php
-                                                $cc = new calendrier_RDV();
+
                                                 foreach ($cc->hourDispos(date('y-m-d')) as $value) {
 
                                                     echo ' <a class="dropdown-item" href="#">' . date("H:i", strtotime($value)) . '</a>';
@@ -213,7 +213,12 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
     <script src="../../assets/js/moment.min.js"></script>
     <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../assets/js/app.js"></script>
-
+<script>
+    $('#drop-date a').on('click', function(){
+    // $('#datebox').val($(this).text());
+    alert('clicked');
+});
+</script>
 </body>
 
 

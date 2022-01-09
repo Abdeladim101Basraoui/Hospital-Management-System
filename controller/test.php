@@ -10,31 +10,9 @@
 
 
 //====================
-include('myconnect.php');
-include('calendrier_RDV.php');
-$c = new calendrier_RDV();
-foreach($c->datesDispo() as $var){
-    echo $var[0]."<br/>";
-}
-foreach($c->hourDispos('2022-01-08') as $var){
-    echo $var."<br/>";
-}
 
-
-class a{
-    use myconnect;
-}
-$var = new a();
-$var->weeklyDelete();
-
-foreach($c->datesDispo() as $var){
-    echo $var[0]."<br/>";
-}
-foreach($c->hourDispos('2022-01-08') as $var){
-    echo $var."<br/>";
-}
 ?>
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,56 +24,45 @@ foreach($c->hourDispos('2022-01-08') as $var){
     <link rel="stylesheet" type="text/css" href="../assets/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-  
+    <link rel="stylesheet" type="text/css" href="../assets/css/mystyle.css">
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery.slimscroll.js"></script>
+    <script src="../assets/js/select2.min.js"></script>
+    <script src="../assets/js/moment.min.js"></script>
+    <script src="../assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../assets/js/app.js"></script>
+<script>
+    $(document).on('click', '.dropdown-menu li a', function() {
+      $('#datebox').val($(this).attr("value"));//$(this).html());
+      // fetch('test.php?attr=');
+      var value = $(this).attr("value");
+//       alert(value);
+// $("hidden [name='selected']").val(value);
+
+    }); 
+
+</script>
 </head>
-<body>
-<form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputEmail4">Email</label>
-      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+<body><form action="" method="get">
+
+<div class="input-group">                                            
+    <input type="TextBox" ID="datebox" Class="form-control"></input>
+    <div class="input-group-btn">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul id="demolist" class="dropdown-menu">
+            <li><a value="A" href="#">A</a></li>
+            <li><a value="B" href="#">B</a></li>
+            <li><a value="C" href="#">C</a></li>
+        </ul>
     </div>
-    <div class="form-group col-md-6">
-      <label for="inputPassword4">Password</label>
-      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-    </div>
-  </div>
- <div class="form-row">
- <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Address 2</label>
-    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
- </div>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="form-group col-md-4">
-      <label for="inputState">State</label>
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <div class="form-group col-md-2">
-      <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
-        Check me out
-      </label>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
+</div>
+<input type="hidden" name="selected">
+<input type="submit" value="send">
 </form>
 </body>
-</html> -->
+</html>

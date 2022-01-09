@@ -1,20 +1,29 @@
-<?php
+;<?php
+include('../../controller/Demande_Materiel.php');
 include('../../controller/Materiel.php');
+include('../../controller/Materiel_Demande.php');
 include('../../controller/Medecin_Chef.php');
-if(!empty($_POST['lbl'])&&!empty($_POST['etat']))
+if(!empty($_POST['ddm'])&&!empty($_POST['dbm'])&&!empty($_POST['mat']))
 {
-    $dd = $_POST["lbl"];
-    $dbm = $_POST["etat"];
+    $dd = $_POST["ddm"];
+    $dbm = $_POST["dbm"];
+    $mat =  $_POST['mat'];
     
-
     $t = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
     
     $m= new Demande_Materiel($dd,$dbm,null,null,null);
-    if($t->DemandeMateriel($m))
-        header('Location: materiels.php');
+    //$md = new Materiel_Demande();
+    
+    $r =$t->DemandeMateriel($m);
+    foreach($r as $id){
+        foreach($mat as $v){
+            $t->AjouterMaterielDemande($v[0],$id[0]);
+        }
+    }
+    header('Location: demandes.php');
 }
 else{
-   
+   echo "<script>alert('entrez tous les valeurs');</script>";
 }
 
 ?>
@@ -123,14 +132,31 @@ else{
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Date Besoin Materiel</label>
-                                        <div class="">
+                                        <div class="cal-icon">
                                             <input type="text" name="dbm" class="form-control">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="mat">Materiels</label>
+                                        <div>
+                                            <select class="js-example-basic-multiple col-sm-12" name="mat[]" multiple="multiple">
+                                            <?php
+                                            $t = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
+                                            $mat = $t->ListerMateriel();
+                                                foreach($mat as $v){
+                                                    echo "<option value='$v[0]'>$v[1]</option>";
+                                                }
+                                            ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                             <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" value="Create Demande">
+                        <input type="submit" class="btn btn-primary" value="Create Demande">
                             </div>
                         </form>
                     </div>
@@ -140,6 +166,7 @@ else{
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="../../assets/js/jquery-3.2.1.min.js"></script>
+    <script src="../../assets/js/script.js"></script>
 	<script src="../../assets/js/popper.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/jquery.slimscroll.js"></script>

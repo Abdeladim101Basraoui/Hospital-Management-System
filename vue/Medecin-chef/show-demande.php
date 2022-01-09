@@ -1,6 +1,8 @@
 <?php
 include('../../controller/Demande_Materiel.php');
 include('../../controller/Medecin_Chef.php');
+if(!isset($_GET['id']))
+    header('Location: demandes.php');
 
 $id = $_GET['id'];
 $t = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
@@ -171,8 +173,7 @@ $dem = $t->AfficherDemandeMat($id);
                                     </tbody>
                                 </table>
                             </div>
-                            <a href='update-demande.php?id=$id' class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Demande</a>
-                                    ";
+                            ";
 								?>
 
 					</div>

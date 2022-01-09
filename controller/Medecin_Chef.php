@@ -33,15 +33,68 @@ class Medecin_Chef extends Medecin
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="INSERT INTO demande_materiel (Num_demande, Date_demande, Date_besoin_materiel, Cin_employe,Cin_employe_technicien, Etat_demande) VALUES (NULL,'$dmd->date_demande','$dmd->date_besoin_materiel','$dmd->cin_employe', NULL ,'demande')";
+            $sql="INSERT INTO demande_materiel (Num_demande, Date_demande, Date_besoin_materiel, Cin_employe,Cin_employe_technicien, Etat_demande) VALUES (NULL,'$dmd->date_demande','$dmd->date_besoin_materiel','$this->CIN', NULL ,'demande')";
             $v= $c->prepare($sql);
             $v->execute();
-            
+            return $this->getLastId();  
+        }        
+    }
+
+    public function ModifierDemandeMateriel($mat)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="UPDATE demande_materiel SET Date_besoin_materiel='$mat->date_besoin_materiel' WHERE Num_demande = '$mat->num_demande'";
+            $v= $c->prepare($sql);
+            $v->execute();
             return true;  
+        }        
+    }
+
+    public function getLastId(){
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="SELECT max(Num_demande) FROM demande_materiel";
+            $r= $c->query($sql);
+            return $r;  
+        }        
+    }
+
+    public function AjouterMaterielDemande($mtr,$id)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="INSERT INTO materiel_demande ( num_demande, num_materiel) VALUES ('$id', '$mtr')";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
         }
     }
 
-    
+    public function SupprimerMaterielDemande($id)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="DELETE FROM materiel_demande WHERE num_demande ='$id'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
+        }
+    }
 
     public function ValiderConge($num_conge)
     {

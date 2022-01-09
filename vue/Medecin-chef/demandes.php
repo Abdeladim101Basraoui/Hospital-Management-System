@@ -127,7 +127,6 @@
 													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
 														<a class='dropdown-item' href='show-demande.php?id=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Demande</a>
-														<a class='dropdown-item' href='update-demande.php?id=$p[0]'><i class='fa fa-pencil m-r-5'></i>Modifier Demande</a>
 													</div>
 												</div>
 											</div>

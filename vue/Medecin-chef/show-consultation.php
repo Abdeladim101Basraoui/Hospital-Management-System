@@ -127,7 +127,7 @@ $consult = $m->AfficherFicheConsultation($id);
                                             </div>
                                         </div>
                                     </div>
-                                    <a href='update-consultation.php?id=$v[0] class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Consultation</a>
+                                    <a href='update-consultation.php?id=$v[0]' class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Consultation</a>
                             ";
                             ?>
 

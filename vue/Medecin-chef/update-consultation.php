@@ -1,6 +1,8 @@
 <?php
 include('../../controller/Consultation.php');
 include('../../controller/Medecin_Chef.php');
+if(!isset($_GET['id']))
+    header('Location: consultations.php');
 
 $id = $_GET["id"];
 $m = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);

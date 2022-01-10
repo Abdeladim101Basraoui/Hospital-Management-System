@@ -7,10 +7,7 @@
 // // if($f->AjouterRDV($r))
 // // echo "good!";
 
-
-
 //====================
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +31,7 @@
     <script src="../assets/js/moment.min.js"></script>
     <script src="../assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../assets/js/app.js"></script>
-<script>
+<!-- <script>
     $(document).on('click', '.dropdown-menu li a', function() {
       $('#datebox').val($(this).attr("value"));//$(this).html());
       // fetch('test.php?attr=');
@@ -44,7 +41,7 @@
 
     }); 
 
-</script>
+</script> -->
 </head>
 <body><form action="" method="get">
 
@@ -55,13 +52,13 @@
             <span class="caret"></span>
         </button>
         <ul id="demolist" class="dropdown-menu">
-            <li><a value="A" href="#">A</a></li>
-            <li><a value="B" href="#">B</a></li>
-            <li><a value="C" href="#">C</a></li>
+            <li><a value="A" href="test.php?date=A">A</a></li>
+            <li><a value="B" href="test.php?date=B">B</a></li>
+            <li><a value="C" href="test.php?date=C">C</a></li>
         </ul>
     </div>
 </div>
-<input type="hidden" name="selected">
+<!-- <input type="hidden" name="selected"> -->
 <input type="submit" value="send">
 </form>
 </body>

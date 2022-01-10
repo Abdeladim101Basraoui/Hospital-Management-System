@@ -7,21 +7,25 @@ $cc = new calendrier_RDV();
 // --- adding a function that deletes the past days untaked
 $cc->weeklyDelete();
 // 
-
-if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])) {
-    $dater = $_POST["dater"];
-    $heurer = $_POST["heurer"];
-    $obj = $_POST["obj"];
-    $cin = $_GET["cin"];
+$cin = $_GET["cin"];
+$date = date('y-m-d');
+$hour = date('H:i');
+$hours = null;
 
 
-    //     $m = new Infirmier('B12345', null, null, null, null, null, null, null, null);
+// if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])) {
 
-    //     $c = new RDV($dater, $heurer, $obj, $cin);
-    //     if ($m->AjouterRDV($c))
-    //         header('Location: rdvs');
-    // } else {
-}
+// $obj = $_POST["obj"];
+// $cin = $_GET["cin"];
+
+
+//     $m = new Infirmier('B12345', null, null, null, null, null, null, null, null);
+
+//     $c = new RDV($dater, $heurer, $obj, $cin);
+//     if ($m->AjouterRDV($c))
+//         header('Location: rdvs');
+// } else {
+// }
 
 ?>
 <!DOCTYPE html>
@@ -115,7 +119,7 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>CIN Patient : <span class="text-primary">
-                                                <?php echo $_GET['cin']; ?>
+                                                <?php echo $cin ?>
                                             </span></label>
                                     </div>
                                 </div>
@@ -127,17 +131,17 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                             <!-- <input class="form-control" name="dater" type="text"> -->
                                             <div class="btn-group">
                                                 <?php
-                                                echo '<button type="button"  value="' . date('y-m-d') . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                echo '<button type="button"  value="' . $date . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     <span class="sr-only">Toggle Dropdown</span>
-                                                                    ' . date('y-m-d') . '
+                                                                    ' . $date . '
                                                                 </button>';
                                                 ?>
                                                 <div class="dropdown-menu" id="drop-date">
                                                     <?php
                                                     foreach ($cc->datesDispo() as $value) {
-                                                        echo ' <a class="dropdown-item" href="#">' . $value[0] . '</a>';
+                                                        echo ' <a class="dropdown-item" href="add-rdv.php?cin=' . $cin . '&date=' . $value[0] . '">' . $value[0] . '</a>';
                                                     }
-                                                    ?>  
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,30 +154,33 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                     <?php
                                     echo '<fieldset >';
                                     ?>
-                                    
+
                                     <div class="clock-icon">
                                         <!-- <input class="form-control" name="heurer" type="text"> -->
-                                        <div class="btn-group" >
+                                        <div class="btn-group">
                                             <?php
                                             echo '
-                                                            <button type="button"  value="' . date('H:i') . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <button type="button"  value="' . $hour . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <span class="sr-only">*</span>
-                                                            ' . date('H:i') . '
+                                                            ' . $hour . '
                                                             </button>';
                                             ?>
 
                                             <div class="dropdown-menu">
                                                 <?php
-
-                                                foreach ($cc->hourDispos(date('y-m-d')) as $value) {
-
-                                                    echo ' <a class="dropdown-item" href="#">' . date("H:i", strtotime($value)) . '</a>';
+                                               if (!empty($_GET['date']) && !empty($_GET['cin'])) {
+                                                $date = $_GET['date'];
+                                                // $hours = $cc->hourDispos($date);
+                                                    foreach ($cc->hourDispos($date) as $value) {
+                                                        echo ' <a class="dropdown-item" href="#">' . date("H:i", strtotime($value)) . '</a>';
+                                                    }
+                                                "<script>alaert('hours are sets');</script>";
                                                 }
                                                 ?>
                                             </div>
                                         </div>
                                     </div>
-                                   </fieldset>
+                                    </fieldset>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Objet</label>
@@ -192,7 +199,7 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
                                         // AjouterRDV  mlancer lesg
                                         echo '
                                     <div class="alert alert-success" role="alert">
-                                    A simple success alert with <a href="rdvs.php?cin=' . $_GET['cin'] . '" class="alert-link">voir le RDV dans la liste</a>. Give it a click if you like.
+                                    A simple success alert with <a href="rdvs.php?cin=' . $cin . '" class="alert-link">voir le RDV dans la liste</a>. Give it a click if you like.
                                   </div>';
                                     }
                                     ?>
@@ -213,12 +220,13 @@ if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])
     <script src="../../assets/js/moment.min.js"></script>
     <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../assets/js/app.js"></script>
-<script>
+    <!-- <script>
+    //just a test
     $('#drop-date a').on('click', function(){
     // $('#datebox').val($(this).text());
     alert('clicked');
 });
-</script>
+</script> -->
 </body>
 
 

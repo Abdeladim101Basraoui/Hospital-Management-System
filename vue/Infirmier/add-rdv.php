@@ -153,7 +153,7 @@ $hours = null;
                                 <div class="form-group">
                                     <label>Heure RDV<span class="text-danger">*</span></label>
                                     <?php
-                                    echo '<fieldset id="field" disabled>';
+                                    echo '<fieldset id="field">';
                                     ?>
 
                                     <div class="clock-icon">
@@ -221,13 +221,14 @@ $hours = null;
     <script src="../../assets/js/moment.min.js"></script>
     <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/date&hour.js" defer></script>
     <script>
     //just a test
     // using the test
     $('#drop-date a').on('click', function(){
     // $('#dropdate a').val($(this).text());
 // the best way to add a DOM attribute with jquery is to use prop
-$('#field').prop('disabled',false);
+    $('#field').prop('disabled',false);
     // alert('clicked');
 });
 </script>

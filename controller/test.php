@@ -6,7 +6,9 @@
 // $f->AjouterRDV($r);
 // // if($f->AjouterRDV($r))
 // // echo "good!";
-
+include_once('calendrier_RDV.php');
+$d = new calendrier_RDV();
+$d->insertCalendar();
 //====================
 ?>
 <!DOCTYPE html>

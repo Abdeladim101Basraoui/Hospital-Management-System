@@ -116,7 +116,7 @@ $hours = null;
                     <div class="col-lg-8 offset-lg-2">
                         <form method="post">
                             <div class="row">
-                                <!-- show label and cin  -->
+                                <!-- TODO :show label and cin  -->
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>CIN Patient : <span class="text-primary">
@@ -140,7 +140,7 @@ $hours = null;
                                                 <div class="dropdown-menu" id="drop-date">
                                                     <?php
                                                     foreach ($cc->datesDispo() as $value) {
-                                                        echo ' <a class="dropdown-item" href="add-rdv.php?cin=' . $cin . '&date=' . $value[0] . '">' . $value[0] . '</a>';
+                                                        echo ' <a class="dropdown-item c-date" href="add-rdv.php?cin=' . $cin . '&date=' . $value[0] . '">' . $value[0] . '</a>';
                                                     }
                                                     ?>
                                                 </div>
@@ -221,8 +221,8 @@ $hours = null;
     <script src="../../assets/js/moment.min.js"></script>
     <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../assets/js/app.js"></script>
-    <script src="../../assets/js/date&hour.js" defer></script>
-    <script>
+    <!-- <script src="../../assets/js/date&hour.js" defer></script> -->
+    <!-- <script>
     //just a test
     // using the test
     $('#drop-date a').on('click', function(){
@@ -231,6 +231,10 @@ $hours = null;
     $('#field').prop('disabled',false);
     // alert('clicked');
 });
+</script> -->
+
+<script>
+    
 </script>
 </body>
 

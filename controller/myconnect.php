@@ -1,16 +1,16 @@
 <?php
 trait myconnect
 {
-        public  function connect()
-        {
-            try {
-                $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "root");
-                echo "<script>alert('connected');</script>";
-                return $con;
-            } catch (Exception $e) {
-                echo "connection failed $e";
-            }
+    public  function connect()
+    {
+        try {
+            $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "root");
+            echo "<script>alert('connected');</script>";
+            return $con;
+        } catch (Exception $e) {
+            echo "connection failed $e";
         }
+    }
     // /**
     //  * insert values to the calendar table for the availiable dates
     //  */
@@ -32,5 +32,14 @@ trait myconnect
             echo "$ex";
         }
     }
+    public function weeklyDelete()
+    {
+        $c = $this->connect();
+        if ($c != null) {
+            $req = "DELETE FROM `calendrier_rdv` WHERE Date_calendrier_RDV <'" . date('y-m-d') . "' and id_rdv is null";
+            $pre = $c->prepare($req);
+            if($pre->execute())
+            echo "<script>alert(updated);</script>";
+        }
+    }
 }
-?>

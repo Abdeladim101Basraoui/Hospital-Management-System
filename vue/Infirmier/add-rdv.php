@@ -114,9 +114,9 @@ $hours = null;
 
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <form method="post">
+                        <form method="get">
                             <div class="row">
-                                <!-- show label and cin  -->
+                                <!-- TODO :show label and cin  -->
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>CIN Patient : <span class="text-primary">
@@ -140,7 +140,7 @@ $hours = null;
                                                 <div class="dropdown-menu" id="drop-date">
                                                     <?php
                                                     foreach ($cc->datesDispo() as $value) {
-                                                        echo ' <a class="dropdown-item" href="add-rdv.php?cin=' . $cin . '&date=' . $value[0] . '">' . $value[0] . '</a>';
+                                                        echo ' <a class="dropdown-item c-date" href="add-rdv.php?cin=' . $cin . '&date=' . $value[0] . '">' . $value[0] . '</a>';
                                                     }
                                                     ?>
                                                 </div>
@@ -169,13 +169,14 @@ $hours = null;
 
                                             <div class="dropdown-menu">
                                                 <?php
-                                               if (!empty($_GET['date']) && !empty($_GET['cin'])) {
-                                                $date = $_GET['date'];
-                                                // $hours = $cc->hourDispos($date);
+                                                if (!empty($_GET['date']) && !empty($_GET['cin'])) {
+                                                    $date = $_GET['date'];
+                                                    // $hours = $cc->hourDispos($date);
                                                     foreach ($cc->hourDispos($date) as $value) {
-                                                        echo ' <a class="dropdown-item" href="#">' . date("H:i", strtotime($value)) . '</a>';
+                                                        echo ' <a class="dropdown-item" href="add-rdv.php?cin=' . $cin . '&date=' . $date . '&hours=' . $value . '">' . date("H:i", strtotime($value)) . '</a>';
                                                     }
-                                                "<script>alaert('hours are sets');</script>";
+                                                    "<script>alaert('hours are sets');</script>";
+                                                    $hours = $_GET['hours'];
                                                 }
                                                 ?>
                                             </div>
@@ -195,13 +196,18 @@ $hours = null;
                                     <input type="submit" class="btn btn-primary" name="go" value="Create RDV">
                                     <?php
 
-                                    if (isset($_POST['go'])) {
-
-                                        // AjouterRDV  mlancer lesg
-                                        echo '
-                                    <div class="alert alert-success" role="alert">
-                                    A simple success alert with <a href="rdvs.php?cin=' . $cin . '" class="alert-link">voir le RDV dans la liste</a>. Give it a click if you like.
-                                  </div>';
+                                    if (!empty($_POST['go'])) {
+                                        // TODO: validate the input and add the appointement
+                                        // $date = null;
+                                        $rdv=new RDV(null,$date,$hours,'',$_GET['obj'],$cin);
+                                        $inf = new Infirmier('#1cin',null,null,null,null,null,null,null,null);
+                                        if($inf->AjouterRDV($rdv))
+                                      {
+                                            echo '
+                                            <div class="alert alert-success" role="alert">
+                                        nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link"> retry.</a>
+                                      </div>';
+                                        }
                                     }
                                     ?>
                                 </div>
@@ -221,8 +227,8 @@ $hours = null;
     <script src="../../assets/js/moment.min.js"></script>
     <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../assets/js/app.js"></script>
-    <script src="../../assets/js/date&hour.js" defer></script>
-    <script>
+    <!-- <script src="../../assets/js/date&hour.js" defer></script> -->
+    <!-- <script>
     //just a test
     // using the test
     $('#drop-date a').on('click', function(){
@@ -231,7 +237,11 @@ $hours = null;
     $('#field').prop('disabled',false);
     // alert('clicked');
 });
-</script>
+</script> -->
+
+    <script>
+
+    </script>
 </body>
 
 

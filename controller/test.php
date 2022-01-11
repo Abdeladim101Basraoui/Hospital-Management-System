@@ -1,5 +1,5 @@
 <?php
-//     include('Infirmier.php');
+    include('Infirmier.php');
 //     // include_once('RDV.php');
 // $f = new Infirmier('inf#1',null,null,null,null,null,null,null,null);
 // $r =new RDV(null,date('y-m-d'),date('H:i'),"inserted from the code",null,'bl23456');
@@ -7,6 +7,9 @@
 // // if($f->AjouterRDV($r))
 // // echo "good!";
 
+
+// $d = new calendrier_RDV();
+// $d->insertCalendar();
 //====================
 ?>
 <!DOCTYPE html>

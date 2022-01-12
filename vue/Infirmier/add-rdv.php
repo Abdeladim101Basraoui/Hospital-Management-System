@@ -217,9 +217,14 @@ $hours = null;
                                         if ($inf->AjouterRDV($rdv)) {
                                             echo '
                                             <div class="alert alert-success" role="alert">
-                                        nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link"> retry.</a>
+                                        very well! <a href="rdvs.php?cin='.$cin.'" class="alert-link"> check it out!</a>
                                       </div>';
-                                        }   
+                                        }   else{
+                                            echo '
+                                            <div class="alert alert-danger" role="alert">
+                                        nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link dropit"> retry.</a>
+                                      </div>';
+                                        }
                                     }
                                     ?>
                                 </div>

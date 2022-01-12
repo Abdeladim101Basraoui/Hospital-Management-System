@@ -80,7 +80,7 @@ class Infirmier extends Employe
         //  {
             $req = "INSERT INTO `rdv`( `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient`) VALUES ".
             "('$r->date_RDV','$r->heure_RDV','$r->objet','$this->CIN','$r->cin_patient');";
-            echo $req;
+            // echo $req;
             $ress = $c->prepare($req); 
             return $ress->execute();
         // }

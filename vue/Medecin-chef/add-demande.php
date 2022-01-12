@@ -15,6 +15,7 @@ if(!empty($_POST['ddm'])&&!empty($_POST['dbm'])&&!empty($_POST['mat']))
     //$md = new Materiel_Demande();
     
     $r =$t->DemandeMateriel($m);
+    
     foreach($r as $id){
         foreach($mat as $v){
             $t->AjouterMaterielDemande($v[0],$id[0]);

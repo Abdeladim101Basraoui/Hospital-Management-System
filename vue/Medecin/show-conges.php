@@ -1,3 +1,13 @@
+<?PHP
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else
+{
+    header('Location: ../redirect.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +45,7 @@
                     <a href="#" class="nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Medecin</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
                 </li>
             </ul>
@@ -95,7 +105,7 @@
 								<?php
         							include('../../controller/Medecin.php');
 
-									$m = new Medecin('A12345',null,null,null,null,null,null,null,null);
+									$m = new Medecin($_SESSION['cin'],null,null,null,null,null,null,null,null);
 									$pat = $m->ListerMesDemandes();
 
 									foreach($pat as $p){

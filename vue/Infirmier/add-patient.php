@@ -1,3 +1,13 @@
+<?PHP
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else
+{
+    header('Location: ../redirect.php');
+}
+?>
 <?php
 include('../../controller/Patient.php');
 include('../../controller/Infirmier.php');
@@ -59,7 +69,7 @@ else{
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Infirmier</span>
+                            <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
                 </li>
             </ul>

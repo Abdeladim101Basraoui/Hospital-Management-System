@@ -1,9 +1,19 @@
+<?PHP
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else
+{
+    header('Location: ../redirect.php');
+}
+?>
 <?php
 include('../../controller/Materiel.php');
 include('../../controller/Technicien.php');
 
 $id = $_GET['id'];
-$t = new Technicien('T12345',null,null,null,null,null,null,null,null);
+$t = new Technicien($_SESSION['cin'],null,null,null,null,null,null,null,null);
 $mat = $t->AfficherMateriel($id);
 
 
@@ -58,7 +68,7 @@ else{
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Medecin</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
                 </li>
             </ul>

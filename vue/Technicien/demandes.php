@@ -1,3 +1,9 @@
+<?PHP
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +41,7 @@
                     <a href="#" class="nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Technicien</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
                 </li>
             </ul>

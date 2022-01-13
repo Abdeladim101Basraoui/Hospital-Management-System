@@ -33,22 +33,7 @@ include("../controller/Employe.php");
             $_SESSION['cin'] = $e->se_connecter($_POST['user'],$_POST['pass']);
             $_SESSION['role'] = $e->getRole($_SESSION['cin']);
             $_SESSION['nom'] = $e->getNom($_SESSION['cin']);
-            if(strtolower($_SESSION['role']) == 'medecin'){
-                header("Location: medecin");
-            }
-            else if(strtolower($_SESSION['role']) == 'medecin-chef'){
-                header("Location: medecin-chef");
-            }
-            else if(strtolower($_SESSION['role']) == 'technicien'){
-                header("Location: technicien");
-            }
-            else if(strtolower($_SESSION['role']) == 'infirmier'){
-                header("Location: infirmier");
-            }
-            else{
-                header("Location: login");
-            }
-                
+            header("Location: redirect");
         }          
     }
 ?>
@@ -62,23 +47,21 @@ include("../controller/Employe.php");
                     <div class="col-md-7">
                         <div class="mb-4">
                             <h3>Sign In</h3>
-                            <p class="mb-4">Utiliser l'email et le mot de passe saisis lors de l'inscription</p>
+                            <p class="mb-4">Utiliser l'email et le mot de passe donné par votre administrateur</p>
                         </div>
                         <form method="POST">
                             <div class="form-group first">
-                                <label for="username">Email</label>
-                                <input type="text" class="form-control" id="username" name="user" >
+                                <input type="text" class="form-control" id="username" name="user" placeholder="Email" >
 
                             </div>
                             <div class="form-group last mb-3">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="pass">
+                                <input type="password" class="form-control" id="password" name="pass" placeholder="Password">
 
                             </div>
 
                             <div class="d-flex mb-5 align-items-center">
                                 <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                            <input type="checkbox" checked="checked"/>
+                            <input type="checkbox" checked>
                             <div class="control__indicator"></div>
                         </label>
                             </div>

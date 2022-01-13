@@ -1,3 +1,13 @@
+<?PHP
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else
+{
+    header('Location: ../redirect.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +45,7 @@
                     <a href="#" class="nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Medecin</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
                 </li>
             </ul>
@@ -45,7 +55,7 @@
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
                     <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

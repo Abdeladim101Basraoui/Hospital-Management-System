@@ -1,4 +1,13 @@
-<?php
+<?PHP
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else
+{
+    header('Location: ../redirect.php');
+}
+
 include('../../controller/front.php');
 ?>
 <!DOCTYPE html>
@@ -33,11 +42,14 @@ include('../../controller/front.php');
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown ">
-                    <a href="#">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Medecin</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
+                    <div class="dropdown-menu">
+						<a class="dropdown-item" href="../logout.php">Logout</a>
+					</div>
                 </li>
             </ul>
 

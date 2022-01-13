@@ -115,7 +115,10 @@
 															<i class="fa fa-ellipsis-v"></i></a>
 											                <div class="dropdown-menu dropdown-menu-right">
 											                    <a class="dropdown-item" href="delete-rdv.php?id=[0]">
-																<i class="fa fa-trash m-r-5"></i>Supprimer RDV</a>
+																	<i class="fa fa-trash m-r-5"></i>
+																				Supprimer RDV
+																				
+																</a>
 											                </div>
 											            </div>	
 													</td>
@@ -123,7 +126,7 @@
 												';
 											
 											}
-										// echo "<script>alert('" . $cin . "');</script>";
+
 									}
 									?>
 

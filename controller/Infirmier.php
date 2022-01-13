@@ -25,6 +25,22 @@ class Infirmier extends Employe
         }
     }
 
+    // checrcher si le patient exist pour obtenir le cin
+    public function AjouterRDV(RDV $r)
+    {
+        $c = $this->connect();
+        // $res = $this->find_Patient($r->cin_patient);
+        // if ($res!=false)
+        //  {
+            $req = "INSERT INTO `rdv`( `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient`) VALUES ".
+            "('$r->date_RDV','$r->heure_RDV','$r->objet','$this->CIN','$r->cin_patient');";
+            // echo $req;
+            $ress = $c->prepare($req); 
+            return $ress->execute();
+        // }
+    //     else
+    //   echo "<script>cin non trouver</script>";
+    }
 
     /**
      * @param  $col = column name
@@ -71,22 +87,7 @@ class Infirmier extends Employe
         }
     }
 
-    // checrcher si le patient exist pour obtenir le cin
-    public function AjouterRDV(RDV $r)
-    {
-        $c = $this->connect();
-        // $res = $this->find_Patient($r->cin_patient);
-        // if ($res!=false)
-        //  {
-            $req = "INSERT INTO `rdv`( `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient`) VALUES ".
-            "('$r->date_RDV','$r->heure_RDV','$r->objet','$this->CIN','$r->cin_patient');";
-            // echo $req;
-            $ress = $c->prepare($req); 
-            return $ress->execute();
-        // }
-    //     else
-    //   echo "<script>cin non trouver</script>";
-    }
+
     //     public function SupprimerRDV($id)
     //     {
     //         $c = self::connect();
@@ -100,7 +101,7 @@ class Infirmier extends Employe
 
 
 
-
+        
 
     //     public function AjouterPatient($pat)
     //     {

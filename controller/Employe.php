@@ -63,6 +63,47 @@ class Employe
         return false;
        }
    }
+    public function getRole($cin)
+    {
+        $role=false;
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+            $sql="SELECT * FROM Employe WHERE Cin_employe='$cin'";
+            $r=$c->query($sql);
+            foreach($r as $v)
+            { 
+                $role=$v[8];
+            }
+            return $role;  
+        }
+        else 
+        {  
+            echo "utilisateur ou mot de passe incorrect!";
+            return false;
+        }
+    }
+    public function getNom($cin)
+    {
+        $nom=false;
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+            $sql="SELECT * FROM Employe WHERE Cin_employe='$cin'";
+            $r=$c->query($sql);
+            foreach($r as $v)
+            { 
+                $nom=$v[1];
+            }
+            return $nom;  
+        }
+        else 
+        {  
+            echo "utilisateur ou mot de passe incorrect!";
+            return false;
+        }
+    }
+   
 
     public function DemanderConge($cng)
     {

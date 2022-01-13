@@ -88,16 +88,16 @@ class Infirmier extends Employe
     }
 
 
-    //     public function SupprimerRDV($id)
-    //     {
-    //         $c = self::connect();
-    //         if ($c != NULL) {
-    //             $sql = "DELETE FROM rdv WHERE Id_rdv = '$id'";
-    //             $v = $c->prepare($sql);
-    //             $v->execute();
-    //             return true;
-    //         }
-    //     }
+        public function SupprimerRDV($col ="CIN",$value)
+        {
+            $c = self::connect();
+            if ($c != NULL) {
+                $sql = "DELETE FROM rdv WHERE $col = '$value'";
+                $v = $c->prepare($sql);
+                $v->execute();
+                return true;
+            }
+        }
 
 
 

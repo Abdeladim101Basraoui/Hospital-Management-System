@@ -102,7 +102,7 @@
 										// $inf->ListerRDV($cin);
 										foreach($inf->ListerRDV($cin) as $con)
 										{
-											
+											echo "<script>alert('".$con[0]."');</script>";
 												echo '
 												<tr>
 													<td><img width="28" height="28" src="../../assets/img/user.jpg" class="rounded-circle m-r-5" alt="">'.$con[5].'</td>
@@ -129,7 +129,6 @@
 
 									}
 									?>
-
 
 								</tbody>
 							</table>

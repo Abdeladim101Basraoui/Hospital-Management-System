@@ -40,7 +40,21 @@ class Technicien extends Employe
         }
     }
 
-   
+    public function AfficherDemandeMat($idd)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM demande_materiel WHERE Num_demande=$idd";
+           $r=$c->query($sql);
+           
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
     public function ModifierMateriel($mtr)
     {
         $c=$this->connect();

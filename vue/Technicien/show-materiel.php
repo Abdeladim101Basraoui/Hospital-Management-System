@@ -54,7 +54,7 @@ $m = new Medecin('A12345',null,null,null,null,null,null,null,null);
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                           <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>

@@ -64,7 +64,7 @@ else{
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Technicien</span>
+                        <span>Medecin Chef</span>
                     </a>
                 </li>
             </ul>
@@ -76,7 +76,7 @@ else{
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>

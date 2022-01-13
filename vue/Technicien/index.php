@@ -1,37 +1,19 @@
 <?php
-include('../../controller/Materiel.php');
-include('../../controller/Technicien.php');
-if(!empty($_POST['lbl'])&&!empty($_POST['etat']))
-{
-    $lbl = $_POST["lbl"];
-    $etat = $_POST["etat"];
-    
-
-    $t = new Technicien('T12345',null,null,null,null,null,null,null,null);
-    
-    $m= new Materiel($lbl,$etat);
-    if($t->AjouterMateriel($m))
-        header('Location: materiels.php');
-}
-else{
-   
-}
-
+include('../../controller/front.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 
-<!-- add-patient24:06-->
+<!-- index22:59-->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/favicon.ico">
     <title>Alamal</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
     <!--[if lt IE 9]>
 		<script src="../../assets/js/html5shiv.min.js"></script>
@@ -41,7 +23,7 @@ else{
 
 <body>
     <div class="main-wrapper">
-        <div class="header">
+    <div class="header">
 			<div class="header-left">
 				<a href="#" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
@@ -60,13 +42,15 @@ else{
             </ul>
 
         </div>
+                        
+        </div>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                           <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>
@@ -88,53 +72,66 @@ else{
         </div>
         <div class="page-wrapper">
             <div class="content">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Add Materiel</h4>
+                <div class="row">        
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                        <div class="dash-widget">
+							<span class="dash-widget-bg1"><i class="fa fa-book" aria-hidden="true"></i></span>
+							<div class="dash-widget-info text-right">
+								<h3><?php $s = new Stats(); 
+                                $noInf = $s->NoMat();
+                                foreach($noInf as $no){
+                                    echo $no[0];
+                                }
+                                ?></h3>
+								<span class="widget-title1">Materiels <i class="fa fa-check" aria-hidden="true"></i></span>
+							</div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <form method="post">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Libelle Materiel <span class="text-danger">*</span></label>
-                                        <div class="cal-icon">
-                                            <input class="form-control" name="lbl" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                        
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Etat Materiel</label>
-                                        <div class="">
-                                            <input type="text" name="etat" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" value="Create Materiel">
-                            </div>
-                        </form>
-                    </div>
-                </div>
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-8 col-xl-8">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title d-inline-block">Nouveau Demandes </h4> <a href="demandes.php" class="btn btn-primary float-right">View all</a>
+							</div>
+							<div class="card-block">
+								<div class="table-responsive">
+									<table class="table mb-0 new-patient-table">
+										<tbody>
+                                            <?php
+                                                $s = new Stats(); 
+                                                $TopDem = $s->NewDemande();
+                                                foreach($TopDem as $pat){
+                                                    echo "
+                                                    <tr>
+                                                        <td>$pat[0]</td>
+                                                        <td>$pat[1]</td>
+                                                        <td>$pat[2]</td>
+                                                    </tr>
+                                                    ";
+                                                }
+                                            ?>
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
     </div>
-    <div class="sidebar-overlay" data-reff=""></div>
     <script src="../../assets/js/jquery-3.2.1.min.js"></script>
 	<script src="../../assets/js/popper.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/jquery.slimscroll.js"></script>
-    <script src="../../assets/js/select2.min.js"></script>
-	<script src="../../assets/js/moment.min.js"></script>
-	<script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../assets/js/Chart.bundle.js"></script>
+    <script src="../../assets/js/chart.js"></script>
     <script src="../../assets/js/app.js"></script>
+
 </body>
 
 
-<!-- add-patient24:07-->
+<!-- index22:59-->
 </html>

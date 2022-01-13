@@ -45,17 +45,17 @@ class Employe
 
     public function se_connecter($eml,$pwr)
    {
-         $cin=false;
-         $c=$this->connect();
-         if($c!=NULL)
-         {  
-            $sql="SELECT * FROM `Employe` WHERE `Email`='".$eml."' AND `Password`='".$pwr."'";
-            $r=$c->query($sql);
-            foreach($r as $v)
-            { 
-            	$cin=$v[0];
-            }
-            return $cin;  
+        $cin=false;
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+        $sql="SELECT * FROM `Employe` WHERE `Email`='".$eml."' AND `Password`='".$pwr."'";
+        $r=$c->query($sql);
+        foreach($r as $v)
+        { 
+            $cin=$v[0];
+        }
+        return $cin;  
         }
         else 
        {  
@@ -90,12 +90,12 @@ class Employe
     }
     public function ListerMesDemandes()
     {
-         $c=$this->connect();
-         if($c!=NULL)
-         {  
-            $sql="SELECT * FROM conge WHERE Cin_employe ='$this->CIN'";
-            $r=$c->query($sql);
-            return $r;  
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+        $sql="SELECT * FROM conge WHERE Cin_employe ='$this->CIN'";
+        $r=$c->query($sql);
+        return $r;  
         }
 
     }

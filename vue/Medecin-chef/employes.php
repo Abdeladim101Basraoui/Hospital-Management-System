@@ -4,6 +4,10 @@ session_start();
 if(empty($_SESSION['role'])){
     header("Location: ../login.php");
 }
+else if(strtolower($_SESSION['role']) != 'medecin-chef')
+{
+    header('Location: ../redirect.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +35,7 @@ if(empty($_SESSION['role'])){
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="index-2.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
@@ -94,7 +98,7 @@ if(empty($_SESSION['role'])){
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Patients</h4>
+                        <h4 class="page-title">Employe</h4>
                     </div>
                     
                 </div>
@@ -111,7 +115,6 @@ if(empty($_SESSION['role'])){
 										<th>Phone</th>
 										<th>Email</th>
 										<th>Role</th>
-										<th class="text-right">Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -132,14 +135,6 @@ if(empty($_SESSION['role'])){
 											<td>$p[5]</td>
 											<td>$p[6]</td>
 											<td>$p[8]</td>
-											<td class='text-right'>
-												<div class='col-sm dropdown dropdown-action'>
-													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
-													<div class='dropdown-menu dropdown-menu-right'>
-														<a class='dropdown-item' href='consultations.php?cin=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Consultations</a>
-													</div>
-												</div>
-											</td>
 										</tr>
 										";
 									}

@@ -1,7 +1,12 @@
+
 <?php
 session_start();
 if(empty($_SESSION['role'])){
     header("Location: ../login.php");
+}
+else if(strtolower($_SESSION['role']) != 'medecin-chef')
+{
+    header('Location: ../redirect.php');
 }
 include('../../controller/Conge.php');
 include('../../controller/Medecin_Chef.php');
@@ -49,7 +54,7 @@ else{
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="#" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>

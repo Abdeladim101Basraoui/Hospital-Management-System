@@ -3,10 +3,10 @@ session_start();
 if(empty($_SESSION['cin'])){
     header('Location: ../login.php');
 }
-else
+else if(strtolower($_SESSION['role']) != 'technicien')
 {
     header('Location: ../redirect.php');
-}
+} 
 ?> 
 <?php
 include('../../controller/Demande_Materiel.php');
@@ -20,9 +20,10 @@ $dem = $t->AfficherDemandeMat($id);
 if(isset($_POST['etat']))
 {
     $etat = $_POST["etat"];
-    $id = $_POST['id'];
+    $id = $_GET['id'];
 
-    $d= new Demande_Materiel($id,null,null,null,null,$etat);
+    $d= new Demande_Materiel(null,null,null,null,$etat);
+    $d->num_demande = $id;
     if($t->ModifierDemande($d))
         header('Location: demandes');
 }
@@ -55,19 +56,22 @@ else{
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="#" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#">
+                <li class="nav-item dropdown ">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
                         <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
+                    <div class="dropdown-menu">
+						<a class="dropdown-item" href="../logout.php">Logout</a>
+					</div>
                 </li>
             </ul>
 

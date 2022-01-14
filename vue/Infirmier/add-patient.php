@@ -3,7 +3,7 @@ session_start();
 if(empty($_SESSION['cin'])){
     header('Location: ../login.php');
 }
-else
+else if(strtolower($_SESSION['role']) != 'infirmier')
 {
     header('Location: ../redirect.php');
 }
@@ -23,7 +23,7 @@ if(!empty($_POST['nomc'])&&!empty($_POST['cin'])&&!empty($_POST['daten'])&&!empt
         $pass = $_POST["pass"];
         $his = $_POST["hist"];
 
-        $m = new Infirmier("B12345",null,null,null,null,null,null,null,null);
+        $m = new Infirmier($_SESSION['cin'],null,null,null,null,null,null,null,null);
         $p= new Patient($cin,$nomc,$datn,$addr,$sexe,$tel,$email,$pass,$his);
 		$m->AjouterPatient($p);
         header('Location: patients');
@@ -58,7 +58,7 @@ else{
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="#" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>

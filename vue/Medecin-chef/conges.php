@@ -3,7 +3,7 @@ session_start();
 if(empty($_SESSION['cin'])){
     header('Location: ../login.php');
 }
-else
+else if(strtolower($_SESSION['role']) != 'medecin-chef')
 {
     header('Location: ../redirect.php');
 }
@@ -31,7 +31,7 @@ else
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="index-2.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
@@ -94,7 +94,7 @@ else
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Patients</h4>
+                        <h4 class="page-title">Demandes Congé</h4>
                     </div>
                     
                 </div>

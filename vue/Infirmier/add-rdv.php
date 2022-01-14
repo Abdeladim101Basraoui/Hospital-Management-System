@@ -1,36 +1,26 @@
-<?PHP
+<?php
 session_start();
 if(empty($_SESSION['cin'])){
     header('Location: ../login.php');
 }
-else
+else if(strtolower($_SESSION['role']) != 'infirmier')
 {
     header('Location: ../redirect.php');
 }
-?>
-<?php
+#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
 include('../../controller/RDV.php');
 include('../../controller/Infirmier.php');
-if(!empty($_POST['dater'])&&!empty($_POST['heurer'])&&!empty($_POST['obj']))
-{
-    $dater = $_POST["dater"];
-    $heurer = $_POST["heurer"];
-    $obj = $_POST["obj"];
-    if(!empty($_GET['cin']))
-        $cin = $_GET["cin"];
-    else 
-        $cin = $_POST["cin"];
-    
+include('../../controller/calendrier_RDV.php');
+$cc = new calendrier_RDV();
 
-    $m = new Infirmier('B12345',null,null,null,null,null,null,null,null);
-    
-    $c= new RDV($dater,$heurer,$obj,$cin);
-    if($m->AjouterRDV($c))
-        header('Location: rdvs');
-}
-else{
-   
-}
+// --- adding a function that deletes the past days untaked
+$cc->weeklyDelete();
+// 
+$cin = $_GET["cin"];
+$date = date('y-m-d');
+$hour = date('H:i');
+$hours = null;
+
 
 ?>
 <!DOCTYPE html>
@@ -38,6 +28,7 @@ else{
 
 
 <!-- add-patient24:06-->
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -48,35 +39,36 @@ else{
     <link rel="stylesheet" type="text/css" href="../../assets/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/mystyle.css">
     <!--[if lt IE 9]>
 		<script src="../../assets/js/html5shiv.min.js"></script>
 		<script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
+    <style>
+    .dropdown-menu {
+    max-height: 100px;
+    overflow-y: auto;
+    }</style>
+
 </head>
 
 <body>
     <div class="main-wrapper">
         <div class="header">
-			<div class="header-left">
-				<a href="#" class="logo">
-					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
-				</a>
-			</div>
-			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <div class="header-left">
+                <a href="index.php" class="logo">
+                    <img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
+                </a>
+            </div>
+            <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown ">
-                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                    <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
-							<span class="status online"></span></span>
-                        <span><?PHP echo $_SESSION['nom'] ?></span>
+                            <span class="status online"></span></span>
+                        <span><?php echo $_SESSION['nom']?></span>
                     </a>
-                    <div class="dropdown-menu">
-						<a class="dropdown-item" href="../logout.php">Logout</a>
-					</div>
-                </li>
-            </ul>ropdown-item" href="../logout.php">Logout</a>
-					</div>
                 </li>
             </ul>
 
@@ -87,27 +79,28 @@ else{
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                           <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
-						<li class="submenu">
-							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
-							<ul style="display: none;">
-								<li><a href="patients.php">Patients List</a></li>
-								<li><a href="add-patient.php">Ajouter Patient</a></li>
-								<li><a href="rdvs.php">RDV</a></li>
-							</ul>
-						</li>          
                         <li class="submenu">
-							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
-							<ul style="display: none;">
-								<li><a href="add-conge.php">Demander Conge</a></li>
-								<li><a href="show-conges.php">Mes demandes</a></li>
-							</ul>
-						</li> 
+                            <a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="patients.php">Patients List</a></li>
+                                <li><a href="add-patient.php">Ajouter Patient</a></li>
+                                <li><a href="rdvs.php">RDV</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="add-conge.php">Demander Conge</a></li>
+                                <li><a href="show-conges.php">Mes demandes</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
+
         <div class="page-wrapper">
             <div class="content">
                 <div class="row">
@@ -115,63 +108,160 @@ else{
                         <h4 class="page-title">Add RDV</h4>
                     </div>
                 </div>
+                <!-- row add rdv -->
+
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <form method="post">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <!-- TODO :show label and cin  -->
+                                <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>CIN Patient : <span class="text-primary"><?php if(!isset($_GET['cin'])){echo "<span class='text-danger'>*</span> <div>
-                                            <input class='form-control' name='cin' type='text'>
-                                        </div>"; }else{echo $_GET['cin'];}?></span></label>
+                                        <label>CIN Patient : <span class="text-primary">
+                                                <?php echo $cin ?>
+                                            </span></label>
                                     </div>
-                                </div> 
+                                </div>
+                                <!--  -->
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Date RDV <span class="text-danger">*</span></label>
                                         <div class="cal-icon">
-                                            <input class="form-control" name="dater" type="text">
-                                        </div>
-                                    </div>
-                                </div>                                    
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Heure RDV</label>
-                                        <div class="clock-icon">
-                                            <input class="form-control" name="heurer" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Objet</label>
-                                        <div class="clock-icon">
-                                            <textarea class="form-control" name="obj"></textarea>
+                                            <!-- <input class="form-control" name="dater" type="text"> -->
+                                            <div class="btn-group">
+                                                <?php
+                                                echo '<button type="button"  value="' . $date . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                                    ' . $date . '
+                                                                </button>';
+                                                ?>
+                                                <div class="dropdown-menu" id="drop-date">
+                                                    <?php
+                                                    foreach ($cc->datesDispo() as $value) {
+                                                        echo ' <a class="dropdown-item c-date" href="add-rdv.php?cin=' . $cin . '&date=' . $value[0] . '">' . $value[0] . '</a>';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="m-t-20 text-center">
-                                <input type="submit" class="btn btn-primary" value="Create RDV">
-                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Heure RDV<span class="text-danger">*</span></label>
+                                    <?php
+                                    echo '<fieldset id="field">';
+                                    ?>
+
+                                    <div class="clock-icon">
+                                        <!-- <input class="form-control" name="heurer" type="text"> -->
+                                        <div class="btn-group">
+                                            <?php
+                                            echo '
+                                                            <button type="button"  value="' . $hour . '" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="sr-only">*</span>
+                                                            ' . $hour . '
+                                                            </button>';
+                                            ?>
+
+                                            <div class="dropdown-menu">
+                                                <?php
+                                                if (!empty($_GET['date']) && !empty($_GET['cin'])) {
+                                                    $date = $_GET['date'];
+                                                    // $hours = $cc->hourDispos($date);
+                                                    foreach ($cc->hourDispos($date) as $value) {
+                                                        //value ="add-rdv.php?cin=$cin&date=' . $date . '&hours=' . $value . '"
+                                                        echo ' <a class="dropdown-item" ' .
+                                                            // date("H:i", strtotime($value)) .
+                                                            'href="add-rdv.php?cin=' . $cin . '&date=' . $date . '&hours=' . $value . '">'
+                                                            . date("H:i", strtotime($value)) .
+                                                            '</a>';
+                                                    }
+                                                    $hours = $_GET['hours'];
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </fieldset>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Objet</label>
+                                            <div class="clock-icon">
+                                                <textarea class="form-control" name="obj"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-t-20 text-center">
+                                    <?php
+
+                                    echo '<input type="hidden" name="cin" value="' . $cin . '">';
+                                    echo '<input type="hidden" name="date" value="' . $date . '">';
+                                    echo '<input type="hidden" name="hours" value="' . $hours . '">';
+
+                                    ?>
+                                    <input type="submit" name="go" class="btn btn-primary" value="Create RDV">
+
+
+                                    <?php
+
+                                    if (!empty($_POST['go']) && $hours != null) {
+
+                                        // TODO: validate the input and add the appointement
+                                        // $date = null;
+                                        $inf = new Infirmier($_SESSION['cin'], null, null, null, null, null, null, null, null);
+                                        $rdv = new RDV(null, $date, $hours, $_POST['obj'], $inf->CIN, $cin);
+                                        if ($inf->AjouterRDV($rdv)) {
+                                            echo '
+                                            <div class="alert alert-success" role="alert">
+                                        very well! <a href="rdvs.php?cin=' . $cin . '" class="alert-link"> check it out!</a>
+                                      </div>';
+                                        }
+                                    } 
+                                    else if($hours==null){
+                                        echo '
+                                    <div class="alert alert-danger" role="alert">
+                                nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link dropit"> retry.</a>
+                              </div>';
+                                    }
+                                    ?>
+                                </div>
                         </form>
                     </div>
                 </div>
             </div>
-			
+
         </div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="../../assets/js/jquery-3.2.1.min.js"></script>
-	<script src="../../assets/js/popper.min.js"></script>
+    <script src="../../assets/js/popper.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/jquery.slimscroll.js"></script>
     <script src="../../assets/js/select2.min.js"></script>
-	<script src="../../assets/js/moment.min.js"></script>
-	<script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../assets/js/moment.min.js"></script>
+    <script src="../../assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="../../assets/js/app.js"></script>
+    <!-- <script src="../../assets/js/date&hour.js" defer></script> -->
+    <!-- <script>
+    //just a test
+    // using the test
+    $('#drop-date a').on('click', function(){
+    // $('#dropdate a').val($(this).text());
+// the best way to add a DOM attribute with jquery is to use prop
+    $('#field').prop('disabled',false);
+    // alert('clicked');
+});
+</script> -->
+
+    <script>
+
+    </script>
 </body>
 
 
 <!-- add-patient24:07-->
+
 </html>

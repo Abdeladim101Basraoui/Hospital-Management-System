@@ -70,7 +70,8 @@
 		</div>
 		<div class="page-wrapper">
 			<div class="content">
-				<div class="row"><div class="col-sm-10 ">
+				<div class="row">
+					<div class="col-sm-10 ">
 
 						<div class="container">
 							<div class="row height d-flex justify-content-center align-items-center">
@@ -79,7 +80,7 @@
 										<!-- <i class="fa fa-search"></i>  -->
 										<input type="text" class="form-control" placeholder="the CIN please...." onkeyup="showHint(this.value)">
 										<button class="btn btn-primary">Search</button>
-										<a  id="hintlink" ><span id="txtSug"></span></a>
+										<a id="hintlink"><span id="txtSug"></span></a>
 									</div>
 								</div>
 							</div>
@@ -89,7 +90,7 @@
 						<h4 class="page-title">RDVS</h4>
 					</div>
 
-					
+
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -115,7 +116,7 @@
 									} else {
 										$cin = $_GET["cin"];
 									}
-									
+
 									$inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
 									// $inf->ListerRDV($cin);
 									foreach ($inf->ListerRDV($cin) as $con) {
@@ -124,7 +125,7 @@
 											<tr >
 											
 											<td><img width="28" height="28" src="../../assets/img/user.jpg" class="rounded-circle m-r-5" alt="">
-											<a name="'.$i.'-' . $con[5] . '" ></a>
+											<a name="' . $i . '-' . $con[5] . '" ></a>
 											' . $con[5] . '</td>
 											<td>' . $con[1] . '</td>
 											<td>' . $con[2] . '</td>
@@ -134,9 +135,14 @@
 											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<i class="fa fa-ellipsis-v"></i></a>
 											<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="delete-rdv.php?id=' . $con[0] . '">
+											<!--<a class="dropdown-item" href="delete-rdv.php?id=' . $con[0] . '">
 											<i class="fa fa-trash m-r-5"></i>
 											Supprimer RDV
+											
+											</a>-->
+											<a class="dropdown-item" class="trigger-btn" data-toggle="modal" href="#myModal' . $con[0] . '">
+											<i class="fa fa-trash m-r-5"></i>
+											delete
 											
 											</a>
 											</div>
@@ -144,12 +150,37 @@
 											</td>
 											</tr>
 											';
+										echo '	<!-- Modal HTML -->
+											<div id="myModal'.$con[0].'" class="modal fade">
+												<div class="modal-dialog modal-confirm">
+													<div class="modal-content">
+														<div class="modal-header flex-column">
+															<div class="icon-box">
+																<i class="material-icons">&#xE5CD;</i>
+															</div>
+															<h4 class="modal-title w-100">Are you sure?</h4>
+															<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+														</div>
+														<div class="modal-body">
+															<p>Do you really want to delete these records? This process cannot be undone.</p>
+														</div>
+														<div class="modal-footer justify-content-center">
+															<a href="#" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+															<!-- <button type="submit" name="delete" value="delete.php?id=1" class="btn btn-danger">Delete</button> -->
+															<a href="delete-rdv.php?id=' . $con[0] . '" class="btn btn-danger">Delete</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- end modal -->';
 									}
 
 
 									?>
 								</tbody>
 							</table>
+
+
 						</div>
 					</div>
 				</div>
@@ -181,7 +212,7 @@
 				xmlhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						document.getElementById("txtSug").innerHTML = this.responseText;
-						document.getElementById("hintlink").setAttribute('href', '#'+this.responseText.split(',')[0]);
+						document.getElementById("hintlink").setAttribute('href', '#' + this.responseText.split(',')[0]);
 					}
 				};
 				xmlhttp.open("GET", "ajax-search.php?q=" + str, true);

@@ -44,14 +44,14 @@ class Infirmier extends Employe
         // $res = $this->find_Patient($r->cin_patient);
         // if ($res!=false)
         //  {
-            $req = "INSERT INTO `rdv`( `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient`) VALUES ".
+        $req = "INSERT INTO `rdv`( `Date_RDV`, `Heure_RDV`, `Objet`, `Cin_employe`, `Cin_patient`) VALUES " .
             "('$r->date_RDV','$r->heure_RDV','$r->objet','$this->CIN','$r->cin_patient');";
-            // echo $req;
-            $ress = $c->prepare($req); 
-            return $ress->execute();
+        // echo $req;
+        $ress = $c->prepare($req);
+        return $ress->execute();
         // }
-    //     else
-    //   echo "<script>cin non trouver</script>";
+        //     else
+        //   echo "<script>cin non trouver</script>";
     }
 
     /**
@@ -101,35 +101,34 @@ class Infirmier extends Employe
     }
 
 
-        public function SupprimerRDV($value,$col ="CIN")
-        {
-            $c = $this->connect();
-            if ($c != NULL) {
-                $sql = "DELETE FROM rdv WHERE $col = '$value'";
-                $v = $c->prepare($sql);
-                $v->execute();
-                return true;
-            }
+    public function SupprimerRDV($value, $col = "CIN")
+    {
+        $c = $this->connect();
+        if ($c != NULL) {
+            $sql = "DELETE FROM  `rdv` WHERE $col = '$value'";
+            $v = $c->prepare($sql);
+            return  $v->execute();
         }
+    }
 
 
 
-        
 
-        public function AjouterPatient($pat)
-        {
-            $c = $this->connect();
-            if ($c != null) {
-                $sql = "INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, Password, Historique, Cin_employe) VALUES ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
-                echo $sql;
-                $query = $c->prepare($sql);
-                $query->execute();
-                return true;
-            } else {
-                echo "probleme de connexion";
-                return false;
-            }
+
+    public function AjouterPatient($pat)
+    {
+        $c = $this->connect();
+        if ($c != null) {
+            $sql = "INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, Password, Historique, Cin_employe) VALUES ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
+            echo $sql;
+            $query = $c->prepare($sql);
+            $query->execute();
+            return true;
+        } else {
+            echo "probleme de connexion";
+            return false;
         }
+    }
 
     //     // /**
     //     //  * @param  $Patient

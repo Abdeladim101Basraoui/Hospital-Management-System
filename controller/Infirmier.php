@@ -119,11 +119,12 @@ class Infirmier extends Employe
     {
         $c = $this->connect();
         if ($c != null) {
-            $sql = "INSERT INTO patient (Cin_patient, Nom_complet, Date_naissance, Addresse, Sexe, Tel, Email, Password, Historique, Cin_employe) VALUES ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
-            echo $sql;
-            $query = $c->prepare($sql);
-            $query->execute();
-            return true;
+            $sql = "INSERT INTO patient (`Cin_patient`, `Nom_complet`, `Date_naissance`, `Addresse`, `Sexe`, `Tel`, `Email`, `Password`, `Historique`, `Cin_employe`) VALUES".
+            " ('$pat->CIN', '$pat->nom_complet', '$pat->date_naissance', '$pat->addresse', '$pat->sexe', '$pat->tel', '$pat->email', '$pat->password', '$pat->historique', '$this->CIN')";
+          
+          echo $sql;  $query = $c->prepare($sql); 
+            return $query->execute();
+            
         } else {
             echo "probleme de connexion";
             return false;

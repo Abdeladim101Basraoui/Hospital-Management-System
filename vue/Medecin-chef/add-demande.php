@@ -31,9 +31,7 @@ if(!empty($_POST['ddm'])&&!empty($_POST['dbm'])&&!empty($_POST['mat']))
     }
     header('Location: demandes.php');
 }
-else{
-   echo "<script>alert('entrez tous les valeurs');</script>";
-}
+
 
 ?>
 <!DOCTYPE html>

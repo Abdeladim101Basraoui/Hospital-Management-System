@@ -14,8 +14,8 @@ if (!empty($_POST['nomc']) && !empty($_POST['cin']) && !empty($_POST['daten']) &
 
     $m = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
     $p = new Patient($cin, $nomc, $datn, $addr, $sexe, $tel, $email, $pass, $his);
-    echo $m->AjouterPatient($p);
-    header('Location: patients.php');
+    echo "<script>alert('".$m->AjouterPatient($p)."');</script>";
+    // header('Location: patients.php');
 } else {
     echo "not really";
 }

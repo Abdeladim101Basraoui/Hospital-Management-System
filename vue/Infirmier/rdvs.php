@@ -70,11 +70,26 @@
 		</div>
 		<div class="page-wrapper">
 			<div class="content">
-				<div class="row">
-					<div class="col-sm-4 col-3">
+				<div class="row"><div class="col-sm-10 ">
+
+						<div class="container">
+							<div class="row height d-flex justify-content-center align-items-center">
+								<div class="col-md-8">
+									<div class="search">
+										<!-- <i class="fa fa-search"></i>  -->
+										<input type="text" class="form-control" placeholder="the CIN please...." onkeyup="showHint(this.value)">
+										<button class="btn btn-primary">Search</button>
+										<a  id="hintlink" ><span id="txtSug"></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-2 col-3">
 						<h4 class="page-title">RDVS</h4>
 					</div>
 
+					
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -86,6 +101,7 @@
 										<th>Date RDV</th>
 										<th>Heure RDV</th>
 										<th>Objet</th>
+										<!-- <th>date prise RDV</th>	 -->
 										<th class="text-right">Action</th>
 									</tr>
 
@@ -93,43 +109,45 @@
 								<tbody>
 									<?php
 									include('../../controller/Infirmier.php');
-
-									if (!isset($_GET['cin'])) {
+									$i = 0;
+									if (empty($_GET['cin'])) {
 										$cin = 'null';
 									} else {
 										$cin = $_GET["cin"];
-										$inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
-										// $inf->ListerRDV($cin);
-										foreach($inf->ListerRDV($cin) as $con)
-										{
-											echo "<script>alert('".$con[0]."');</script>";
-												echo '
-												<tr>
-													<td><img width="28" height="28" src="../../assets/img/user.jpg" class="rounded-circle m-r-5" alt="">'.$con[5].'</td>
-													<td>'.$con[1].'</td>
-													<td>'.$con[2].'</td>
-													<td>'.$con[3].'</td>
-													<td class="text-right">
-											            <div class="dropdown dropdown-action">
-											                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-															<i class="fa fa-ellipsis-v"></i></a>
-											                <div class="dropdown-menu dropdown-menu-right">
-											                    <a class="dropdown-item" href="delete-rdv.php?id=[0]">
-																	<i class="fa fa-trash m-r-5"></i>
-																				Supprimer RDV
-																				
-																</a>
-											                </div>
-											            </div>	
-													</td>
-												</tr>
-												';
-											
-											}
-
 									}
-									?>
+									
+									$inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
+									// $inf->ListerRDV($cin);
+									foreach ($inf->ListerRDV($cin) as $con) {
+										// <td>' . $con[3] . '</td>
+										echo '
+											<tr >
+											
+											<td><img width="28" height="28" src="../../assets/img/user.jpg" class="rounded-circle m-r-5" alt="">
+											<a name="'.$i.'-' . $con[5] . '" ></a>
+											' . $con[5] . '</td>
+											<td>' . $con[1] . '</td>
+											<td>' . $con[2] . '</td>
+											<td>' . $con[3] . '</td>
+											<td class="text-right">
+											<div class="dropdown dropdown-action">
+											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											<i class="fa fa-ellipsis-v"></i></a>
+											<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href="delete-rdv.php?id=' . $con[0] . '">
+											<i class="fa fa-trash m-r-5"></i>
+											Supprimer RDV
+											
+											</a>
+											</div>
+											</div>	
+											</td>
+											</tr>
+											';
+									}
 
+
+									?>
 								</tbody>
 							</table>
 						</div>
@@ -153,6 +171,24 @@
 		</div>
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
+	<script>
+		function showHint(str) {
+			if (str.length == 0) {
+				document.getElementById("txtSug").innerHTML = "";
+				return;
+			} else {
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("txtSug").innerHTML = this.responseText;
+						document.getElementById("hintlink").setAttribute('href', '#'+this.responseText.split(',')[0]);
+					}
+				};
+				xmlhttp.open("GET", "ajax-search.php?q=" + str, true);
+				xmlhttp.send();
+			}
+		}
+	</script>
 	<script src="../../assets/js/jquery-3.2.1.min.js"></script>
 	<script src="../../assets/js/popper.min.js"></script>
 	<script src="../../assets/js/bootstrap.min.js"></script>

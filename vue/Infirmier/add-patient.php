@@ -15,11 +15,11 @@ if(!empty($_POST['nomc'])&&!empty($_POST['cin'])&&!empty($_POST['daten'])&&!empt
 
         $m = new Infirmier("B12345",null,null,null,null,null,null,null,null);
         $p= new Patient($cin,$nomc,$datn,$addr,$sexe,$tel,$email,$pass,$his);
-		$m->AjouterPatient($p);
-        header('Location: patients');
+		echo $m->AjouterPatient($p);
+        // header('Location: patients.');
 }
 else{
-   
+echo "not really";
 }
 
 ?>
@@ -118,9 +118,9 @@ else{
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Date de Naissance</label>
-                                        <div class="cal-icon">
-                                            <input type="text" name="daten" class="form-control">
-                                        </div>
+                                        <!-- <div class="cal-icon"> -->
+                                            <input type="date" name="daten" class="form-control">
+                                        <!-- </div> -->
                                     </div>
                                 </div>
                                 <div class="col-sm-6">

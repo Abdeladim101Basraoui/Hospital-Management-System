@@ -198,33 +198,35 @@ $hours = null;
                                 </div>
                                 <div class="m-t-20 text-center">
                                     <?php
-                                    
+
                                     echo '<input type="hidden" name="cin" value="' . $cin . '">';
                                     echo '<input type="hidden" name="date" value="' . $date . '">';
                                     echo '<input type="hidden" name="hours" value="' . $hours . '">';
 
                                     ?>
-                                    <input type="submit" name ="go" class="btn btn-primary"value="Create RDV">
+                                    <input type="submit" name="go" class="btn btn-primary" value="Create RDV">
 
 
                                     <?php
 
-                                    if (!empty($_POST['go'])) {
+                                    if (!empty($_POST['go']) && $hours != null) {
+
                                         // TODO: validate the input and add the appointement
                                         // $date = null;
                                         $inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
-                                        $rdv = new RDV(null, $date, $hours, $_POST['obj'],$inf->CIN,$cin);
+                                        $rdv = new RDV(null, $date, $hours, $_POST['obj'], $inf->CIN, $cin);
                                         if ($inf->AjouterRDV($rdv)) {
                                             echo '
                                             <div class="alert alert-success" role="alert">
-                                        very well! <a href="rdvs.php?cin='.$cin.'" class="alert-link"> check it out!</a>
-                                      </div>';
-                                        }   else{
-                                            echo '
-                                            <div class="alert alert-danger" role="alert">
-                                        nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link dropit"> retry.</a>
+                                        very well! <a href="rdvs.php?cin=' . $cin . '" class="alert-link"> check it out!</a>
                                       </div>';
                                         }
+                                    } 
+                                    else if($hours==null){
+                                        echo '
+                                    <div class="alert alert-danger" role="alert">
+                                nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link dropit"> retry.</a>
+                              </div>';
                                     }
                                     ?>
                                 </div>

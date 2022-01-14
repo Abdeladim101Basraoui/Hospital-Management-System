@@ -1,10 +1,7 @@
 <?php
-    include('../../controller/Infirmier.php');
-    $id = $_GET['id'];
-    
-    $i = new Infirmier(null,null,null,null,null,null,null,null,null);
-
-    
-        $i->SupprimerRDV($id);
-
-        header('Location: rdvs.php');
+if (!empty($_GET['id'])) {
+    $cin_pat = $_GET['id'];
+    $inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
+    $inf->SupprimerRDV($cin_pat);
+    header('location:rdvs.php');
+}

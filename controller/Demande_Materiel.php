@@ -13,9 +13,8 @@ class Demande_Materiel
     public $etat_demande;
 
 
-    public function __construct($nd,$dd,$dbm,$cnem,$cet,$ed)
+    public function __construct($dd,$dbm,$cnem,$cet,$ed)
     {
-    	 $this->num_demande=$nd;
          $this->date_demande=$dd;
          $this->date_besoin_materiel=$dbm;
          $this->cin_employe=$cnem;

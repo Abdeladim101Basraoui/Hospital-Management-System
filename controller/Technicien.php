@@ -1,4 +1,5 @@
 <?php
+include('Employe.php');
 
 class Technicien extends Employe
 {
@@ -21,13 +22,13 @@ class Technicien extends Employe
         }
     }
     
-    public function AjouterMateriel( $mtr)
+    public function AjouterMateriel($mtr)
     {
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="INSERT INTO `materiel` ( `Libelle_materiel`, `Etat_materiel`)
-                  VALUES ('".$mtr->Libelle_materiel."', '".$mtr->Etat_materiel."')";
+            $sql="INSERT INTO materiel ( Libelle_materiel, Etat_materiel)
+                  VALUES ('$mtr->libelle_materiel', '$mtr->etat_materiel')";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -39,13 +40,27 @@ class Technicien extends Employe
         }
     }
 
-   
-    public function ModifierMateriel( $mtr,$idm)
+    public function AfficherDemandeMat($idd)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM demande_materiel WHERE Num_demande=$idd";
+           $r=$c->query($sql);
+           
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+    public function ModifierMateriel($mtr)
     {
         $c=$this->connect();
         if($c!=NULL)
         {
-            $sql="UPDATE `materiel` SET `Libelle_materiel`='".$mtr->Libelle_materiel."',`Etat_materiel`='".$mtr->Etat_materiel."' WHERE Num_materiel='".$idm."'";
+            $sql="UPDATE materiel SET Libelle_materiel='$mtr->libelle_materiel',Etat_materiel='$mtr->etat_materiel' WHERE Num_materiel='$mtr->num_materiel'";
             $v= $c->prepare($sql);
             $v->execute();
             return true;  
@@ -63,14 +78,42 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {  
-           $sql="SELECT * FROM `materiel` ";
+           $sql="SELECT * FROM materiel ";
            $r=$c->query($sql);
-           foreach($r as $v)
-           { 
-
-           }
             
-          return true;  
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+
+    public function ListerMaterielDemande($id)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM materiel as m,materiel_demande as md where md.num_materiel = m.num_materiel and md.num_demande = $id ; ";
+           $r=$c->query($sql);
+            
+          return $r;  
+      }
+        else 
+        {
+
+        }
+    }
+
+    public function AfficherMateriel($idm)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+           $sql="SELECT * FROM materiel  WHERE Num_materiel='$idm'";
+           $r=$c->query($sql);
+            
+          return $r;  
       }
         else 
         {
@@ -84,14 +127,10 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {  
-           $sql="SELECT * FROM `demande_materiel`";
+           $sql="SELECT * FROM demande_materiel";
            $r=$c->query($sql);
-           foreach($r as $v)
-           { 
-
-           }
-            
-          return true;  
+        
+          return $r;  
       }
         else 
         {
@@ -105,18 +144,30 @@ class Technicien extends Employe
         $c=$this->connect();
         if($c!=NULL)
         {  
-           $sql="SELECT * FROM `demande_materiel` WHERE Num_demande=$idd";
+           $sql="SELECT * FROM demande_materiel WHERE Num_demande=$idd";
            $r=$c->query($sql);
-           foreach($r as $v)
-           { 
-
-           }
-            
-          return true;  
+           
+          return $r;  
       }
         else 
         {
 
+        }
+    }
+    public function ModifierDemande($dem)
+    {
+        $c=$this->connect();
+        if($c!=NULL)
+        {
+            $sql="UPDATE demande_materiel SET Cin_employe_technicien ='$this->CIN',Etat_demande='$dem->etat_demande' WHERE Num_demande = '$dem->num_demande'";
+            $v= $c->prepare($sql);
+            $v->execute();
+            return true;  
+        }
+        else 
+        {
+            echo "probleme de connexion";
+            return false;
         }
     }
 

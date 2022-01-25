@@ -3,7 +3,7 @@
 class Materiel
 {
 
-  
+    public $num_materiel;
     public  $libelle_materiel;
     public $etat_materiel;
 

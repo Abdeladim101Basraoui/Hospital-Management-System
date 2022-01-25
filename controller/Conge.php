@@ -13,9 +13,8 @@ class Conge
     public  $duree_conge;
     public  $note;
 
-    public function __construct($nc,$obj,$et,$dt,$dr,$nt)
+    public function __construct($obj,$et,$dt,$dr,$nt)
     {
-         $this->num_conge=$nc;
          $this->objet=$obj;
          $this->etat_conge=$et;
          $this->date_conge=$dt;

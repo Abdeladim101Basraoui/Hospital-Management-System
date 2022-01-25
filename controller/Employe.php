@@ -1,5 +1,8 @@
 <?php
-// require_once('myconnect.php');
+
+declare(strict_types=1);
+
+
 class Employe
 {
 
@@ -31,7 +34,7 @@ class Employe
     public function connect()
    {
         try { 
-        	   $c= new PDO("mysql:host=localhost;dbname=centresante","b1sra0u1","root");
+        	   $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
                return $c;
             }
         catch (Exception $e)
@@ -42,17 +45,17 @@ class Employe
 
     public function se_connecter($eml,$pwr)
    {
-         $cin=false;
-         $c=$this->connect();
-         if($c!=NULL)
-         {  
-            $sql="SELECT * FROM `Employe` WHERE `Email`='".$eml."' AND `Password`='".$pwr."'";
-            $r=$c->query($sql);
-            foreach($r as $v)
-            { 
-            	$cin=$v[0];
-            }
-            return $cin;  
+        $cin=false;
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+        $sql="SELECT * FROM `Employe` WHERE `Email`='".$eml."' AND `Password`='".$pwr."'";
+        $r=$c->query($sql);
+        foreach($r as $v)
+        { 
+            $cin=$v[0];
+        }
+        return $cin;  
         }
         else 
        {  
@@ -60,6 +63,47 @@ class Employe
         return false;
        }
    }
+    public function getRole($cin)
+    {
+        $role=false;
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+            $sql="SELECT * FROM Employe WHERE Cin_employe='$cin'";
+            $r=$c->query($sql);
+            foreach($r as $v)
+            { 
+                $role=$v[8];
+            }
+            return $role;  
+        }
+        else 
+        {  
+            echo "utilisateur ou mot de passe incorrect!";
+            return false;
+        }
+    }
+    public function getNom($cin)
+    {
+        $nom=false;
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+            $sql="SELECT * FROM Employe WHERE Cin_employe='$cin'";
+            $r=$c->query($sql);
+            foreach($r as $v)
+            { 
+                $nom=$v[1];
+            }
+            return $nom;  
+        }
+        else 
+        {  
+            echo "utilisateur ou mot de passe incorrect!";
+            return false;
+        }
+    }
+   
 
     public function DemanderConge($cng)
     {
@@ -87,12 +131,12 @@ class Employe
     }
     public function ListerMesDemandes()
     {
-         $c=$this->connect();
-         if($c!=NULL)
-         {  
-            $sql="SELECT * FROM conge WHERE Cin_employe ='$this->CIN'";
-            $r=$c->query($sql);
-            return $r;  
+        $c=$this->connect();
+        if($c!=NULL)
+        {  
+        $sql="SELECT * FROM conge WHERE Cin_employe ='$this->CIN'";
+        $r=$c->query($sql);
+        return $r;  
         }
 
     }

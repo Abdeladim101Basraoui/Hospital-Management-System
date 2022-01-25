@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else if(strtolower($_SESSION['role']) != 'infirmier')
+{
+    header('Location: ../redirect.php');
+}
 #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
 include('../../controller/RDV.php');
 include('../../controller/Infirmier.php');
@@ -13,20 +21,6 @@ $date = date('y-m-d');
 $hour = date('H:i');
 $hours = null;
 
-
-// if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])) {
-
-// $obj = $_POST["obj"];
-// $cin = $_GET["cin"];
-
-
-//     $m = new Infirmier('B12345', null, null, null, null, null, null, null, null);
-
-//     $c = new RDV($dater, $heurer, $obj, $cin);
-//     if ($m->AjouterRDV($c))
-//         header('Location: rdvs');
-// } else {
-// }
 
 ?>
 <!DOCTYPE html>
@@ -50,7 +44,11 @@ $hours = null;
 		<script src="../../assets/js/html5shiv.min.js"></script>
 		<script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
-
+    <style>
+    .dropdown-menu {
+    max-height: 100px;
+    overflow-y: auto;
+    }</style>
 
 </head>
 
@@ -58,7 +56,7 @@ $hours = null;
     <div class="main-wrapper">
         <div class="header">
             <div class="header-left">
-                <a href="#" class="logo">
+                <a href="index.php" class="logo">
                     <img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
                 </a>
             </div>
@@ -69,7 +67,7 @@ $hours = null;
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
                             <span class="status online"></span></span>
-                        <span>Infirmier</span>
+                        <span><?php echo $_SESSION['nom']?></span>
                     </a>
                 </li>
             </ul>
@@ -213,7 +211,11 @@ $hours = null;
 
                                         // TODO: validate the input and add the appointement
                                         // $date = null;
+<<<<<<< HEAD
                                         $inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
+=======
+                                        $inf = new Infirmier($_SESSION['cin'], null, null, null, null, null, null, null, null);
+>>>>>>> main
                                         $rdv = new RDV(null, $date, $hours, $_POST['obj'], $inf->CIN, $cin);
                                         if ($inf->AjouterRDV($rdv)) {
                                             echo '

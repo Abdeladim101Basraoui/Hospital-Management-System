@@ -1,3 +1,13 @@
+<?PHP
+session_start();
+if(empty($_SESSION['role'])){
+    header("Location: ../login.php");
+}
+else if(strtolower($_SESSION['role']) != 'medecin-chef')
+{
+    header('Location: ../redirect.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,19 +34,22 @@
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="index-2.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#" class="nav-link user-link" data-toggle="dropdown">
+                <li class="nav-item dropdown ">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Technicien</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
+                    <div class="dropdown-menu">
+						<a class="dropdown-item" href="../logout.php">Logout</a>
+					</div>
                 </li>
             </ul>
             <div class="dropdown mobile-user-menu float-right">
@@ -49,7 +62,7 @@
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
@@ -127,7 +140,6 @@
 													<a href='#' class='action-icon dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><i class='fa fa-ellipsis-v'></i></a>
 													<div class='dropdown-menu dropdown-menu-right'>
 														<a class='dropdown-item' href='show-demande.php?id=$p[0]'><i class='fa fa-eye m-r-5'></i>Afficher Demande</a>
-														<a class='dropdown-item' href='update-demande.php?id=$p[0]'><i class='fa fa-pencil m-r-5'></i>Modifier Demande</a>
 													</div>
 												</div>
 											</div>

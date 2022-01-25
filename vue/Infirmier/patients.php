@@ -1,3 +1,15 @@
+<?php
+include('../../controller/front.php');
+
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else if(strtolower($_SESSION['role']) != 'infirmier')
+{
+    header('Location: ../redirect.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +37,7 @@
 	<div class="main-wrapper">
 		<div class="header">
 			<div class="header-left">
-				<a href="index-2.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
@@ -36,7 +48,11 @@
 					<a href="#" class="nav-link user-link" data-toggle="dropdown">
 						<span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
+<<<<<<< HEAD
 						<span>Infirmier</span>
+=======
+						<span><?php echo $_SESSION['nom']?></span>
+>>>>>>> main
 					</a>
 				</li>
 			</ul>
@@ -113,7 +129,11 @@
 									<?php
 									include('../../controller/Infirmier.php');
 
+<<<<<<< HEAD
 									$m = new Infirmier('hudhs', null, null, null, null, null, null, null, null);
+=======
+									$m = new Infirmier($_SESSION['cin'], null, null, null, null, null, null, null, null);
+>>>>>>> main
 									$pat = $m->ListerPatients();
 
 									foreach ($pat as $p) {

@@ -211,7 +211,11 @@ $hours = null;
 
                                         // TODO: validate the input and add the appointement
                                         // $date = null;
+<<<<<<< HEAD
+                                        $inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
+=======
                                         $inf = new Infirmier($_SESSION['cin'], null, null, null, null, null, null, null, null);
+>>>>>>> main
                                         $rdv = new RDV(null, $date, $hours, $_POST['obj'], $inf->CIN, $cin);
                                         if ($inf->AjouterRDV($rdv)) {
                                             echo '

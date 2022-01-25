@@ -5,7 +5,7 @@ trait myconnect
     {
         try {
             $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "root");
-            echo "<script>alert('connected');</script>";
+            // echo "<script>alert('connected');</script>";
             return $con;
         } catch (Exception $e) {
             echo "connection failed $e";

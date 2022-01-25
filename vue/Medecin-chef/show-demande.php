@@ -1,10 +1,20 @@
 <?php
+session_start();
+if(empty($_SESSION['role'])){
+    header("Location: ../login.php");
+}
+else if(strtolower($_SESSION['role']) != 'medecin-chef')
+{
+    header('Location: ../redirect.php');
+}
 include('../../controller/Demande_Materiel.php');
 include('../../controller/Medecin_Chef.php');
+if(!isset($_GET['id']))
+    header('Location: demandes.php');
 
 $id = $_GET['id'];
-$t = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
-$dem = $t->AfficherDemande($id);
+$t = new Medecin_Chef($_SESSION['cin'],null,null,null,null,null,null,null,null);
+$dem = $t->AfficherDemandeMat($id);
 
 ?>
 <!DOCTYPE html>
@@ -30,19 +40,22 @@ $dem = $t->AfficherDemande($id);
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="#" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#">
+                <li class="nav-item dropdown ">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Medecin</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
+                    <div class="dropdown-menu">
+						<a class="dropdown-item" href="../logout.php">Logout</a>
+					</div>
                 </li>
             </ul>
 
@@ -53,7 +66,7 @@ $dem = $t->AfficherDemande($id);
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
@@ -75,14 +88,14 @@ $dem = $t->AfficherDemande($id);
 								<li><a href="employes.php">Employes List</a></li>
 								<li><a href="conges.php">Demandes Conge</a></li>
 							</ul>
-						</li>  
+						</li> 
                         <li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Conge </span> <span class="menu-arrow"></span></a>
 							<ul style="display: none;">
 								<li><a href="add-conge.php">Demander Conge</a></li>
 								<li><a href="show-conges.php">Mes demandes</a></li>
 							</ul>
-						</li>
+						</li>  
                     </ul>
                 </div>
             </div>
@@ -167,11 +180,12 @@ $dem = $t->AfficherDemande($id);
 										</tr>
 										";
 									}
+                                    echo "
+                                    </tbody>
+                                </table>
+                            </div>
+                            ";
 								?>
-								</tbody>
-							</table>
-						</div>
-                        <a href='update-demande.php?id=$v[0]' class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Demande</a>
 
 					</div>
                 </div>

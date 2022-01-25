@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else if(strtolower($_SESSION['role']) != 'infirmier')
+{
+    header('Location: ../redirect.php');
+}
 #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
 include('../../controller/RDV.php');
 include('../../controller/Infirmier.php');
@@ -13,20 +21,6 @@ $date = date('y-m-d');
 $hour = date('H:i');
 $hours = null;
 
-
-// if (!empty($_POST['dater']) && !empty($_POST['heurer']) && !empty($_POST['obj'])) {
-
-// $obj = $_POST["obj"];
-// $cin = $_GET["cin"];
-
-
-//     $m = new Infirmier('B12345', null, null, null, null, null, null, null, null);
-
-//     $c = new RDV($dater, $heurer, $obj, $cin);
-//     if ($m->AjouterRDV($c))
-//         header('Location: rdvs');
-// } else {
-// }
 
 ?>
 <!DOCTYPE html>
@@ -50,7 +44,11 @@ $hours = null;
 		<script src="../../assets/js/html5shiv.min.js"></script>
 		<script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
-
+    <style>
+    .dropdown-menu {
+    max-height: 100px;
+    overflow-y: auto;
+    }</style>
 
 </head>
 
@@ -58,7 +56,7 @@ $hours = null;
     <div class="main-wrapper">
         <div class="header">
             <div class="header-left">
-                <a href="#" class="logo">
+                <a href="index.php" class="logo">
                     <img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
                 </a>
             </div>
@@ -69,7 +67,7 @@ $hours = null;
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
                             <span class="status online"></span></span>
-                        <span>Infirmier</span>
+                        <span><?php echo $_SESSION['nom']?></span>
                     </a>
                 </li>
             </ul>
@@ -114,7 +112,7 @@ $hours = null;
 
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <form method="get">
+                        <form method="post">
                             <div class="row">
                                 <!-- TODO :show label and cin  -->
                                 <div class="col-sm-12">
@@ -173,9 +171,13 @@ $hours = null;
                                                     $date = $_GET['date'];
                                                     // $hours = $cc->hourDispos($date);
                                                     foreach ($cc->hourDispos($date) as $value) {
-                                                        echo ' <a class="dropdown-item" href="add-rdv.php?cin=' . $cin . '&date=' . $date . '&hours=' . $value . '">' . date("H:i", strtotime($value)) . '</a>';
+                                                        //value ="add-rdv.php?cin=$cin&date=' . $date . '&hours=' . $value . '"
+                                                        echo ' <a class="dropdown-item" ' .
+                                                            // date("H:i", strtotime($value)) .
+                                                            'href="add-rdv.php?cin=' . $cin . '&date=' . $date . '&hours=' . $value . '">'
+                                                            . date("H:i", strtotime($value)) .
+                                                            '</a>';
                                                     }
-                                                    "<script>alaert('hours are sets');</script>";
                                                     $hours = $_GET['hours'];
                                                 }
                                                 ?>
@@ -193,21 +195,36 @@ $hours = null;
                                     </div>
                                 </div>
                                 <div class="m-t-20 text-center">
-                                    <input type="submit" class="btn btn-primary" name="go" value="Create RDV">
                                     <?php
 
-                                    if (!empty($_POST['go'])) {
+                                    echo '<input type="hidden" name="cin" value="' . $cin . '">';
+                                    echo '<input type="hidden" name="date" value="' . $date . '">';
+                                    echo '<input type="hidden" name="hours" value="' . $hours . '">';
+
+                                    ?>
+                                    <input type="submit" name="go" class="btn btn-primary" value="Create RDV">
+
+
+                                    <?php
+
+                                    if (!empty($_POST['go']) && $hours != null) {
+
                                         // TODO: validate the input and add the appointement
                                         // $date = null;
-                                        $rdv=new RDV(null,$date,$hours,'',$_GET['obj'],$cin);
-                                        $inf = new Infirmier('#1cin',null,null,null,null,null,null,null,null);
-                                        if($inf->AjouterRDV($rdv))
-                                      {
+                                        $inf = new Infirmier($_SESSION['cin'], null, null, null, null, null, null, null, null);
+                                        $rdv = new RDV(null, $date, $hours, $_POST['obj'], $inf->CIN, $cin);
+                                        if ($inf->AjouterRDV($rdv)) {
                                             echo '
                                             <div class="alert alert-success" role="alert">
-                                        nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link"> retry.</a>
+                                        very well! <a href="rdvs.php?cin=' . $cin . '" class="alert-link"> check it out!</a>
                                       </div>';
                                         }
+                                    } 
+                                    else if($hours==null){
+                                        echo '
+                                    <div class="alert alert-danger" role="alert">
+                                nothing is set yet son!!     Give it a <a href="#drop-date" class="alert-link dropit"> retry.</a>
+                              </div>';
                                     }
                                     ?>
                                 </div>

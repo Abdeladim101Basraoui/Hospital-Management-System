@@ -1,3 +1,13 @@
+<?PHP
+session_start();
+if(empty($_SESSION['cin'])){
+    header('Location: ../login.php');
+}
+else if(strtolower($_SESSION['role']) != 'technicien')
+{
+    header('Location: ../redirect.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +34,7 @@
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="index-2.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
@@ -35,7 +45,7 @@
                     <a href="#" class="nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Technicien</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
                 </li>
             </ul>
@@ -47,7 +57,7 @@
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                           <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Materiels </span> <span class="menu-arrow"></span></a>

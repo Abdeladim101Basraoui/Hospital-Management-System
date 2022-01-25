@@ -1,9 +1,19 @@
 <?php
+session_start();
+if(empty($_SESSION['role'])){
+    header("Location: ../login.php");
+}
+else if(strtolower($_SESSION['role']) != 'medecin-chef')
+{
+    header('Location: ../redirect.php');
+}
 include('../../controller/Consultation.php');
 include('../../controller/Medecin_Chef.php');
+if(!isset($_GET['id']))
+    header('Location: consultations');
 
 $id = $_GET["id"];
-$m = new Medecin_Chef('M12345',null,null,null,null,null,null,null,null);
+$m = new Medecin_Chef($_SESSION['cin'],null,null,null,null,null,null,null,null);
 $consult = $m->AfficherFicheConsultation($id);
 
 ?>
@@ -32,19 +42,22 @@ $consult = $m->AfficherFicheConsultation($id);
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="#" class="logo">
+				<a href="index.php" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#">
+                <li class="nav-item dropdown ">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span>Medecin Chef</span>
+                        <span><?PHP echo $_SESSION['nom'] ?></span>
                     </a>
+                    <div class="dropdown-menu">
+						<a class="dropdown-item" href="../logout.php">Logout</a>
+					</div>
                 </li>
             </ul>
 
@@ -55,7 +68,7 @@ $consult = $m->AfficherFicheConsultation($id);
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>
@@ -125,7 +138,7 @@ $consult = $m->AfficherFicheConsultation($id);
                                             </div>
                                         </div>
                                     </div>
-                                    <a href='update-consultation.php?id=$v[0] class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Consultation</a>
+                                    <a href='update-consultation.php?id=$v[0]' class='btn btn btn-primary btn-rounded float-right'><i class='fa fa-pencil'></i> Modifier Consultation</a>
                             ";
                             ?>
 

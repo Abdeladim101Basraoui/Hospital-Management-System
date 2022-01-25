@@ -1,13 +1,3 @@
-<?PHP
-session_start();
-if(empty($_SESSION['cin'])){
-    header('Location: ../login.php');
-}
-else if(strtolower($_SESSION['role']) != 'infirmier')
-{
-    header('Location: ../redirect.php');
-}
-?>
 <?php
 include('../../controller/Patient.php');
 include('../../controller/Infirmier.php');
@@ -22,22 +12,12 @@ if (!empty($_POST['nomc']) && !empty($_POST['cin']) && !empty($_POST['daten']) &
     $pass = $_POST["pass"];
     $his = $_POST["hist"];
 
-<<<<<<< HEAD
     $m = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
     $p = new Patient($cin, $nomc, $datn, $addr, $sexe, $tel, $email, $pass, $his);
     echo "<script>alert('".$m->AjouterPatient($p)."');</script>";
     // header('Location: patients.php');
 } else {
     echo "not really";
-=======
-        $m = new Infirmier($_SESSION['cin'],null,null,null,null,null,null,null,null);
-        $p= new Patient($cin,$nomc,$datn,$addr,$sexe,$tel,$email,$pass,$his);
-		$m->AjouterPatient($p);
-        header('Location: patients');
-}
-else{
-   
->>>>>>> main
 }
 
 ?>
@@ -66,33 +46,19 @@ else{
 <body>
     <div class="main-wrapper">
         <div class="header">
-<<<<<<< HEAD
             <div class="header-left">
                 <a href="#" class="logo">
                     <img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
-=======
-			<div class="header-left">
-				<a href="index.php" class="logo">
-					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
-				</a>
-			</div>
-			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
->>>>>>> main
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown ">
                     <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
-<<<<<<< HEAD
                             <span class="status online"></span></span>
                         <span>Infirmier</span>
-=======
-							<span class="status online"></span></span>
-                            <span><?PHP echo $_SESSION['nom'] ?></span>
->>>>>>> main
                     </a>
                 </li>
             </ul>
@@ -104,7 +70,7 @@ else{
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                           <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>

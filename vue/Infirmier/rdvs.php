@@ -1,15 +1,3 @@
-<?php
-include('../../controller/front.php');
-
-session_start();
-if(empty($_SESSION['cin'])){
-    header('Location: ../login.php');
-}
-else if(strtolower($_SESSION['role']) != 'infirmier')
-{
-    header('Location: ../redirect.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,14 +25,13 @@ else if(strtolower($_SESSION['role']) != 'infirmier')
 	<div class="main-wrapper">
 		<div class="header">
 			<div class="header-left">
-				<a href="index.php" class="logo">
+				<a href="index-2.html" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
 			<a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
 			<ul class="nav user-menu float-right">
-<<<<<<< HEAD
 				<li class="nav-item dropdown has-arrow">
 					<a href="#" class=" nav-link user-link" data-toggle="dropdown">
 						<span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
@@ -53,19 +40,6 @@ else if(strtolower($_SESSION['role']) != 'infirmier')
 					</a>
 				</li>
 			</ul>
-=======
-                <li class="nav-item dropdown ">
-                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
-							<span class="status online"></span></span>
-                        <span><?PHP echo $_SESSION['nom'] ?></span>
-                    </a>
-                    <div class="dropdown-menu">
-						<a class="dropdown-item" href="../logout.php">Logout</a>
-					</div>
-                </li>
-            </ul>
->>>>>>> main
 		</div>
 		<div class="sidebar" id="sidebar">
 			<div class="sidebar-inner slimscroll">
@@ -143,11 +117,7 @@ else if(strtolower($_SESSION['role']) != 'infirmier')
 										$cin = $_GET["cin"];
 									}
 
-<<<<<<< HEAD
 									$inf = new Infirmier('#1cin', null, null, null, null, null, null, null, null);
-=======
-									$inf = new Infirmier($_SESSION['cin'], null, null, null, null, null, null, null, null);
->>>>>>> main
 									// $inf->ListerRDV($cin);
 									foreach ($inf->ListerRDV($cin) as $con) {
 										// <td>' . $con[3] . '</td>

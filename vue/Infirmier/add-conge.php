@@ -1,13 +1,3 @@
-<?PHP
-session_start();
-if(empty($_SESSION['cin'])){
-    header('Location: ../login.php');
-}
-else if(strtolower($_SESSION['role']) != 'infirmier')
-{
-    header('Location: ../redirect.php');
-}
-?>
 <?php
 include('../../controller/Conge.php');
 include('../../controller/Infirmier.php');
@@ -55,7 +45,7 @@ else{
     <div class="main-wrapper">
         <div class="header">
 			<div class="header-left">
-				<a href="index.php" class="logo">
+				<a href="#" class="logo">
 					<img src="../../assets/img/logo.png" width="35" height="35" alt=""> <span>AlAmal</span>
 				</a>
 			</div>
@@ -63,14 +53,11 @@ else{
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown ">
-                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                    <a href="#">
                         <span class="user-img"><img class="rounded-circle" src="../../assets/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
-                        <span><?PHP echo $_SESSION['nom'] ?></span>
+                        <span>Technicien</span>
                     </a>
-                    <div class="dropdown-menu">
-						<a class="dropdown-item" href="../logout.php">Logout</a>
-					</div>
                 </li>
             </ul>
 
@@ -81,7 +68,7 @@ else{
                     <ul>
                         <li class="menu-title">Main</li>
                         <li>
-                           <a href="index.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
 						<li class="submenu">
 							<a href="#"><i class="fa fa-user"></i> <span> Patients </span> <span class="menu-arrow"></span></a>

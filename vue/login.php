@@ -33,7 +33,7 @@ include("../controller/Employe.php");
             $_SESSION['cin'] = $e->se_connecter($_POST['user'],$_POST['pass']);
             $_SESSION['role'] = $e->getRole($_SESSION['cin']);
             $_SESSION['nom'] = $e->getNom($_SESSION['cin']);
-            header("Location: redirect");
+            header("Location: redirect.php");
         }          
     }
 ?>

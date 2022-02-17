@@ -18,7 +18,7 @@ class Medecin extends Employe
     {
         try 
         { 
-            $c= new PDO("mysql:host=localhost;dbname=centresante","root","");
+            $c= new PDO("mysql:host=localhost;dbname=centresante","b1sra0u1","root");
             return $c;
         }
         catch (Exception $e)

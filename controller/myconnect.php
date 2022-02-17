@@ -1,10 +1,13 @@
 <?php
+class Cal{
+    use myconnect;
+}
 trait myconnect
 {
-    public  function connect()
+    public function connect()
     {
         try {
-            $con = new PDO("mysql:host=localhost;dbname=centresante", "b1sra0u1", "root");
+            $con = new PDO("mysql:host=localhost;dbname=centresante", "root", "");
             // echo "<script>alert('connected');</script>";
             return $con;
         } catch (Exception $e) {
@@ -21,7 +24,7 @@ trait myconnect
             if ($c != null) {
                 for ($i = 8; $i < 17; $i++) {
                     for ($j = 0; $j < 4; $j += 3) {
-                        $req = "INSERT INTO `calendrier_rdv` (`id_calendrier`, `Date_calendrier_RDV`, `Heure_Calendrier_RDV`, `id_rdv`) VALUES (NULL, '2022-01-13', '$i:" . $j . "0:00', NULL);";
+                        $req = "INSERT INTO calendrier_rdv (id_calendrier, Date_calendrier_RDV, Heure_Calendrier_RDV, id_rdv) VALUES (NULL, '2022-01-14', '$i:".$j."0:00', NULL);";
                         $res = $c->prepare($req);
                         $res->execute();
                     }
